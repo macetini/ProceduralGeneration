@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 589cf467fdce9e24ca03aead2968966b, type: 3}
+  m_Name: ElementsFactory
+  m_EditorClassIdentifier: 
+  Sets:
+  - {fileID: 11400000, guid: d2ca2c74c5031674087e95eb5ffbb8f1, type: 2}
+  - {fileID: 11400000, guid: 2888ad6d3bed9d940aa73b27e87799dc, type: 2}
+  - {fileID: 11400000, guid: 03964f42fb1bf6947a35058277f24f54, type: 2}
+  - {fileID: 11400000, guid: e9833fb73397e0140a671f976452098e, type: 2}
+  loopCheckCount: 5
+  randomizeOnStart: 1
+  recycle: 1
+  closingElemsPct: 0.7

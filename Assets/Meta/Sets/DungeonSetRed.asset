@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf06d585383d4674ea95bc0661c677f1, type: 3}
+  m_Name: DungeonSetRed
+  m_EditorClassIdentifier: 
+  setName: red
+  spawnTemplates:
+  - {fileID: 114937983329372084, guid: b926a7bad835e5f4794550b6ddd4846b, type: 3}
+  roomTemplates:
+  - {fileID: 11417102, guid: 7b301ce042705f2439fea80c26993d73, type: 3}
+  hallwayTemplates:
+  - {fileID: 11496048, guid: 24e4b92a837e0384894a7882a8e60711, type: 3}
+  closingTemplates:
+  - {fileID: 114735317472007612, guid: 4a8d045f2a8a71b4e9af00322c029348, type: 3}
+  doorTemplates:
+  - {fileID: 11476880, guid: eefe7b6ad1186434080f2bb8b5728520, type: 3}
