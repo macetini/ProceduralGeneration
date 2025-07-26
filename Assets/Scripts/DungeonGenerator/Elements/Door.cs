@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Door : MonoBehaviour
-{    
+namespace Assets.Scripts.DungeonGenerator.Elements
+{
+    public class Door : MonoBehaviour
+    {
+    }
 }

@@ -1,7 +1,10 @@
-﻿public enum ConditionType
+﻿namespace Assets.Scripts.RoomGenerator.Conditions
 {
-    must = 0,
-    should = 1,
-    mustNot = 2,
-    shouldNot = 3
+    public enum ConditionType
+    {
+        must = 0,
+        should = 1,
+        mustNot = 2,
+        shouldNot = 3
+    }
 }

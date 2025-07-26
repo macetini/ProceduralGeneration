@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
-struct RoomElementCandidate
+
+namespace Assets.Scripts.RoomGenerator
 {
-    public RoomElement prefab;
-    public Vector3 randomFloorVoxelPos;
-    public int rotationIndex;
+    struct RoomElementCandidate
+    {
+        public RoomElement prefab;
+        public Vector3 randomFloorVoxelPos;
+        public int rotationIndex;
+    }
 }

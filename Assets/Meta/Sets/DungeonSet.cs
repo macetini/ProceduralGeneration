@@ -1,89 +1,94 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.DungeonGenerator.Elements;
+using Assets.Scripts.DungeonGenerator.Utils;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DungeonSet", menuName = "DungeonSet", order = 2)]
-public class DungeonSet : ScriptableObject
+namespace Assets.Meta.Sets
 {
-    public string setName = "";
-   
-    public List<Element> spawnTemplates = new List<Element>();
-    public List<Element> roomTemplates = new List<Element>();
-    public List<Element> hallwayTemplates = new List<Element>();
-    public List<Element> closingTemplates = new List<Element>();
-
-    public List<Door> doorTemplates = new List<Door>();
-
-    private List<Element> openElements;
-    private List<Element> openTwoWayElements;
-    private List<Element> hallwayElements;
-    private List<Element> closingElements;
-
-    public void InitTemplateElements()
+    [CreateAssetMenu(fileName = "DungeonSet", menuName = "DungeonSet", order = 2)]
+    public class DungeonSet : ScriptableObject
     {
-        openElements = GetTemplateElements(roomTemplates);
-        openTwoWayElements = GetTemplateElements(roomTemplates);
-        hallwayElements = GetTemplateElements(hallwayTemplates);
-        closingElements = GetTemplateElements(closingTemplates); 
-    }
-    
-    protected List<Element> GetTemplateElements(List<Element> templates)
-    {
-        int templatesCount = templates.Count;
+        public string setName = "";
 
-        List<Element> elements = new List<Element>(templatesCount);
+        public List<Element> spawnTemplates = new List<Element>();
+        public List<Element> roomTemplates = new List<Element>();
+        public List<Element> hallwayTemplates = new List<Element>();
+        public List<Element> closingTemplates = new List<Element>();
 
-        for (int i = 0; i < templatesCount; i++)
+        public List<Door> doorTemplates = new List<Door>();
+
+        private List<Element> openElements;
+        private List<Element> openTwoWayElements;
+        private List<Element> hallwayElements;
+        private List<Element> closingElements;
+
+        public void InitTemplateElements()
         {
-            Element element = templates[i];
-            elements.Add(element);
+            openElements = GetTemplateElements(roomTemplates);
+            openTwoWayElements = GetTemplateElements(roomTemplates);
+            hallwayElements = GetTemplateElements(hallwayTemplates);
+            closingElements = GetTemplateElements(closingTemplates);
         }
 
-        return elements;
-    }
-
-    public Dictionary<string, List<GameObject>> GetElementPools(Dictionary<string, List<GameObject>> pools)
-    {     
-        InitTemplatePool(roomTemplates, pools);
-        InitTemplatePool(hallwayTemplates, pools);
-        InitTemplatePool(closingTemplates, pools);
-
-        return pools;
-    }
-
-    protected void InitTemplatePool(List<Element> templates, Dictionary<string, List<GameObject>> pools)
-    {
-        int templatesCount = templates.Count;
-        for (int i = 0; i < templatesCount; i++)
+        protected static List<Element> GetTemplateElements(List<Element> templates)
         {
-            Element element = templates[i];
-            pools[element.ID] = new List<GameObject>();
+            int templatesCount = templates.Count;
+
+            List<Element> elements = new List<Element>(templatesCount);
+
+            for (int i = 0; i < templatesCount; i++)
+            {
+                Element element = templates[i];
+                elements.Add(element);
+            }
+
+            return elements;
         }
-    }
 
-    // MOAR REFACTOR!! GENERILIZE! GENERILIZE!    
+        public Dictionary<string, List<GameObject>> GetElementPools(Dictionary<string, List<GameObject>> pools)
+        {
+            InitTemplatePool(roomTemplates, pools);
+            InitTemplatePool(hallwayTemplates, pools);
+            InitTemplatePool(closingTemplates, pools);
 
-    public Element[] GetAllHallwayElementsShuffled(DRandom random)
-    {
-        hallwayElements.Shuffle(random.random);
-        return hallwayElements.ToArray();
-    }
+            return pools;
+        }
 
-    public Element[] GetAllOpenElementsShuffled(DRandom random)
-    {
-        openElements.Shuffle(random.random);
-        return openElements.ToArray();
-    }
+        protected static void InitTemplatePool(List<Element> templates, Dictionary<string, List<GameObject>> pools)
+        {
+            int templatesCount = templates.Count;
+            for (int i = 0; i < templatesCount; i++)
+            {
+                Element element = templates[i];
+                pools[element.ID] = new List<GameObject>();
+            }
+        }
 
-    public Element[] GetAllTwoWayOpenElementsShuffled(DRandom random)
-    {
-        openTwoWayElements.Shuffle(random.random);
-        return openTwoWayElements.ToArray();
-    }
+        // MOAR REFACTOR!! GENERALIZE! GENERALIZE!    
 
-    public Element[] GetAllClosingElementsShuffled(DRandom random)
-    {
-        closingElements.Shuffle(random.random);
-        return closingElements.ToArray();
+        public Element[] GetAllHallwayElementsShuffled(DRandom random)
+        {
+            hallwayElements.Shuffle(random.random);
+            return hallwayElements.ToArray();
+        }
+
+        public Element[] GetAllOpenElementsShuffled(DRandom random)
+        {
+            openElements.Shuffle(random.random);
+            return openElements.ToArray();
+        }
+
+        public Element[] GetAllTwoWayOpenElementsShuffled(DRandom random)
+        {
+            openTwoWayElements.Shuffle(random.random);
+            return openTwoWayElements.ToArray();
+        }
+
+        public Element[] GetAllClosingElementsShuffled(DRandom random)
+        {
+            closingElements.Shuffle(random.random);
+            return closingElements.ToArray();
+        }
+        //
     }
-    //
 }

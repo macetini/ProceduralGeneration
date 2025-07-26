@@ -1,91 +1,98 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.DungeonGenerator.Data;
+using Assets.Scripts.DungeonGenerator.Elements;
+using Assets.Scripts.DungeonGenerator.Utils;
+using Assets.Scripts.RoomGenerator.Conditions;
 using UnityEngine;
 
-public class RoomElement : MonoBehaviour
+namespace Assets.Scripts.RoomGenerator
 {
-    public new string name;
-    public EndPoint endPoint;
-    public List<GenerationCondition> generationConditions;
-
-    private Voxel[] voxels = null;
-    private GameObject[] voxelGOs = null;
-
-    private Volume volume;
-
-    public Voxel[] Voxels => voxels;
-    public GameObject[] VoxelGOs => voxelGOs;
-    public Volume Volume => volume;
-
-    private void Awake()
+    public class RoomElement : MonoBehaviour
     {
-        Init();
-    }
+        public new string name;
+        public EndPoint endPoint;
+        public List<GenerationCondition> generationConditions;
 
-    public void Init()
-    {
-        volume = GetComponent<Volume>();
-        InitVoxelData();
-        InitConditionData();
-    }
+        private Voxel[] voxels = null;
+        private GameObject[] voxelGOs = null;
 
-    public Vector3[] GetOffsetedVoxelPostions(Vector3 offset)
-    {
-        int voxelsCount = Voxels.Length;
+        private Volume volume;
 
-        Vector3[] offsetedPositions = new Vector3[voxelsCount];
+        public Voxel[] Voxels => voxels;
+        public GameObject[] VoxelGOs => voxelGOs;
+        public Volume Volume => volume;
 
-        for (int i = 0; i < voxelsCount; i++)
+        private void Awake()
         {
-            Voxel voxel = Voxels[i];
-            Vector3 offstedPosition = voxel.transform.localPosition + offset;
-            offsetedPositions[i] = offstedPosition.RoundVec3ToInt();
+            Init();
         }
 
-        return offsetedPositions;
-    }
-
-    private void InitVoxelData()
-    {
-        voxelGOs = volume.voxels.ToArray();
-
-        int voxelsCount = VoxelGOs.Length;
-
-        voxels = new Voxel[voxelsCount];
-
-        for (int i = 0; i < voxelsCount; i++)
+        public void Init()
         {
-            Voxel voxel = VoxelGOs[i].GetComponent<Voxel>();
-            Voxels[i] = voxel;
-        }
-    }
-
-    private void InitConditionData()
-    {
-        int conditionsCount = generationConditions.Count;
-        for (int i = 0; i < conditionsCount; i++)
-        {
-            GenerationCondition condition = generationConditions[i];
-            //condition.Init();
-            condition.SetOwner(this);
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Vector3 endPointPosition = endPoint.transform.position;
-
-        int directionsCount = endPoint.directions.Count;
-        for (int i = 0; i < directionsCount; i++)
-        {
-            DirectionType direction = endPoint.directions[i];
-
-            Gizmos.color = EndPoint.GetDirectionColor(direction);
-            Quaternion directionRotation = EndPoint.GetRoation(direction) * transform.rotation;
-
-            Gizmos.DrawLine(endPointPosition, endPointPosition + directionRotation * Vector3.forward);
+            volume = GetComponent<Volume>();
+            InitVoxelData();
+            InitConditionData();
         }
 
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawSphere(endPointPosition, 0.1f);
+        public Vector3[] GetOffsetVoxelPositions(Vector3 offset)
+        {
+            int voxelsCount = Voxels.Length;
+
+            Vector3[] offsetPositions = new Vector3[voxelsCount];
+
+            for (int i = 0; i < voxelsCount; i++)
+            {
+                Voxel voxel = Voxels[i];
+                Vector3 offsetPosition = voxel.transform.localPosition + offset;
+                offsetPositions[i] = offsetPosition.RoundVec3ToInt();
+            }
+
+            return offsetPositions;
+        }
+
+        private void InitVoxelData()
+        {
+            voxelGOs = volume.voxels.ToArray();
+
+            int voxelsCount = VoxelGOs.Length;
+
+            voxels = new Voxel[voxelsCount];
+
+            for (int i = 0; i < voxelsCount; i++)
+            {
+                Voxel voxel = VoxelGOs[i].GetComponent<Voxel>();
+                Voxels[i] = voxel;
+            }
+        }
+
+        private void InitConditionData()
+        {
+            int conditionsCount = generationConditions.Count;
+            for (int i = 0; i < conditionsCount; i++)
+            {
+                GenerationCondition condition = generationConditions[i];
+                //condition.Init();
+                condition.SetOwner(this);
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Vector3 endPointPosition = endPoint.transform.position;
+
+            int directionsCount = endPoint.directions.Count;
+            for (int i = 0; i < directionsCount; i++)
+            {
+                DirectionType direction = endPoint.directions[i];
+
+                Gizmos.color = EndPoint.GetDirectionColor(direction);
+                Quaternion directionRotation = EndPoint.GetRotation(direction) * transform.rotation;
+
+                Gizmos.DrawLine(endPointPosition, endPointPosition + directionRotation * Vector3.forward);
+            }
+
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawSphere(endPointPosition, 0.1f);
+        }
     }
 }

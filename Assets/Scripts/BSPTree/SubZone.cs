@@ -1,59 +1,62 @@
 ﻿using UnityEngine;
 
-public class SubZone
+namespace Assets.Scripts.BSPTree
 {
-    public static float ZONE_SIZE_RATIO = 1.25f;
-    public static float ZONE_SPLIT_VALUE = 0.5f;
-
-    public SubZone left, right;
-
-    public Rect rect;
-
-    public SubZone(Rect mRect)
+    public class SubZone
     {
-        rect = mRect;
-    }
+        public static float ZONE_SIZE_RATIO = 1.25f;
+        public static float ZONE_SPLIT_VALUE = 0.5f;
 
-    public bool Split(float minZoneSize, float maxZoneSize)
-    {
-        if (!IAmLeaf()) return false;
+        public SubZone left, right;
 
-        bool splitH;
+        public Rect rect;
 
-        if (rect.width / rect.height >= ZONE_SIZE_RATIO)
+        public SubZone(Rect mRect)
         {
-            splitH = false;
-        }
-        else if (rect.height / rect.width >= ZONE_SIZE_RATIO)
-        {
-            splitH = true;
-        }
-        else
-        {
-            splitH = Random.Range(0.0f, 1.0f) > ZONE_SPLIT_VALUE;
+            rect = mRect;
         }
 
-        if (Mathf.Min(rect.height, rect.width) * ZONE_SPLIT_VALUE < minZoneSize) return false;
-
-        float splitBorder = splitH ? rect.width - minZoneSize : rect.height - minZoneSize;
-        int split = (int)Random.Range(minZoneSize, splitBorder);
-
-        if (splitH)
+        public bool Split(float minZoneSize, float maxZoneSize)
         {
-            left = new SubZone(new Rect(rect.x, rect.y, rect.width, split));
-            right = new SubZone(new Rect(rect.x, rect.y + split, rect.width, rect.height - split));
+            if (!IAmLeaf()) return false;
+
+            bool splitH;
+
+            if (rect.width / rect.height >= ZONE_SIZE_RATIO)
+            {
+                splitH = false;
+            }
+            else if (rect.height / rect.width >= ZONE_SIZE_RATIO)
+            {
+                splitH = true;
+            }
+            else
+            {
+                splitH = Random.Range(0.0f, 1.0f) > ZONE_SPLIT_VALUE;
+            }
+
+            if (Mathf.Min(rect.height, rect.width) * ZONE_SPLIT_VALUE < minZoneSize) return false;
+
+            float splitBorder = splitH ? rect.width - minZoneSize : rect.height - minZoneSize;
+            int split = (int)Random.Range(minZoneSize, splitBorder);
+
+            if (splitH)
+            {
+                left = new SubZone(new Rect(rect.x, rect.y, rect.width, split));
+                right = new SubZone(new Rect(rect.x, rect.y + split, rect.width, rect.height - split));
+            }
+            else
+            {
+                left = new SubZone(new Rect(rect.x, rect.y, split, rect.height));
+                right = new SubZone(new Rect(rect.x + split, rect.y, rect.width - split, rect.height));
+            }
+
+            return true;
         }
-        else
+
+        public bool IAmLeaf()
         {
-            left = new SubZone(new Rect(rect.x, rect.y, split, rect.height));
-            right = new SubZone(new Rect(rect.x + split, rect.y, rect.width - split, rect.height));
+            return left == null && right == null;
         }
-
-        return true;
-    }
-
-    public bool IAmLeaf()
-    {
-        return left == null && right == null;
     }
 }

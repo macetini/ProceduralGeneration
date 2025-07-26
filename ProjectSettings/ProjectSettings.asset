@@ -603,10 +603,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: 73a5f12e-4032-478b-9fff-2b899d60cafc
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: ProceduralGeneration
+  organizationId: marko-cetinic
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

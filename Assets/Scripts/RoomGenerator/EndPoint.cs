@@ -1,26 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Assets.Scripts.DungeonGenerator.Data;
 using UnityEngine;
 
-public class EndPoint : MonoBehaviour
+namespace Assets.Scripts.RoomGenerator
 {
-    public List<DirectionType> directions = new List<DirectionType>();
-    public Voxel voxelOwner;
+    public class EndPoint : MonoBehaviour
+    {
+        public List<DirectionType> directions = new List<DirectionType>();
+        public Voxel voxelOwner;
 
-    public static readonly Dictionary<DirectionType, Color> directionColors = new Dictionary<DirectionType, Color>() {
+        public static readonly Dictionary<DirectionType, Color> directionColors = new Dictionary<DirectionType, Color>() {
         { DirectionType.FORWARD, Color.blue },
         { DirectionType.LEFT, Color.yellow },
         { DirectionType.DOWN, Color.red },
         { DirectionType.RIGHT, Color.green },
     };
 
-    public static Quaternion GetRoation(DirectionType direction)
-    {
-        return Quaternion.AngleAxis((float)direction, Vector3.up);
-    }
+        public static Quaternion GetRotation(DirectionType direction)
+        {
+            return Quaternion.AngleAxis((float)direction, Vector3.up);
+        }
 
-    public static Color GetDirectionColor(DirectionType direction)
-    {
-        return directionColors[direction];
+        public static Color GetDirectionColor(DirectionType direction)
+        {
+            return directionColors[direction];
+        }
     }
 }

@@ -1,32 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Assets.Scripts.DungeonGenerator.Utils;
 using UnityEngine;
 
-public class OverlapWithWallCondition : GenerationCondition
+namespace Assets.Scripts.RoomGenerator.Conditions
 {
-    public override bool Test(ConditionData data)
+    public class OverlapWithWallCondition : GenerationCondition
     {
-        EndPoint endPoint = owner.endPoint;
-
-        Vector3 pointDir = endPoint.transform.forward;
-
-        HashSet<Vector3> wallVoxelsMap = data.blueprint.WallsVoxelMap;
-
-        Quaternion rotation = Quaternion.AngleAxis((float)data.endPointDirection, Vector3.up);
-
-        float edgeLength = owner.Volume.generatorSize.z;
-        for (float i = 0; i < edgeLength; i++)
+        public override bool Test(ConditionData data)
         {
-            Vector3 edgeOffset = rotation * new Vector3(0f, 0f, i);
+            //EndPoint endPoint = owner.endPoint;
+            //Vector3 pointDir = endPoint.transform.forward;
 
-            Vector3 wallVoxelPosition = data.randomFloorVoxelPos + edgeOffset;
+            HashSet<Vector3> wallVoxelsMap = data.blueprint.WallsVoxelMap;
 
-            if (wallVoxelsMap.Contains(wallVoxelPosition.RoundVec3ToInt()))
+            Quaternion rotation = Quaternion.AngleAxis((float)data.endPointDirection, Vector3.up);
+
+            float edgeLength = owner.Volume.generatorSize.z;
+            for (float i = 0; i < edgeLength; i++)
             {
-                return false;
-            }
-        }
+                Vector3 edgeOffset = rotation * new Vector3(0f, 0f, i);
 
-        return true;
+                Vector3 wallVoxelPosition = data.randomFloorVoxelPos + edgeOffset;
+
+                if (wallVoxelsMap.Contains(wallVoxelPosition.RoundVec3ToInt()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

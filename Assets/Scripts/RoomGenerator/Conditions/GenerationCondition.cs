@@ -1,16 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts.RoomGenerator.Conditions;
 using UnityEngine;
 
-public abstract class GenerationCondition : MonoBehaviour
+namespace Assets.Scripts.RoomGenerator.Conditions
 {
-    public static readonly float ROTATION_AMOUNT = 90;
+    public abstract class GenerationCondition : MonoBehaviour
+    {
+        public static readonly float ROTATION_AMOUNT = 90;
 
-    public ConditionType type;
+        public ConditionType type;
 
-    protected RoomElement owner;
+        protected RoomElement owner;
 
-    public void SetOwner(RoomElement owner) => this.owner = owner;
+        public void SetOwner(RoomElement owner) => this.owner = owner;
 
-    public abstract bool Test(ConditionData data);
+        public abstract bool Test(ConditionData data);
+    }
 }
