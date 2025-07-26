@@ -11,10 +11,10 @@ namespace Assets.Scripts.DungeonGenerator.Candidates
         //TODO - TOO MANY GLOBALS (Way, way too many - re factor)
         private readonly DungeonSet set;
 
-        private Vector3 worldPosition;
-        private Quaternion rotation;
-        private List<ConnectionPointCandidate> connPointCandidates;
-        private CandidatesConnection candidatesConnection;
+        //private Vector3 worldPosition;
+        //private Quaternion rotation;
+        //private List<ConnectionPointCandidate> connPointCandidates;
+        //private CandidatesConnection candidatesConnection;
 
         private Dictionary<Vector3, Vector3> voxWorldPos;
         private readonly GameObject gameObject;
@@ -42,10 +42,10 @@ namespace Assets.Scripts.DungeonGenerator.Candidates
 
         public DungeonSet Set { get => set; }
 
-        public Vector3 WorldPosition { get => worldPosition; set => worldPosition = value; }
-        public Quaternion Rotation { get => rotation; set => rotation = value; }
-        public List<ConnectionPointCandidate> ConnPointCandidates { get => connPointCandidates; set => connPointCandidates = value; }
-        public CandidatesConnection CandidatesConnection { get { return candidatesConnection; } set { candidatesConnection = value; } }
+        public Vector3 WorldPosition { get; set; }
+        public Quaternion Rotation { get; set; }
+        public List<ConnectionPointCandidate> ConnPointCandidates { get; set; }
+        public CandidatesConnection CandidatesConnection { get; set; }
 
         public Dictionary<Vector3, Vector3> VoxWorldPos => voxWorldPos;
         public GameObject GameObject => gameObject;
@@ -53,8 +53,8 @@ namespace Assets.Scripts.DungeonGenerator.Candidates
         public Volume Volume => volume;
         public List<GameObject> Voxels => Volume.voxels;
 
-        public ConnectionPointCandidate LastConnPointCandidate => candidatesConnection.LastConnPointCandidate;
-        public ConnectionPointCandidate NewConnPointCandidate => candidatesConnection.NewConnPointCandidate;
+        public ConnectionPointCandidate LastConnPointCandidate => CandidatesConnection.LastConnPointCandidate;
+        public ConnectionPointCandidate NewConnPointCandidate => CandidatesConnection.NewConnPointCandidate;
 
         public Vector3 HalfStep => halfStep;
         public Vector3 Step => step;
@@ -104,8 +104,8 @@ namespace Assets.Scripts.DungeonGenerator.Candidates
 
         public void SetWorldPosAndRotation(Vector3 worldPos, Quaternion rotation)
         {
-            this.worldPosition = worldPos;
-            this.rotation = rotation;
+            WorldPosition = worldPos;
+            Rotation = rotation;
         }
 
         public ConnectionPointCandidate GetRandomOpenConnPoint(DRandom random)

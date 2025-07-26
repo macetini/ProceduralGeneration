@@ -210,8 +210,8 @@ namespace Assets.Scripts.DungeonGenerator.Candidates
             newCandidate.CandidatesConnection = candidatesConnection;
 
             //STEP VOXELS
-            newCandidateStepVoxel.oldStepVoxelsPos = GetOldStepVoxels(lastConnPointCandidate);
-            newCandidateStepVoxel.newStepVoxelsPos = GetNewStepVoxels(newCandidate);
+            newCandidateStepVoxel.OldStepVoxelsPos = GetOldStepVoxels(lastConnPointCandidate);
+            newCandidateStepVoxel.NewStepVoxelsPos = GetNewStepVoxels(newCandidate);
             //
 
             //candidatesConnection.NewCandidateStepVoxel = newCandidateStepVoxel;
@@ -365,16 +365,16 @@ namespace Assets.Scripts.DungeonGenerator.Candidates
                 bool voxelOverlap = candidateVoxels.ContainsKey(newElementVoxel);
                 if (voxelOverlap) return true;
 
-                voxelOverlap = voxelStep.oldStepVoxelsPos.Contains(newElementVoxel);
+                voxelOverlap = voxelStep.OldStepVoxelsPos.Contains(newElementVoxel);
                 if (voxelOverlap) return true;
             }
 
-            foreach (Vector3 newStepVoxelPos in voxelStep.newStepVoxelsPos)
+            foreach (Vector3 newStepVoxelPos in voxelStep.NewStepVoxelsPos)
             {
                 bool voxelOverlap = candidateVoxels.ContainsKey(newStepVoxelPos);
                 if (voxelOverlap) return true;
 
-                voxelOverlap = voxelStep.oldStepVoxelsPos.Contains(newStepVoxelPos);
+                voxelOverlap = voxelStep.OldStepVoxelsPos.Contains(newStepVoxelPos);
                 if (voxelOverlap) return true;
             }
 

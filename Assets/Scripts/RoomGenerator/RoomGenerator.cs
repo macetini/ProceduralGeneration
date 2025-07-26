@@ -60,7 +60,7 @@ namespace Assets.Scripts.RoomGenerator
                 floorVoxelsIndexList.Remove(randomFloorVoxelIndex);
 
                 Voxel randomFloorVoxel = floorVoxels[randomFloorVoxelIndex];
-                Vector3 randomFloorVoxelPos = randomFloorVoxel.worldPosition;
+                Vector3 randomFloorVoxelPos = randomFloorVoxel.WorldPosition;
                 //itemWorldPositions = roomItemPrefab.GetOffsetVoxelPositions(randomFloorVoxelPos);          
 
                 conditionData.randomFloorVoxelPos = randomFloorVoxelPos;
@@ -109,7 +109,7 @@ namespace Assets.Scripts.RoomGenerator
             }
 
             RoomElement item = Instantiate(roomItemPrefab, gameObject.transform);
-            item.transform.position = acceptedFloorVoxel.worldPosition;
+            item.transform.position = acceptedFloorVoxel.WorldPosition;
             item.transform.rotation = Quaternion.AngleAxis((float)conditionData.endPointDirection, Vector3.up);
 
             InitializeNewItem(item);
@@ -137,9 +137,9 @@ namespace Assets.Scripts.RoomGenerator
                 Voxel itemVoxel = item.Voxels[i];
 
                 GameObject itemGO = item.VoxelGOs[i];
-                Voxel.SetGameObjectName(itemGO, itemVoxel.worldPosition);
+                Voxel.SetGameObjectName(itemGO, itemVoxel.WorldPosition);
 
-                acceptedItemVoxels.Add(itemVoxel.worldPosition);
+                acceptedItemVoxels.Add(itemVoxel.WorldPosition);
             }
         }
     }

@@ -4,7 +4,7 @@ namespace Assets.Scripts.DungeonGenerator.Utils
 {
     public class DRandom
     {
-        public int seed = 0;
+        public int Seed { get; set; } = 0;
         public Random random;
 
         public bool init = false;
@@ -14,14 +14,14 @@ namespace Assets.Scripts.DungeonGenerator.Utils
             {
                 //DLogger.Log("DRandom::Initializing RNG - Seed = " + _seed);
                 init = true;
-                seed = _seed;
-                random = new Random(seed);
+                Seed = _seed;
+                random = new Random(Seed);
             }
         }
 
         public float Value()
         {
-            Init(seed);
+            Init(Seed);
             return (float)random.NextDouble();
         }
 

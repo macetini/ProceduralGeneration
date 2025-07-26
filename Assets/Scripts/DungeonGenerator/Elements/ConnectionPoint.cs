@@ -6,7 +6,7 @@ namespace Assets.Scripts.DungeonGenerator.Elements
 {
     public class ConnectionPoint : MonoBehaviour
     {
-        private bool open = true;
+        public bool Open { get; set; } = true;
         public Voxel voxelOwner;
         public ConnectionPoint sharedConnPoint;
 
@@ -26,8 +26,6 @@ namespace Assets.Scripts.DungeonGenerator.Elements
 
                 return clone;
             }
-        }
-
-        public bool Open { get => open; set => open = value; }
+        }        
     }
 }

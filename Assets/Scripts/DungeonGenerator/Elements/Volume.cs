@@ -155,8 +155,8 @@ namespace Assets.Scripts.DungeonGenerator.Elements
                 GameObject voxelGO = voxels[i];
                 Voxel voxel = voxelGO.GetComponent<Voxel>();
 
-                voxel.worldPosition = voxel.transform.position.RoundVec3ToInt();
-                Voxel.SetGameObjectName(voxelGO, voxel.worldPosition);
+                voxel.WorldPosition = voxel.transform.position.RoundVec3ToInt();
+                Voxel.SetGameObjectName(voxelGO, voxel.WorldPosition);
 
                 //voxel.name = Voxel.NAME + " - " + voxel.transform.localPosition.RoundVec3ToInt() + " - " + voxel.worldPosition.ToString();
             }

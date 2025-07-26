@@ -117,7 +117,7 @@ namespace Assets.Scripts.RoomGenerator
                 int wallsVoxelLength = wallVoxels.Length;
                 for (int j = 0; j < wallsVoxelLength; j++)
                 {
-                    Vector3 voxelWorldPosition = wallVoxels[j].worldPosition;
+                    Vector3 voxelWorldPosition = wallVoxels[j].WorldPosition;
 
                     wallsVoxelMap.Add(voxelWorldPosition);
                     wallsVoxelGoMap.Add(voxelWorldPosition, wallVoxelGOs[j]);
@@ -141,7 +141,7 @@ namespace Assets.Scripts.RoomGenerator
                 int wallsVoxelLength = doorVoxels.Length;
                 for (int j = 0; j < wallsVoxelLength; j++)
                 {
-                    Vector3 voxelWorldPosition = doorVoxels[j].worldPosition;
+                    Vector3 voxelWorldPosition = doorVoxels[j].WorldPosition;
 
                     doorsVoxelMap.Add(voxelWorldPosition);
                     doorsVoxelGoMap.Add(voxelWorldPosition, doorVoxelGOs[j]);

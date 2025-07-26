@@ -5,13 +5,13 @@ namespace Assets.Scripts.DungeonGenerator.Data
 {
     public class VoxelStep
     {
-        public HashSet<Vector3> oldStepVoxelsPos = new HashSet<Vector3>();
-        public HashSet<Vector3> newStepVoxelsPos = new HashSet<Vector3>();
+        public HashSet<Vector3> OldStepVoxelsPos { get; set; } = new();
+        public HashSet<Vector3> NewStepVoxelsPos { get; set; } = new();
 
         public void ClearStepVoxels()
         {
-            oldStepVoxelsPos.Clear();
-            newStepVoxelsPos.Clear();
+            OldStepVoxelsPos.Clear();
+            NewStepVoxelsPos.Clear();
         }
     }
 }

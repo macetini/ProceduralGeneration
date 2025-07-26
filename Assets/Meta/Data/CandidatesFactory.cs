@@ -236,7 +236,7 @@ namespace Assets.Meta.Data
             if (candidatesManager.CandidateVoxels.ContainsKey(voxelWorldPos))
             {
                 candidatesManager.CandidateVoxels[voxelWorldPos] = voxelGO;
-                voxel.worldPosition = voxelWorldPos;
+                voxel.WorldPosition = voxelWorldPos;
                 Voxel.SetGameObjectName(voxelGO, voxelWorldPos);
             }
             else

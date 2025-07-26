@@ -5,7 +5,7 @@ namespace Assets.Scripts.DungeonGenerator.Data
     public class Voxel : MonoBehaviour
     {
         public static readonly string NAME = "Voxel";
-        public Vector3 worldPosition;
+        public Vector3 WorldPosition { get; set; }
 
         public static void SetGameObjectName(GameObject voxelGO, Vector3 worldPosition)
         {
