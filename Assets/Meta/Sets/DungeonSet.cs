@@ -10,12 +10,12 @@ namespace Assets.Meta.Sets
     {
         public string setName = "";
 
-        public List<Element> spawnTemplates = new List<Element>();
-        public List<Element> roomTemplates = new List<Element>();
-        public List<Element> hallwayTemplates = new List<Element>();
-        public List<Element> closingTemplates = new List<Element>();
+        public List<Element> spawnTemplates = new();
+        public List<Element> roomTemplates = new();
+        public List<Element> hallwayTemplates = new();
+        public List<Element> closingTemplates = new();
 
-        public List<Door> doorTemplates = new List<Door>();
+        public List<Door> doorTemplates = new();
 
         private List<Element> openElements;
         private List<Element> openTwoWayElements;

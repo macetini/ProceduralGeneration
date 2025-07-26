@@ -4,8 +4,8 @@ namespace Assets.Scripts.BSPTree
 {
     public class SubZone
     {
-        public static float ZONE_SIZE_RATIO = 1.25f;
-        public static float ZONE_SPLIT_VALUE = 0.5f;
+        public static readonly float ZONE_SIZE_RATIO = 1.25f;
+        public static readonly float ZONE_SPLIT_VALUE = 0.5f;
 
         public SubZone left, right;
 

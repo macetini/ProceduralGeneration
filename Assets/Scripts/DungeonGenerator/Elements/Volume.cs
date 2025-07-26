@@ -27,8 +27,6 @@ namespace Assets.Scripts.DungeonGenerator.Elements
         public Color boundsGizmoColor = Color.red;
         public Color voxelsGizmoColor = Color.blue;
 
-        //public float VoxelScale { get => _voxelScale;}    
-
         [ContextMenu("Generate Voxel Grid")]
         public void GenerateVoxelGrid()
         {
@@ -157,8 +155,6 @@ namespace Assets.Scripts.DungeonGenerator.Elements
 
                 voxel.WorldPosition = voxel.transform.position.RoundVec3ToInt();
                 Voxel.SetGameObjectName(voxelGO, voxel.WorldPosition);
-
-                //voxel.name = Voxel.NAME + " - " + voxel.transform.localPosition.RoundVec3ToInt() + " - " + voxel.worldPosition.ToString();
             }
         }
 

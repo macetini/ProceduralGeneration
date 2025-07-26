@@ -15,7 +15,7 @@ namespace Assets.Scripts.DungeonGenerator.Elements
         public string ID;
 
         //WARNING - when doing the dungeon gen we sometimes Instantiate a room, check if it will fit and if it doesn't
-        //we IMMEDIATELY destroy it. Awake() is called with instantiation - Start() waits until the function returns..
+        //we IMMEDIATELY destroy it. Awake() is called with instantiation - Start() waits until the function returns.
         //SO to be safe, don't use Awake() if you don't have to. Put all enemy and room specific instantiation in Start()!
         void Awake()
         {

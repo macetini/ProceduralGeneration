@@ -11,8 +11,7 @@ namespace Assets.Scripts.DungeonGenerator.Utils
         public void Init(int _seed = 0)
         {
             if (!init)
-            {
-                //DLogger.Log("DRandom::Initializing RNG - Seed = " + _seed);
+            {                
                 init = true;
                 Seed = _seed;
                 random = new Random(Seed);
@@ -31,7 +30,7 @@ namespace Assets.Scripts.DungeonGenerator.Utils
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <returns></returns>
-        public int Range(int min, int max)
+        public int RangeInt(int min, int max)
         {
             return (int)((max - min + 1) * Value()) + min;
         }

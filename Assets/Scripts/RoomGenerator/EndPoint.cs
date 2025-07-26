@@ -9,7 +9,7 @@ namespace Assets.Scripts.RoomGenerator
         public List<DirectionType> directions = new List<DirectionType>();
         public Voxel voxelOwner;
 
-        public static readonly Dictionary<DirectionType, Color> directionColors = new Dictionary<DirectionType, Color>() {
+        public static readonly Dictionary<DirectionType, Color> directionColors = new() {
         { DirectionType.FORWARD, Color.blue },
         { DirectionType.LEFT, Color.yellow },
         { DirectionType.DOWN, Color.red },

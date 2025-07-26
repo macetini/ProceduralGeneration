@@ -51,7 +51,7 @@ namespace Assets.Scripts.BSPTree
 
         private void Update()
         {
-            bool alphaChange = currentColor.a != (emptySpace ? 0f : 1f);
+            bool alphaChange = Equals(currentColor.a, (emptySpace ? 0f : 1f));
 
             if (currentColor.r < 0)
             {
@@ -59,7 +59,10 @@ namespace Assets.Scripts.BSPTree
                 return;
             }
 
-            bool colorChanged = currentColor.r != colorPicker.r || currentColor.g != colorPicker.g || currentColor.b != colorPicker.b;
+            bool colorChanged =
+            Equals(currentColor.r, colorPicker.r) ||
+            Equals(currentColor.g, colorPicker.g) ||
+            Equals(currentColor.b, colorPicker.b);
 
             if (colorChanged || alphaChange)
             {

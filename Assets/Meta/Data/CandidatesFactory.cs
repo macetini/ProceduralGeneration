@@ -32,9 +32,9 @@ namespace Assets.Meta.Data
 
         private CandidatesManager candidatesManager;
 
-        public Dictionary<Vector3, Element> initializedElements = new Dictionary<Vector3, Element>();
+        public Dictionary<Vector3, Element> initializedElements = new();
 
-        private List<GameObject> activePoolObjects = new List<GameObject>();
+        private List<GameObject> activePoolObjects = new();
 
         public int TargetElementsCount { get => targetElementsCount; }
         public int Seed { get => seed; }

@@ -65,7 +65,7 @@ namespace Assets.Scripts.DungeonGenerator.Candidates
             List<Element> spawnTemplates = factoryOwner.Sets[0].spawnTemplates;
 
             int spawnTemplatesCount = factoryOwner.Sets[0].spawnTemplates.Count - 1;
-            int spawnRandomIndex = random.Range(0, spawnTemplatesCount);
+            int spawnRandomIndex = random.RangeInt(0, spawnTemplatesCount);
 
             Candidate startCandidate = new Candidate(spawnTemplates[spawnRandomIndex].gameObject, factoryOwner.Sets[0]);
 
@@ -262,14 +262,13 @@ namespace Assets.Scripts.DungeonGenerator.Candidates
 
             if (onlyTwoWayElemsAllowed)
             {
-                int randomRoomIndex = random.Range(0, possibleElements.Length - 1);
+                int randomRoomIndex = random.RangeInt(0, possibleElements.Length - 1);
                 randomElement = possibleElements[randomRoomIndex].gameObject;
             }
             else
             {
                 randomElement = GetElemThatMightBeOneWay(possibleElements);
             }
-
 
             Candidate newCandidate = new Candidate(randomElement, ownerSet);
             newCandidate.SetWorldPosAndRotation(factoryOwner.ParentTransform.position, factoryOwner.ParentTransform.rotation);
@@ -287,7 +286,7 @@ namespace Assets.Scripts.DungeonGenerator.Candidates
 
         protected GameObject GetElemThatMightBeOneWay(Element[] possibleElements)
         {
-            int randomRoomIndex = random.Range(0, possibleElements.Length - 1);
+            int randomRoomIndex = random.RangeInt(0, possibleElements.Length - 1);
             GameObject roomToTry = possibleElements[randomRoomIndex].gameObject;
 
             int connPointsCount = roomToTry.GetComponent<Element>().connectionPoints.Count;

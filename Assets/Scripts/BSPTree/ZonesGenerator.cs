@@ -8,15 +8,10 @@ namespace Assets.Scripts.BSPTree
     {
         public int minZoneSize;
         public int maxZoneSize;
-
         public int zoneHeight = 10;
-
         public bool clamp;
-
         public bool RandomizeSpawnSets;
-
         public Button genButton;
-
         public ZoneItem zonePrefab;
 
         private List<ZoneItem> spawnZones = new List<ZoneItem>();
