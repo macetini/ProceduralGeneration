@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.DungeonGenerator.Data;
+using Assets.Scripts.DungeonGenerator.VoxelData;
 using Assets.Scripts.DungeonGenerator.Utils;
 using Assets.Scripts.RoomGenerator.Conditions;
 using UnityEngine;
@@ -35,8 +35,7 @@ namespace Assets.Scripts.RoomGenerator
             List<int> floorVoxelsIndexList = GetFloorVoxelsIndexList(floorVoxels);
 
             roomItemPrefab.Init();
-
-            //Vector3[] itemWorldPositions = null;
+           
             Voxel acceptedFloorVoxel = null;
 
             ConditionData conditionData;
@@ -61,7 +60,7 @@ namespace Assets.Scripts.RoomGenerator
 
                 Voxel randomFloorVoxel = floorVoxels[randomFloorVoxelIndex];
                 Vector3 randomFloorVoxelPos = randomFloorVoxel.WorldPosition;
-                //itemWorldPositions = roomItemPrefab.GetOffsetVoxelPositions(randomFloorVoxelPos);          
+                //itemWorldPositions = roomItemPrefab.GetOffsetVoxelPositions(randomFloorVoxelPos);
 
                 conditionData.randomFloorVoxelPos = randomFloorVoxelPos;
                 conditionData.endPointDirection = DirectionType.FORWARD;
@@ -90,7 +89,7 @@ namespace Assets.Scripts.RoomGenerator
                         if (!testPassed) break;
                     }
 
-                    if (!testPassed) endPointIndex++;//conditionData.rotationIndex++;                
+                    if (!testPassed) endPointIndex++;//conditionData.rotationIndex++;
 
                 } while (!testPassed && endPointIndex < endPointsCount);
 

@@ -9,7 +9,6 @@ namespace Assets.Meta.Sets
     public class DungeonSet : ScriptableObject
     {
         public string setName = "";
-
         public List<Element> spawnTemplates = new();
         public List<Element> roomTemplates = new();
         public List<Element> hallwayTemplates = new();
@@ -33,15 +32,13 @@ namespace Assets.Meta.Sets
         protected static List<Element> GetTemplateElements(List<Element> templates)
         {
             int templatesCount = templates.Count;
-
-            List<Element> elements = new List<Element>(templatesCount);
-
+            List<Element> elements = new(templatesCount);
             for (int i = 0; i < templatesCount; i++)
             {
                 Element element = templates[i];
                 elements.Add(element);
             }
-
+            
             return elements;
         }
 

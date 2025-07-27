@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.DungeonGenerator.Data;
+using Assets.Scripts.DungeonGenerator.VoxelData;
 using Assets.Scripts.DungeonGenerator.Elements;
 using Assets.Scripts.DungeonGenerator.Utils;
 using Assets.Scripts.RoomGenerator.Conditions;
@@ -37,9 +37,7 @@ namespace Assets.Scripts.RoomGenerator
         public Vector3[] GetOffsetVoxelPositions(Vector3 offset)
         {
             int voxelsCount = Voxels.Length;
-
             Vector3[] offsetPositions = new Vector3[voxelsCount];
-
             for (int i = 0; i < voxelsCount; i++)
             {
                 Voxel voxel = Voxels[i];
@@ -55,9 +53,7 @@ namespace Assets.Scripts.RoomGenerator
             voxelGOs = volume.voxels.ToArray();
 
             int voxelsCount = VoxelGOs.Length;
-
             voxels = new Voxel[voxelsCount];
-
             for (int i = 0; i < voxelsCount; i++)
             {
                 Voxel voxel = VoxelGOs[i].GetComponent<Voxel>();
@@ -78,6 +74,8 @@ namespace Assets.Scripts.RoomGenerator
 
         private void OnDrawGizmos()
         {
+            if(endPoint == null || endPoint.directions == null) return;
+
             Vector3 endPointPosition = endPoint.transform.position;
 
             int directionsCount = endPoint.directions.Count;

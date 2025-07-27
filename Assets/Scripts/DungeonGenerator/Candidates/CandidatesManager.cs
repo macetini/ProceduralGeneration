@@ -2,7 +2,7 @@
 using Assets.Meta.Data;
 using Assets.Meta.Sets;
 using Assets.Scripts.BSPTree;
-using Assets.Scripts.DungeonGenerator.Data;
+using Assets.Scripts.DungeonGenerator.VoxelData;
 using Assets.Scripts.DungeonGenerator.Elements;
 using Assets.Scripts.DungeonGenerator.Utils;
 using UnityEngine;

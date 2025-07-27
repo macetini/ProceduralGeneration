@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.DungeonGenerator.Data;
+using Assets.Scripts.DungeonGenerator.VoxelData;
 using UnityEngine;
 
 namespace Assets.Scripts.RoomGenerator

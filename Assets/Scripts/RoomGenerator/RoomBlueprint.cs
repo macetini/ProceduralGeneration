@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.DungeonGenerator.Data;
+using Assets.Scripts.DungeonGenerator.VoxelData;
 using Assets.Scripts.DungeonGenerator.Elements;
 using UnityEngine;
 
@@ -8,19 +8,16 @@ namespace Assets.Scripts.RoomGenerator
     public class RoomBlueprint : MonoBehaviour
     {
         public new string name;
-
         private List<RoomElement> roomElements;
-
         public RoomElement floor;
         public List<RoomElement> walls;
         public List<RoomElement> doors;
-
         private HashSet<Vector3> wallsVoxelMap;
         private Dictionary<Vector3, GameObject> wallsVoxelGoMap;
 
         private HashSet<Vector3> doorsVoxelMap;
         private Dictionary<Vector3, GameObject> doorsVoxelGoMap;
-
+        
         public Voxel[] FloorVoxels => floor.Voxels;
 
         public HashSet<Vector3> WallsVoxelMap => wallsVoxelMap;

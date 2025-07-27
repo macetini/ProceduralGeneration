@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.DungeonGenerator.Data
+namespace Assets.Scripts.DungeonGenerator.VoxelData
 {
     public class VoxelStep
     {
