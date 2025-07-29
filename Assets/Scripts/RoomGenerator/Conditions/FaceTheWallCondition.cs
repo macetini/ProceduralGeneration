@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.RoomGenerator.Conditions
 {
+    //BROKEN!!
     public class FaceTheWallCondition : GenerationCondition
     {
         public override bool Test(ConditionData data)
@@ -27,14 +28,14 @@ namespace Assets.Scripts.RoomGenerator.Conditions
 
                 if (wallsVoxelMap.Contains(wallVoxelPosition))
                 {
-                    GameObject wallVoxelGO = data.blueprint.GetWallVoxelGO(wallVoxelPosition);
+                    /*GameObject wallVoxelGO = data.blueprint.GetWallVoxelGO(wallVoxelPosition);
 
                     Vector3 directionsDifference = horizontalEdgeOffset + wallVoxelGO.transform.right;
 
                     if (directionsDifference == Vector3.zero)
                     {
                         return false;
-                    }
+                    }*/
                 }
             }
 

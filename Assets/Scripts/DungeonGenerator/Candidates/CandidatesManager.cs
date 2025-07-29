@@ -13,13 +13,15 @@ namespace Assets.Scripts.DungeonGenerator.Candidates
     {
         private readonly CandidatesFactory factoryOwner;
         private readonly ZonesGenerator zonesGenerator;
-
         private readonly DRandom random;
         private Element[] potentialCandidates;
+        private Dictionary<Vector3, Voxel> candidateVoxels = new();
+        private List<Candidate> openCandidates = new();
+        private List<Candidate> acceptedCandidates = new();
 
-        private Dictionary<Vector3, GameObject> candidateVoxels = new Dictionary<Vector3, GameObject>();
-        private List<Candidate> openCandidates = new List<Candidate>();
-        private List<Candidate> acceptedCandidates = new List<Candidate>();
+        public List<Candidate> OpenCandidates => openCandidates;
+        public List<Candidate> AcceptedCandidates => acceptedCandidates;
+        public Dictionary<Vector3, Voxel> CandidateVoxels => candidateVoxels;
 
         public CandidatesManager(CandidatesFactory factoryOwner, ZonesGenerator zonesGenerator)
         {
@@ -30,13 +32,9 @@ namespace Assets.Scripts.DungeonGenerator.Candidates
             random.Init(factoryOwner.Seed);
         }
 
-        public List<Candidate> OpenCandidates => openCandidates;
-        public List<Candidate> AcceptedCandidates => acceptedCandidates;
-        public Dictionary<Vector3, GameObject> CandidateVoxels => candidateVoxels;
-
         public void CleanUp()
         {
-            candidateVoxels = new Dictionary<Vector3, GameObject>();
+            candidateVoxels = new Dictionary<Vector3, Voxel>();
             acceptedCandidates = new List<Candidate>();
 
             openCandidates = new List<Candidate>();
@@ -67,7 +65,7 @@ namespace Assets.Scripts.DungeonGenerator.Candidates
             int spawnTemplatesCount = factoryOwner.Sets[0].spawnTemplates.Count - 1;
             int spawnRandomIndex = random.RangeInt(0, spawnTemplatesCount);
 
-            Candidate startCandidate = new Candidate(spawnTemplates[spawnRandomIndex].gameObject, factoryOwner.Sets[0]);
+            Candidate startCandidate = new(spawnTemplates[spawnRandomIndex].gameObject, factoryOwner.Sets[0]);
 
             openCandidates.Add(startCandidate);
 
@@ -351,12 +349,12 @@ namespace Assets.Scripts.DungeonGenerator.Candidates
         //TODO - MAYBE SPLIT IN TWO FUNCTIONS?
         protected bool CheckIfNewElementOverlaps(VoxelStep voxelStep, Candidate newCandidate)
         {
-            List<GameObject> voxels = newCandidate.Voxels;
+            List<Voxel> voxels = newCandidate.Voxels;
 
             int newVoxelsCount = voxels.Count;
             for (int i = 0; i < newVoxelsCount; i++)
             {
-                GameObject voxel = voxels[i];
+                Voxel voxel = voxels[i];
 
                 Vector3 voxelWorldPosition = newCandidate.GetVoxelWorldPos(voxel.transform.localPosition);
                 Vector3 newElementVoxel = voxelWorldPosition.RoundVec3ToInt();

@@ -13,44 +13,32 @@ namespace Assets.Scripts.RoomGenerator
         public EndPoint endPoint;
         public List<GenerationCondition> generationConditions;
 
-        private Voxel[] voxels = null;
-        private GameObject[] voxelGOs = null;
+        //private Voxel[] voxels = null;
+        //private GameObject[] voxelGOs = null;
+        //private Volume volume;
 
-        private Volume volume;
+        public List<Voxel> Voxels { get; set; }// => voxels;
+                                               // public GameObject[] VoxelGOs => voxelGOs;
+        public Volume Volume { get; set; }
 
-        public Voxel[] Voxels => voxels;
-        public GameObject[] VoxelGOs => voxelGOs;
-        public Volume Volume => volume;
-
-        private void Awake()
+        private void Start()
         {
             Init();
         }
 
         public void Init()
         {
-            volume = GetComponent<Volume>();
+            Volume = GetComponent<Volume>();
             InitVoxelData();
             InitConditionData();
         }
 
-        public Vector3[] GetOffsetVoxelPositions(Vector3 offset)
-        {
-            int voxelsCount = Voxels.Length;
-            Vector3[] offsetPositions = new Vector3[voxelsCount];
-            for (int i = 0; i < voxelsCount; i++)
-            {
-                Voxel voxel = Voxels[i];
-                Vector3 offsetPosition = voxel.transform.localPosition + offset;
-                offsetPositions[i] = offsetPosition.RoundVec3ToInt();
-            }
-
-            return offsetPositions;
-        }
-
         private void InitVoxelData()
         {
-            voxelGOs = volume.voxels.ToArray();
+            //Volume.voxels.ForEach(n => Debug.Log(n));
+            Voxels = Volume.voxels;
+                      
+            /*voxelGOs = Volume.voxels.ToArray();
 
             int voxelsCount = VoxelGOs.Length;
             voxels = new Voxel[voxelsCount];
@@ -58,7 +46,7 @@ namespace Assets.Scripts.RoomGenerator
             {
                 Voxel voxel = VoxelGOs[i].GetComponent<Voxel>();
                 Voxels[i] = voxel;
-            }
+            }*/
         }
 
         private void InitConditionData()
@@ -72,9 +60,23 @@ namespace Assets.Scripts.RoomGenerator
             }
         }
 
-        private void OnDrawGizmos()
+        public Vector3[] GetOffsetVoxelPositions(Vector3 offset)
         {
-            if(endPoint == null || endPoint.directions == null) return;
+            int voxelsCount = Voxels.Count;
+            Vector3[] offsetPositions = new Vector3[voxelsCount];
+            for (int i = 0; i < voxelsCount; i++)
+            {
+                Voxel voxel = Voxels[i];
+                Vector3 offsetPosition = voxel.transform.localPosition + offset;
+                offsetPositions[i] = offsetPosition.RoundVec3ToInt();
+            }
+
+            return offsetPositions;
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            if (endPoint == null || endPoint.directions == null) return;
 
             Vector3 endPointPosition = endPoint.transform.position;
 

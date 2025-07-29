@@ -2,6 +2,7 @@
 using Assets.Meta.Sets;
 using Assets.Scripts.DungeonGenerator.Elements;
 using Assets.Scripts.DungeonGenerator.Utils;
+using Assets.Scripts.DungeonGenerator.VoxelData;
 using UnityEngine;
 
 namespace Assets.Scripts.DungeonGenerator.Candidates
@@ -51,7 +52,7 @@ namespace Assets.Scripts.DungeonGenerator.Candidates
         public GameObject GameObject => gameObject;
         public Element Element => element;
         public Volume Volume => volume;
-        public List<GameObject> Voxels => Volume.voxels;
+        public List<Voxel> Voxels => Volume.voxels;
 
         public ConnectionPointCandidate LastConnPointCandidate => CandidatesConnection.LastConnPointCandidate;
         public ConnectionPointCandidate NewConnPointCandidate => CandidatesConnection.NewConnPointCandidate;

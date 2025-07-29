@@ -31,7 +31,7 @@ namespace Assets.Scripts.DungeonGenerator
                 genButton.onClick.AddListener(ResetGeneration);
             }
 
-            candidatesFactory.Init(this.transform, zonesGenerator);
+            candidatesFactory.Init(transform, zonesGenerator);
 
             /*
             GenerateCandidates();
@@ -92,7 +92,9 @@ namespace Assets.Scripts.DungeonGenerator
             }
 
             Debug.Log("DungeonGenerator::Generation completed : " + DebugTimer.Lap() + "ms");
-            Debug.Log("DungeonGenerator::Elements targeted : " + targetElementsCount + ". Candidates accepted : " + candidatesFactory.CandidateProduct.GetAcceptedCandidatesCount());
+
+            Debug.Log("DungeonGenerator::Elements targeted : " + targetElementsCount +
+                    ". Candidates accepted : " + candidatesFactory.CandidateProduct.GetAcceptedCandidatesCount());
         }
 
         protected void GenerateNextCandidate()
@@ -180,14 +182,16 @@ namespace Assets.Scripts.DungeonGenerator
         /// <param name="acceptedCandidate">Object that defines the new element. Objects are usually provided by <b>Elements Factory</b>.</param>
         protected void BuildElement(Candidate acceptedCandidate)
         {
-            ConnectionPoint newConnPoint = candidatesFactory.GetNewElement(acceptedCandidate, this.transform);
-
             CandidatesConnection candidatesConnection = acceptedCandidate.CandidatesConnection;
             Element previousElement = candidatesFactory.initializedElements[candidatesConnection.LastCandidateWorldPos];
 
-            ConnectionPoint lastConnPoint = GetConnPointAtPosition(previousElement.connectionPoints, acceptedCandidate.LastConnPointCandidate.LocalPosition);
+            ConnectionPoint lastConnPoint = GetConnPointAtPosition(
+                previousElement.connectionPoints, acceptedCandidate.LastConnPointCandidate.LocalPosition);
 
-            newConnPoint.sharedConnPoint = lastConnPoint ?? throw new System.Exception("DungeonGenerator:: No PREVIOUS ELEMENT connection point found.");
+            ConnectionPoint newConnPoint = candidatesFactory.GetNewElement(acceptedCandidate, transform);
+
+            newConnPoint.sharedConnPoint =
+                lastConnPoint != null ? lastConnPoint : throw new System.Exception("DungeonGenerator:: No PREVIOUS ELEMENT connection point found.");
 
             lastConnPoint.sharedConnPoint = newConnPoint;
         }

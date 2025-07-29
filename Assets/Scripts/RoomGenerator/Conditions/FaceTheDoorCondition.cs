@@ -27,14 +27,14 @@ namespace Assets.Scripts.RoomGenerator.Conditions
 
                 if (doorsVoxelMap.Contains(doorVoxelPosition))
                 {
-                    GameObject doorVoxelGO = data.blueprint.GetDoorVoxelGO(doorVoxelPosition);
+                    /*GameObject doorVoxelGO = data.blueprint.GetDoorVoxelGO(doorVoxelPosition);
 
                     Vector3 directionsDifference = horizontalEdgeOffset + doorVoxelGO.transform.right;
 
                     if (directionsDifference == Vector3.zero)
                     {
                         return false;
-                    }
+                    }*/
                 }
             }
 

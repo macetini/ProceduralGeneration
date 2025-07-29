@@ -10,20 +10,20 @@ namespace Assets.Scripts.RoomGenerator
         public new string name;
         private List<RoomElement> roomElements;
         public RoomElement floor;
-        public List<RoomElement> walls;
-        public List<RoomElement> doors;
-        private HashSet<Vector3> wallsVoxelMap;
-        private Dictionary<Vector3, GameObject> wallsVoxelGoMap;
 
-        private HashSet<Vector3> doorsVoxelMap;
-        private Dictionary<Vector3, GameObject> doorsVoxelGoMap;
-        
-        public Voxel[] FloorVoxels => floor.Voxels;
+        //public List<RoomElement> walls;
+        //public List<RoomElement> doors;
+        //private HashSet<Vector3> wallsVoxelMap;
+        //private Dictionary<Vector3, GameObject> wallsVoxelGoMap;
+        //private HashSet<Vector3> doorsVoxelMap;
+        //private Dictionary<Vector3, GameObject> doorsVoxelGoMap;
 
-        public HashSet<Vector3> WallsVoxelMap => wallsVoxelMap;
-        public HashSet<Vector3> DoorsVoxelMap => doorsVoxelMap;
+        public List<Voxel> FloorVoxels => floor.Voxels;
 
-        public GameObject GetWallVoxelGO(Vector3 worldPosition)
+        public HashSet<Vector3> WallsVoxelMap { get; set; }// => wallsVoxelMap;
+        public HashSet<Vector3> DoorsVoxelMap { get; set; }// => doorsVoxelMap;
+
+        /*public GameObject GetWallVoxelGO(Vector3 worldPosition)
         {
             return wallsVoxelGoMap[worldPosition];
         }
@@ -31,37 +31,38 @@ namespace Assets.Scripts.RoomGenerator
         public GameObject GetDoorVoxelGO(Vector3 worldPosition)
         {
             return doorsVoxelGoMap[worldPosition];
-        }
+        }*/
 
         private void Start()
         {
             Init();
+            //Instantiate(floor);
         }
 
         protected void Init()
         {
-            RecalculateAll();
-            InitWallsVoxelMap();
-            InitDoorsVoxelMap();
+            //RecalculateAll();
+            //InitWallsVoxelMap();
+            //InitDoorsVoxelMap();
         }
 
         [ContextMenu("Recalculate All")]
         public void RecalculateAll()
         {
-            InitRoomElements();
+            //InitRoomElements();
             RecalculateWorldPosition();
             RecalculateBounds();
         }
 
-        private void InitRoomElements()
+        /*private void InitRoomElements()
         {
             int wallsCount = walls.Count;
             int doorsCount = doors.Count;
 
             roomElements = new List<RoomElement>(wallsCount + doorsCount + 1)
-        {
-            floor
-        };
+            {
+                floor
+            };
 
             for (int i = 0; i < wallsCount; i++)
             {
@@ -72,7 +73,7 @@ namespace Assets.Scripts.RoomGenerator
             {
                 roomElements.Add(doors[i]);
             }
-        }
+        }*/
 
         [ContextMenu("Recalculate World Position")]
         public void RecalculateWorldPosition()
@@ -98,7 +99,7 @@ namespace Assets.Scripts.RoomGenerator
             }
         }
 
-        private void InitWallsVoxelMap()
+        /*private void InitWallsVoxelMap()
         {
             wallsVoxelMap = new HashSet<Vector3>();
             wallsVoxelGoMap = new Dictionary<Vector3, GameObject>();
@@ -109,7 +110,7 @@ namespace Assets.Scripts.RoomGenerator
                 RoomElement wall = walls[i];
 
                 Voxel[] wallVoxels = wall.Voxels;
-                GameObject[] wallVoxelGOs = wall.VoxelGOs;
+                //GameObject[] wallVoxelGOs = wall.VoxelGOs;
 
                 int wallsVoxelLength = wallVoxels.Length;
                 for (int j = 0; j < wallsVoxelLength; j++)
@@ -117,12 +118,12 @@ namespace Assets.Scripts.RoomGenerator
                     Vector3 voxelWorldPosition = wallVoxels[j].WorldPosition;
 
                     wallsVoxelMap.Add(voxelWorldPosition);
-                    wallsVoxelGoMap.Add(voxelWorldPosition, wallVoxelGOs[j]);
+                    //wallsVoxelGoMap.Add(voxelWorldPosition, wallVoxelGOs[j]);
                 }
             }
-        }
+        }*/
 
-        private void InitDoorsVoxelMap()
+        /*private void InitDoorsVoxelMap()
         {
             doorsVoxelMap = new HashSet<Vector3>();
             doorsVoxelGoMap = new Dictionary<Vector3, GameObject>();
@@ -144,12 +145,17 @@ namespace Assets.Scripts.RoomGenerator
                     doorsVoxelGoMap.Add(voxelWorldPosition, doorVoxelGOs[j]);
                 }
             }
-        }
+        }*/
 
-        [ContextMenu("Toggle Gizmo Mode")]
+        /*[ContextMenu("Toggle Gizmo Mode")]
         public void ToggleGizmoToDraw()
         {
             Volume.drawVolume = !Volume.drawVolume;
         }
+
+        private void OnDrawGizmos()
+        {
+            RoomElement.DrawEndPoint(floor.endPoint, floor.transform.rotation);
+        }*/
     }
 }

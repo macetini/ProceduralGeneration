@@ -15,11 +15,11 @@ namespace Assets.Scripts.DungeonGenerator.Elements
 
         public float VoxelScale = 10f;
 
-        public List<GameObject> voxels = new();
+        public List<Voxel> voxels = new();
 
         public static bool drawVolume = true;
 
-        public GameObject voxelsContainer;
+        public GameObject voxelsContainer; //TODO - Should be only one.
 
         //Check why this is half 
         public Bounds bounds;
@@ -44,27 +44,32 @@ namespace Assets.Scripts.DungeonGenerator.Elements
                 voxelsContainer.transform.parent = transform;
             }
 
-            voxels = new List<GameObject>();
+            voxels = new List<Voxel>();
             for (float i = 0; i < generatorSize.x; i++)
             {
                 for (float j = 0; j < generatorSize.y; j++)
                 {
                     for (float k = 0; k < generatorSize.z; k++)
                     {
-                        CreateVoxel(i * VoxelScale,
-                                    j * VoxelScale,
-                                    k * VoxelScale);
+                        Vector3 voxelPos = new Vector3(i, j, k) * VoxelScale;
+                        CreateNewVoxelGo(voxelPos);
                     }
                 }
             }
         }
 
-        private void CreateVoxel(float i, float j, float k)
+        private void CreateNewVoxelGo(Vector3 voxelPos)
         {
-            Voxel voxel = Instantiate(voxelType);
-            voxel.name = string.Format(Voxel.NAME + " - ({0}, {1}, {2})", i, j, k);
-            voxel.transform.position = new Vector3(i, j, k);
-            voxel.transform.parent = voxelsContainer.transform;
+            Voxel voxelGo = Instantiate(voxelType);
+            //voxelGo.name = string.Format(Voxel.NAME + " - ({0}, {1}, {2})", voxelPos);
+
+            voxelGo.transform.position = voxelPos;
+            voxelGo.transform.parent = voxelsContainer.transform;
+
+            voxelGo.SetLocalPositionLabel();
+
+            //Voxel voxelComponent = voxelGo.AddComponent<Voxel>();
+            //voxelComponent.name = string.Format(Voxel.NAME + " - ({0}, {1}, {2})", voxelPos.x, voxelPos.y, voxelPos.z);            
         }
 
         [ContextMenu("Assign Voxels")]
@@ -80,7 +85,8 @@ namespace Assets.Scripts.DungeonGenerator.Elements
             {
                 Transform voxelChild = voxelsContainer.transform.GetChild(i);
 
-                voxels.Add(voxelChild.gameObject);
+                Voxel voxelComponent = voxelChild.GetComponent<Voxel>();
+                voxels.Add(voxelComponent);
 
                 Vector3 voxelChildPos = voxelChild.transform.position;
 
@@ -96,7 +102,7 @@ namespace Assets.Scripts.DungeonGenerator.Elements
             Debug.Log("Volume::AssignVoxelsToList() | " + min + " : " + max);
 
             float halfVoxelScale = 0.5f * VoxelScale;
-            Vector3 size = new Vector3(halfVoxelScale, halfVoxelScale, halfVoxelScale);
+            Vector3 size = new(halfVoxelScale, halfVoxelScale, halfVoxelScale);
 
             bounds = new Bounds((min + max) * 0.5f, max + size - (min - size));
         }
@@ -150,11 +156,11 @@ namespace Assets.Scripts.DungeonGenerator.Elements
             int voxelsCount = voxels.Count;
             for (int i = 0; i < voxelsCount; i++)
             {
-                GameObject voxelGO = voxels[i];
-                Voxel voxel = voxelGO.GetComponent<Voxel>();
+                Voxel voxel = voxels[i];
+                //Voxel voxel = voxelGO.GetComponent<Voxel>();
 
                 voxel.WorldPosition = voxel.transform.position.RoundVec3ToInt();
-                Voxel.SetGameObjectName(voxelGO, voxel.WorldPosition);
+                voxel.SetGameObjectName(voxel.WorldPosition);
             }
         }
 

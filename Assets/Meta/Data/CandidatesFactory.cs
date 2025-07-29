@@ -14,7 +14,6 @@ namespace Assets.Meta.Data
     public class CandidatesFactory : ScriptableObject
     {
         public List<DungeonSet> Sets = new();
-
         public int loopCheckCount = 5;
         public bool randomizeOnStart = true;
 
@@ -56,7 +55,6 @@ namespace Assets.Meta.Data
             }
 
             candidatesManager = new CandidatesManager(this, zonesGenerator);
-
             candidateProduct = new CandidateProduct(candidatesManager);
         }
 
@@ -185,14 +183,14 @@ namespace Assets.Meta.Data
             Volume newVolume = newCandidateGO.GetComponent<Volume>();
             newVolume.RecalculateBounds();
 
-            List<GameObject> newElementVoxels = newVolume.voxels;
+            List<Voxel> newElementVoxels = newVolume.voxels;
             int voxelsCount = newVolume.voxels.Count;
             for (int i = 0; i < voxelsCount; i++)
             {
-                GameObject voxelGO = newElementVoxels[i];
-                Vector3 worldPosition = newCandidate.GetVoxelWorldPos(voxelGO.transform.localPosition);
+                Voxel voxel = newElementVoxels[i];
+                Vector3 worldPosition = newCandidate.GetVoxelWorldPos(voxel.transform.localPosition);
 
-                InitializeGlobalVoxel(worldPosition, voxelGO);
+                InitializeGlobalVoxel(worldPosition, voxel);
             }
         }
 
@@ -207,11 +205,11 @@ namespace Assets.Meta.Data
 
                 Element element = elementToRecycle.GetComponent<Element>();
                 pools[element.ID].Add(elementToRecycle);
-                elementToRecycle.gameObject.SetActive(false);
+                elementToRecycle.SetActive(false);
             }
             else
             {
-                Destroy(elementToRecycle.gameObject);
+                Destroy(elementToRecycle);
             }
 
             activePoolObjects.Remove(elementToRecycle);
@@ -228,16 +226,16 @@ namespace Assets.Meta.Data
             }
         }
 
-        protected void InitializeGlobalVoxel(Vector3 voxelWorldPos, GameObject voxelGO)
+        protected void InitializeGlobalVoxel(Vector3 voxelWorldPos, Voxel voxel)
         {
-            Voxel voxel = voxelGO.GetComponent<Voxel>();
+            //Voxel voxel = voxelGO.GetComponent<Voxel>();
             voxelWorldPos = voxelWorldPos.RoundVec3ToInt();
 
             if (candidatesManager.CandidateVoxels.ContainsKey(voxelWorldPos))
             {
-                candidatesManager.CandidateVoxels[voxelWorldPos] = voxelGO;
+                candidatesManager.CandidateVoxels[voxelWorldPos] = voxel;
                 voxel.WorldPosition = voxelWorldPos;
-                Voxel.SetGameObjectName(voxelGO, voxelWorldPos);
+                voxel.SetGameObjectName(voxelWorldPos);
             }
             else
             {

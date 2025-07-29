@@ -119,53 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &219457996
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 219457998}
-  - component: {fileID: 219457997}
-  m_Layer: 0
-  m_Name: Elem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &219457997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 219457996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e938942c36f9af04ea63ba8c7340e74a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Test
-  endPoint: {fileID: 0}
-  generationConditions: []
---- !u!4 &219457998
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 219457996}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1001349778
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,56 +260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c135ea7d7f68942a1e3c00a7980304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blueprint: {fileID: 0}
-  roomItemPrefab: {fileID: 2770250128164813228, guid: 2f5140534e6a94948853931aa15bf06f, type: 3}
---- !u!1 &1788453147
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1788453149}
-  - component: {fileID: 1788453148}
-  m_Layer: 0
-  m_Name: RoomBlueprint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1788453148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1788453147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bf67ac412b0e7b4e82b854461303526, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Test
-  floor: {fileID: 219457997}
-  walls: []
-  doors: []
---- !u!4 &1788453149
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1788453147}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  blueprint: {fileID: 6867388397121038077, guid: 505341c2cd31a1d4d934f82bc52204cd, type: 3}
+  roomItemPrefab: {fileID: 1194300867970216838, guid: b6eeec52033d4cf4e858a0e30ddad0d3, type: 3}
 --- !u!1 &2115896606
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,5 +361,3 @@ SceneRoots:
   - {fileID: 2115896609}
   - {fileID: 1001349780}
   - {fileID: 1483354350}
-  - {fileID: 1788453149}
-  - {fileID: 219457998}
