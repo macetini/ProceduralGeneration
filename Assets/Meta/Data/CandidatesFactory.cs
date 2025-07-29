@@ -235,7 +235,7 @@ namespace Assets.Meta.Data
             {
                 candidatesManager.CandidateVoxels[voxelWorldPos] = voxel;
                 voxel.WorldPosition = voxelWorldPos;
-                voxel.SetGameObjectName(voxelWorldPos);
+                voxel.SetWorldPositionName(voxelWorldPos);
             }
             else
             {

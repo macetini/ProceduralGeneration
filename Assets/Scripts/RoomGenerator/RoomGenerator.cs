@@ -38,7 +38,7 @@ namespace Assets.Scripts.RoomGenerator
             List<Voxel> floorVoxels = blueprint.FloorVoxels;
             List<int> floorVoxelsIndexList = GetFloorVoxelsIndexList(floorVoxels);
 
-            roomItemPrefab.Init();
+            //roomItemPrefab.Init();
 
             Voxel acceptedFloorVoxel = null;
 
@@ -48,12 +48,12 @@ namespace Assets.Scripts.RoomGenerator
             conditionData.roomItemPrefab = roomItemPrefab;
             conditionData.takenVoxels = acceptedItemVoxels;
 
-            int infiniteLoopCheckCountOuter = 0;// infiniteLoopCheck = 100000;//targetElementsCount << elementsFactory.loopCheckCount;
+            int infiniteLoopCheckCountOuter = 0;
             do
             {
                 if (infiniteLoopCheckCountOuter++ > INFINITE_LOOP_CHECK_MAX_COUNT)
                 {
-                    throw new System.Exception("RoomGenerator::Room generation takes too long. - Possible infinite loop.");
+                    throw new System.Exception("RoomGenerator:: Room generation takes too long. - Possible infinite loop.");
                 }
 
                 int floorVoxelsIndexListCount = floorVoxelsIndexList.Count;
@@ -65,36 +65,39 @@ namespace Assets.Scripts.RoomGenerator
 
                 Voxel randomFloorVoxel = floorVoxels[randomFloorVoxelIndex];
                 Vector3 randomFloorVoxelPos = randomFloorVoxel.WorldPosition;
-                //itemWorldPositions = roomItemPrefab.GetOffsetVoxelPositions(randomFloorVoxelPos);
 
                 conditionData.randomFloorVoxelPos = randomFloorVoxelPos;
                 conditionData.endPointDirection = DirectionType.FORWARD;
 
                 bool testPassed = false;
 
-                int infiniteLoopCheckCountInner = 0;// infiniteLoopCheck2 = 100000;//targetElementsCount << elementsFactory.loopCheckCount;
+                if (roomItemPrefab.generationConditions == null || roomItemPrefab.generationConditions.Count == 0)
+                {
+                    Debug.LogWarning("RoomGenerator:: Room Item has no generation conditions. First Voxel accepted.");
+                    acceptedFloorVoxel = randomFloorVoxel;
+                    break;
+                }
+
+                int infiniteLoopCheckCountInner = 0;
                 int endPointIndex = 0;
                 int endPointsCount = roomItemPrefab.endPoint.directions.Count;
                 do
                 {
                     if (infiniteLoopCheckCountInner++ > INFINITE_LOOP_CHECK_MAX_COUNT)
                     {
-                        throw new System.Exception("RoomGenerator::Room item rotation takes too long. - Possible infinite loop.");
+                        throw new System.Exception("RoomGenerator:: Room item rotation takes too long. - Possible infinite loop.");
                     }
 
                     conditionData.endPointDirection = roomItemPrefab.endPoint.directions[endPointIndex];
 
                     List<GenerationCondition> generationConditions = roomItemPrefab.generationConditions;
-                    int conditionsCount = generationConditions.Count;
-                    for (int i = 0; i < conditionsCount; i++)
+                    foreach (GenerationCondition condition in generationConditions)
                     {
-                        GenerationCondition condition = generationConditions[i];
                         testPassed = condition.Test(conditionData);
-
                         if (!testPassed) break;
                     }
 
-                    if (!testPassed) endPointIndex++;//conditionData.rotationIndex++;
+                    if (!testPassed) endPointIndex++;
 
                 } while (!testPassed && endPointIndex < endPointsCount);
 
@@ -108,7 +111,7 @@ namespace Assets.Scripts.RoomGenerator
 
             if (acceptedFloorVoxel == null)
             {
-                Debug.Log("No more space in room");
+                Debug.Log("RoomGenerator:: No more space in room. Room Item discarded.");
                 return;
             }
 
@@ -116,7 +119,7 @@ namespace Assets.Scripts.RoomGenerator
             item.transform.SetPositionAndRotation(
                 acceptedFloorVoxel.WorldPosition, Quaternion.AngleAxis((float)conditionData.endPointDirection, Vector3.up));
 
-            InitializeNewItem(item);
+            //InitializeNewItem(item);
         }
 
         private static List<int> GetFloorVoxelsIndexList(List<Voxel> floorVoxels)
@@ -127,7 +130,7 @@ namespace Assets.Scripts.RoomGenerator
             {
                 floorVoxelsIndexList.Add(i);
             }
-            
+
             return floorVoxelsIndexList;
         }
 

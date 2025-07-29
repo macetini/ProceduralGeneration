@@ -8,34 +8,33 @@ namespace Assets.Scripts.DungeonGenerator.Elements
     [System.Serializable]
     public class Volume : MonoBehaviour
     {
-        public static readonly string VOXELS_CONTAINER_NAME = "Voxels";
+        private const string VOXELS_CONTAINER_NAME = "Voxels";
 
         public Vector3 generatorSize = new(1f, 1f, 1f);
         public Voxel voxelType;
-
         public float VoxelScale = 10f;
-
         public List<Voxel> voxels = new();
-
-        public static bool drawVolume = true;
-
-        public GameObject voxelsContainer; //TODO - Should be only one.
-
-        //Check why this is half 
+        public static bool DrawVolume = true;
+        public GameObject voxelsContainer;
         public Bounds bounds;
+        public Color BoundsGizmoColor { get; } = Color.red;
+        public Color VoxelsGizmoColor { get; } = Color.blue;
 
-        public Color boundsGizmoColor = Color.red;
-        public Color voxelsGizmoColor = Color.blue;
+        [ContextMenu("Generate All")]
+        public void GenerateAll()
+        {
+            GenerateVoxelGrid();
+            RecalculateBounds();
+            //RecalculateVoxelsWorldSpace();
+        }
 
         [ContextMenu("Generate Voxel Grid")]
         public void GenerateVoxelGrid()
         {
-            if (voxels.Count != 0)
+            if (voxels.Count > 0)
             {
-                for (int i = 0; i < voxels.Count; i++)
-                {
-                    DestroyImmediate(voxels[i]);
-                }
+                voxels.ForEach(voxel => DestroyImmediate(voxel));
+                voxels.Clear();
             }
 
             if (voxelsContainer == null)
@@ -44,62 +43,52 @@ namespace Assets.Scripts.DungeonGenerator.Elements
                 voxelsContainer.transform.parent = transform;
             }
 
-            voxels = new List<Voxel>();
-            for (float i = 0; i < generatorSize.x; i++)
+            int totalVoxels = (int)(generatorSize.x * generatorSize.y * generatorSize.z);
+            voxels = new List<Voxel>(totalVoxels);
+            for (int i = 0; i < generatorSize.x; i++)
             {
-                for (float j = 0; j < generatorSize.y; j++)
+                for (int j = 0; j < generatorSize.y; j++)
                 {
-                    for (float k = 0; k < generatorSize.z; k++)
+                    for (int k = 0; k < generatorSize.z; k++)
                     {
-                        Vector3 voxelPos = new Vector3(i, j, k) * VoxelScale;
-                        CreateNewVoxelGo(voxelPos);
+                        Vector3 voxelPos = (new Vector3(i, j, k) * VoxelScale).RoundVec3ToInt();
+                        Voxel newVoxel = CreateNewVoxelGo(voxelPos);
+                        voxels.Add(newVoxel);
                     }
                 }
             }
         }
 
-        private void CreateNewVoxelGo(Vector3 voxelPos)
+        private Voxel CreateNewVoxelGo(Vector3 voxelPos)
         {
-            Voxel voxelGo = Instantiate(voxelType);
-            //voxelGo.name = string.Format(Voxel.NAME + " - ({0}, {1}, {2})", voxelPos);
+            Voxel newVoxel = Instantiate(voxelType);
+            
+            newVoxel.transform.position = voxelPos;
+            newVoxel.transform.parent = voxelsContainer.transform;
 
-            voxelGo.transform.position = voxelPos;
-            voxelGo.transform.parent = voxelsContainer.transform;
+            newVoxel.SetLocalPositionName();
+            newVoxel.WorldPosition = voxelPos;
 
-            voxelGo.SetLocalPositionLabel();
+            Debug.Log(newVoxel.transform.position + " | " + newVoxel.WorldPosition); 
 
-            //Voxel voxelComponent = voxelGo.AddComponent<Voxel>();
-            //voxelComponent.name = string.Format(Voxel.NAME + " - ({0}, {1}, {2})", voxelPos.x, voxelPos.y, voxelPos.z);            
+            return newVoxel;
         }
 
-        [ContextMenu("Assign Voxels")]
-        public void AssignVoxelsToList()
+        [ContextMenu("Recalculate Bounds")]
+        public void RecalculateBounds()
         {
-            Vector3 firstVoxelPos = voxelsContainer.transform.GetChild(0).transform.position;
+            Vector3 initPosition = voxels[0].transform.position;
 
             Vector3 min, max;
-            min = max = new Vector3(firstVoxelPos.x, firstVoxelPos.y, firstVoxelPos.z);
+            min = max = new Vector3(initPosition.x, initPosition.y, initPosition.z);
 
-            int childCount = voxelsContainer.transform.childCount;
-            for (int i = 0; i < childCount; i++)
+            voxels.ForEach(voxel =>
             {
-                Transform voxelChild = voxelsContainer.transform.GetChild(i);
+                Vector3 position = voxel.transform.position;
 
-                Voxel voxelComponent = voxelChild.GetComponent<Voxel>();
-                voxels.Add(voxelComponent);
-
-                Vector3 voxelChildPos = voxelChild.transform.position;
-
-                if (voxelChildPos.x < min.x) min.x = voxelChildPos.x;
-                if (voxelChildPos.y < min.y) min.y = voxelChildPos.y;
-                if (voxelChildPos.z < min.z) min.z = voxelChildPos.z;
-
-                if (voxelChildPos.x > max.x) max.x = voxelChildPos.x;
-                if (voxelChildPos.y > max.y) max.y = voxelChildPos.y;
-                if (voxelChildPos.z > max.z) max.z = voxelChildPos.z;
-            }
-
-            Debug.Log("Volume::AssignVoxelsToList() | " + min + " : " + max);
+                min = Vector3.Min(min, position);
+                max = Vector3.Max(max, position);
+            });
 
             float halfVoxelScale = 0.5f * VoxelScale;
             Vector3 size = new(halfVoxelScale, halfVoxelScale, halfVoxelScale);
@@ -107,11 +96,27 @@ namespace Assets.Scripts.DungeonGenerator.Elements
             bounds = new Bounds((min + max) * 0.5f, max + size - (min - size));
         }
 
+        [ContextMenu("Recalculate Voxels World Space")]
+        public void RecalculateVoxelsWorldSpace()
+        {
+            voxels.ForEach(voxel =>
+            {
+                voxel.WorldPosition = voxel.transform.position.RoundVec3ToInt();
+                voxel.SetWorldPositionName(voxel.WorldPosition);
+            });
+        }
 
+        [ContextMenu("Toggle Gizmo Mode")]
+        public void ToggleGizmoToDraw()
+        {
+            DrawVolume = !DrawVolume;
+        }
+
+        //TODO: Investigate why this is needed, and if it can be removed.
         public List<Vector3> GetTranslatedVoxels(Vector3 translation = default, Quaternion rotation = default)
         {
             int voxelsCount = voxels.Count;
-            List<Vector3> translatedVoxels = new List<Vector3>(voxelsCount);
+            List<Vector3> translatedVoxels = new(voxelsCount);
 
             for (int i = 0; i < voxelsCount; i++)
             {
@@ -122,59 +127,11 @@ namespace Assets.Scripts.DungeonGenerator.Elements
             return translatedVoxels;
         }
 
-        [ContextMenu("Recalculate Bounds")]
-        public void RecalculateBounds()
-        {
-            Vector3 position = voxels[0].transform.position;
-
-            Vector3 min, max;
-            min = max = new Vector3(position.x, position.y, position.z);
-
-            int voxelsCount = voxels.Count;
-            for (int i = 0; i < voxelsCount; i++)
-            {
-                position = voxels[i].transform.position;
-
-                if (position.x < min.x) min.x = position.x;
-                if (position.y < min.y) min.y = position.y;
-                if (position.z < min.z) min.z = position.z;
-
-                if (position.x > max.x) max.x = position.x;
-                if (position.y > max.y) max.y = position.y;
-                if (position.z > max.z) max.z = position.z;
-            }
-
-            float halfVoxelScale = 0.5f * VoxelScale;
-            Vector3 size = new Vector3(halfVoxelScale, halfVoxelScale, halfVoxelScale);
-
-            bounds = new Bounds((min + max) * 0.5f, max + size - (min - size));
-        }
-
-        [ContextMenu("Recalculate Voxels World Space")]
-        public void RecalculateVoxelsWorldSpace()
-        {
-            int voxelsCount = voxels.Count;
-            for (int i = 0; i < voxelsCount; i++)
-            {
-                Voxel voxel = voxels[i];
-                //Voxel voxel = voxelGO.GetComponent<Voxel>();
-
-                voxel.WorldPosition = voxel.transform.position.RoundVec3ToInt();
-                voxel.SetGameObjectName(voxel.WorldPosition);
-            }
-        }
-
-        [ContextMenu("Toggle Gizmo Mode")]
-        public void ToggleGizmoToDraw()
-        {
-            Volume.drawVolume = !Volume.drawVolume;
-        }
-
         public void OnDrawGizmos()
         {
-            if (!drawVolume)
+            if (!DrawVolume)
             {
-                Gizmos.color = boundsGizmoColor;
+                Gizmos.color = BoundsGizmoColor;
                 Gizmos.DrawWireCube(bounds.center, bounds.size);
             }
             else
@@ -184,7 +141,7 @@ namespace Assets.Scripts.DungeonGenerator.Elements
                 int childCount = voxelsContainer.transform.childCount;
                 for (int i = 0; i < childCount; i++)
                 {
-                    Gizmos.color = voxelsGizmoColor;
+                    Gizmos.color = VoxelsGizmoColor;
                     Gizmos.DrawWireCube(voxelsContainer.transform.GetChild(i).transform.position, Vector3.one * VoxelScale);
                 }
             }

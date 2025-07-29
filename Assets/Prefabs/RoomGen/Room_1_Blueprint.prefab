@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2977446911451863241}
+  - {fileID: 4988265444504764330}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6867388397121038077
@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Room_1
-  floor: {fileID: 7207255981181087900}
---- !u!1001 &1686200435032124927
+  floor: {fileID: 607623041806522367}
+--- !u!1001 &8866869214390061724
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -58,10 +58,6 @@ PrefabInstance:
     - target: {fileID: 2026705407867995287, guid: a064594cb8b0c5543b7a2c4011987427, type: 3}
       propertyPath: m_Name
       value: RoomFloor
-      objectReference: {fileID: 0}
-    - target: {fileID: 3847788651257068985, guid: a064594cb8b0c5543b7a2c4011987427, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4482368522912986422, guid: a064594cb8b0c5543b7a2c4011987427, type: 3}
       propertyPath: m_LocalPosition.x
@@ -108,15 +104,10 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a064594cb8b0c5543b7a2c4011987427, type: 3}
---- !u!4 &2977446911451863241 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4482368522912986422, guid: a064594cb8b0c5543b7a2c4011987427, type: 3}
-  m_PrefabInstance: {fileID: 1686200435032124927}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7207255981181087900 stripped
+--- !u!114 &607623041806522367 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8314708679117593955, guid: a064594cb8b0c5543b7a2c4011987427, type: 3}
-  m_PrefabInstance: {fileID: 1686200435032124927}
+  m_PrefabInstance: {fileID: 8866869214390061724}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -124,3 +115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e938942c36f9af04ea63ba8c7340e74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &4988265444504764330 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4482368522912986422, guid: a064594cb8b0c5543b7a2c4011987427, type: 3}
+  m_PrefabInstance: {fileID: 8866869214390061724}
+  m_PrefabAsset: {fileID: 0}

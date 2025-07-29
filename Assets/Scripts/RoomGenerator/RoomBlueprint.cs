@@ -8,7 +8,6 @@ namespace Assets.Scripts.RoomGenerator
     public class RoomBlueprint : MonoBehaviour
     {
         public new string name;
-        private List<RoomElement> roomElements;
         public RoomElement floor;
 
         //public List<RoomElement> walls;
@@ -18,10 +17,10 @@ namespace Assets.Scripts.RoomGenerator
         //private HashSet<Vector3> doorsVoxelMap;
         //private Dictionary<Vector3, GameObject> doorsVoxelGoMap;
 
-        public List<Voxel> FloorVoxels => floor.Voxels;
-
+        public List<Voxel> FloorVoxels { get => floor.Voxels; }
         public HashSet<Vector3> WallsVoxelMap { get; set; }// => wallsVoxelMap;
         public HashSet<Vector3> DoorsVoxelMap { get; set; }// => doorsVoxelMap;
+        private List<RoomElement> roomElements;
 
         /*public GameObject GetWallVoxelGO(Vector3 worldPosition)
         {
@@ -36,7 +35,6 @@ namespace Assets.Scripts.RoomGenerator
         private void Start()
         {
             Init();
-            //Instantiate(floor);
         }
 
         protected void Init()

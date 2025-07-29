@@ -13,51 +13,21 @@ namespace Assets.Scripts.RoomGenerator
         public EndPoint endPoint;
         public List<GenerationCondition> generationConditions;
 
-        //private Voxel[] voxels = null;
-        //private GameObject[] voxelGOs = null;
-        //private Volume volume;
+        public List<Voxel> Voxels => GetComponent<Volume>().voxels;
+        public Volume Volume { get; private set; }
 
-        public List<Voxel> Voxels { get; set; }// => voxels;
-                                               // public GameObject[] VoxelGOs => voxelGOs;
-        public Volume Volume { get; set; }
-
-        private void Start()
+        private void Awake()
         {
-            Init();
-        }
-
-        public void Init()
-        {
-            Volume = GetComponent<Volume>();
-            InitVoxelData();
-            InitConditionData();
-        }
-
-        private void InitVoxelData()
-        {
-            //Volume.voxels.ForEach(n => Debug.Log(n));
-            Voxels = Volume.voxels;
-                      
-            /*voxelGOs = Volume.voxels.ToArray();
-
-            int voxelsCount = VoxelGOs.Length;
-            voxels = new Voxel[voxelsCount];
-            for (int i = 0; i < voxelsCount; i++)
-            {
-                Voxel voxel = VoxelGOs[i].GetComponent<Voxel>();
-                Voxels[i] = voxel;
-            }*/
+            Volume = GetComponent<Volume>();            
         }
 
         private void InitConditionData()
         {
-            int conditionsCount = generationConditions.Count;
-            for (int i = 0; i < conditionsCount; i++)
+            generationConditions.ForEach(condition =>
             {
-                GenerationCondition condition = generationConditions[i];
                 //condition.Init();
                 condition.SetOwner(this);
-            }
+            });
         }
 
         public Vector3[] GetOffsetVoxelPositions(Vector3 offset)
