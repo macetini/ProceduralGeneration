@@ -55,6 +55,7 @@
     "dotnet.defaultSolution": "ProceduralGeneration.sln",
     "cSpell.words": [
         "Behaviour",
+        "Cloneable",
         "dungeongeneration",
         "dungeongenerator",
         "Mathf",

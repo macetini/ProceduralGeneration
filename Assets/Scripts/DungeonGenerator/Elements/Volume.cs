@@ -25,7 +25,7 @@ namespace Assets.Scripts.DungeonGenerator.Elements
         {
             GenerateVoxelGrid();
             RecalculateBounds();
-            //RecalculateVoxelsWorldSpace();
+            RecalculateVoxelsWorldSpace();
         }
 
         [ContextMenu("Generate Voxel Grid")]
@@ -67,9 +67,7 @@ namespace Assets.Scripts.DungeonGenerator.Elements
             newVoxel.transform.parent = voxelsContainer.transform;
 
             newVoxel.SetLocalPositionName();
-            newVoxel.WorldPosition = voxelPos;
-
-            Debug.Log(newVoxel.transform.position + " | " + newVoxel.WorldPosition); 
+            newVoxel.WorldPosition = Vector3.positiveInfinity;
 
             return newVoxel;
         }
@@ -96,6 +94,7 @@ namespace Assets.Scripts.DungeonGenerator.Elements
             bounds = new Bounds((min + max) * 0.5f, max + size - (min - size));
         }
 
+        //TODO: Investigate why this is needed
         [ContextMenu("Recalculate Voxels World Space")]
         public void RecalculateVoxelsWorldSpace()
         {
@@ -112,7 +111,7 @@ namespace Assets.Scripts.DungeonGenerator.Elements
             DrawVolume = !DrawVolume;
         }
 
-        //TODO: Investigate why this is needed, and if it can be removed.
+        //TODO: Investigate why this is needed
         public List<Vector3> GetTranslatedVoxels(Vector3 translation = default, Quaternion rotation = default)
         {
             int voxelsCount = voxels.Count;

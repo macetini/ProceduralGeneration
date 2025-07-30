@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4988265444504764330}
+  - {fileID: 6724563513041261896}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6867388397121038077
@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Room_1
-  floor: {fileID: 607623041806522367}
---- !u!1001 &8866869214390061724
+  floor: {fileID: 1154372803271015709}
+--- !u!1001 &7162659163254710398
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -104,10 +104,10 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a064594cb8b0c5543b7a2c4011987427, type: 3}
---- !u!114 &607623041806522367 stripped
+--- !u!114 &1154372803271015709 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8314708679117593955, guid: a064594cb8b0c5543b7a2c4011987427, type: 3}
-  m_PrefabInstance: {fileID: 8866869214390061724}
+  m_PrefabInstance: {fileID: 7162659163254710398}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -115,8 +115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e938942c36f9af04ea63ba8c7340e74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &4988265444504764330 stripped
+--- !u!4 &6724563513041261896 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4482368522912986422, guid: a064594cb8b0c5543b7a2c4011987427, type: 3}
-  m_PrefabInstance: {fileID: 8866869214390061724}
+  m_PrefabInstance: {fileID: 7162659163254710398}
   m_PrefabAsset: {fileID: 0}

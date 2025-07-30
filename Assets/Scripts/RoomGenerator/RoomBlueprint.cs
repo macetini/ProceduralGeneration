@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.DungeonGenerator.VoxelData;
-using Assets.Scripts.DungeonGenerator.Elements;
 using UnityEngine;
 
 namespace Assets.Scripts.RoomGenerator
@@ -17,7 +15,7 @@ namespace Assets.Scripts.RoomGenerator
         //private HashSet<Vector3> doorsVoxelMap;
         //private Dictionary<Vector3, GameObject> doorsVoxelGoMap;
 
-        public List<Voxel> FloorVoxels { get => floor.Voxels; }
+        public Vector3[] FloorVoxelWorldPositions { get => floor.GetVoxelsWorldPositions(); }
         public HashSet<Vector3> WallsVoxelMap { get; set; }// => wallsVoxelMap;
         public HashSet<Vector3> DoorsVoxelMap { get; set; }// => doorsVoxelMap;
         private List<RoomElement> roomElements;
@@ -48,8 +46,8 @@ namespace Assets.Scripts.RoomGenerator
         public void RecalculateAll()
         {
             //InitRoomElements();
-            RecalculateWorldPosition();
-            RecalculateBounds();
+            //RecalculateWorldPosition();
+            //RecalculateBounds();
         }
 
         /*private void InitRoomElements()
@@ -73,6 +71,8 @@ namespace Assets.Scripts.RoomGenerator
             }
         }*/
 
+        //TODO: Investigate why this is needed
+        /*
         [ContextMenu("Recalculate World Position")]
         public void RecalculateWorldPosition()
         {
@@ -83,8 +83,10 @@ namespace Assets.Scripts.RoomGenerator
                 Volume volume = elements.GetComponent<Volume>();
                 volume.RecalculateVoxelsWorldSpace();
             }
-        }
+        }*/
 
+        //TODO: Investigate why this is needed
+        /*
         [ContextMenu("Recalculate Bounds")]
         public void RecalculateBounds()
         {
@@ -95,7 +97,7 @@ namespace Assets.Scripts.RoomGenerator
                 Volume volume = elements.GetComponent<Volume>();
                 volume.RecalculateBounds();
             }
-        }
+        }*/
 
         /*private void InitWallsVoxelMap()
         {

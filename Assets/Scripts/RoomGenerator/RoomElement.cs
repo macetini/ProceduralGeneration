@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.DungeonGenerator.VoxelData;
 using Assets.Scripts.DungeonGenerator.Elements;
-using Assets.Scripts.DungeonGenerator.Utils;
 using Assets.Scripts.RoomGenerator.Conditions;
 using UnityEngine;
 
@@ -12,13 +11,31 @@ namespace Assets.Scripts.RoomGenerator
         public new string name;
         public EndPoint endPoint;
         public List<GenerationCondition> generationConditions;
-
-        public List<Voxel> Voxels => GetComponent<Volume>().voxels;
         public Volume Volume { get; private set; }
+
+        //TODO - Investigate why this is needed, and if it can be removed.
+        //private List<Voxel> voxels;
+
+        public Vector3[] GetVoxelsWorldPositions()
+        {
+            List<Voxel> localVoxels = GetComponent<Volume>().voxels;
+            Vector3[] worldPositions = new Vector3[localVoxels.Count];
+
+            localVoxels.ForEach((voxel) => worldPositions[localVoxels.IndexOf(voxel)] = voxel.WorldPosition);
+
+            return worldPositions;
+        }
+
 
         private void Awake()
         {
-            Volume = GetComponent<Volume>();            
+            Volume = GetComponent<Volume>();
+        }
+
+        void Start()
+        {
+            //voxels = Volume.voxels;
+            InitConditionData();
         }
 
         private void InitConditionData()
@@ -30,19 +47,22 @@ namespace Assets.Scripts.RoomGenerator
             });
         }
 
+        //TODO - Investigate why this is needed, and if it can be removed.
+        /*
         public Vector3[] GetOffsetVoxelPositions(Vector3 offset)
         {
-            int voxelsCount = Voxels.Count;
+            int voxelsCount = voxels.Count;
             Vector3[] offsetPositions = new Vector3[voxelsCount];
             for (int i = 0; i < voxelsCount; i++)
             {
-                Voxel voxel = Voxels[i];
+                Voxel voxel = voxels[i];
                 Vector3 offsetPosition = voxel.transform.localPosition + offset;
                 offsetPositions[i] = offsetPosition.RoundVec3ToInt();
             }
 
             return offsetPositions;
         }
+        */
 
         private void OnDrawGizmosSelected()
         {

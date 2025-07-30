@@ -21,7 +21,6 @@ namespace Assets.Scripts.DungeonGenerator.Candidates
         private readonly GameObject gameObject;
         private readonly Element element;
         private readonly Volume volume;
-
         private readonly Vector3 halfStep;
         private readonly Vector3 step;
         private readonly string id;
@@ -94,7 +93,6 @@ namespace Assets.Scripts.DungeonGenerator.Candidates
             int connPointsCount = itemConnPoints.Count;
 
             ConnPointCandidates = new List<ConnectionPointCandidate>(connPointsCount);
-
             for (int i = 0; i < connPointsCount; i++)
             {
                 ConnectionPointCandidate cloneGO = itemConnPoints[i].CloneCandidate;

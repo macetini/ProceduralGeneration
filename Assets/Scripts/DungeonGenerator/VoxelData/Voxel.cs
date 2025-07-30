@@ -1,31 +1,33 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.DungeonGenerator.VoxelData
 {
     public class Voxel : MonoBehaviour
     {
         private const string NAME = "Voxel";
-        public Vector3 WorldPosition { get; set; }
+        private const string VOXEL_STRING_PADDING = "00";
+        
+        //[SerializeField]
+        public Vector3 WorldPosition; //TODO - Check how to make this better.
 
         public void SetLocalPositionName()
         {
-            int x = (int)transform.localPosition.x;
-            int y = (int)transform.localPosition.y;
-            int z = (int)transform.localPosition.z;
+            string x = transform.localPosition.x.ToString(VOXEL_STRING_PADDING);
+            string y = transform.localPosition.y.ToString(VOXEL_STRING_PADDING);
+            string z = transform.localPosition.z.ToString(VOXEL_STRING_PADDING);
 
             name = string.Format(NAME + " - {{ {0}, {1}, {2} }}", x, y, z);
         }
 
         public void SetWorldPositionName(Vector3 worldPosition)
         {
-            int x1 = (int)transform.localPosition.x;
-            int y1 = (int)transform.localPosition.y;
-            int z1 = (int)transform.localPosition.z;
+            string x1 = transform.localPosition.x.ToString(VOXEL_STRING_PADDING);
+            string y1 = transform.localPosition.y.ToString(VOXEL_STRING_PADDING);
+            string z1 = transform.localPosition.z.ToString(VOXEL_STRING_PADDING);
 
-            int x2 = (int)worldPosition.x;
-            int y2 = (int)worldPosition.y;
-            int z2 = (int)worldPosition.z;
+            string x2 = worldPosition.x.ToString(VOXEL_STRING_PADDING);
+            string y2 = worldPosition.y.ToString(VOXEL_STRING_PADDING);
+            string z2 = worldPosition.z.ToString(VOXEL_STRING_PADDING);
 
             name = string.Format(
                 NAME + " - {{ {0}, {1}, {2} }} , {{ {3}, {4}, {5} }}",
