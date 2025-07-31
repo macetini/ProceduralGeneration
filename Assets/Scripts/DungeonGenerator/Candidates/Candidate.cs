@@ -51,7 +51,7 @@ namespace Assets.Scripts.DungeonGenerator.Candidates
         public GameObject GameObject => gameObject;
         public Element Element => element;
         public Volume Volume => volume;
-        public List<Voxel> Voxels => Volume.voxels;
+        public List<Voxel> Voxels => Volume.Voxels;
 
         public ConnectionPointCandidate LastConnPointCandidate => CandidatesConnection.LastConnPointCandidate;
         public ConnectionPointCandidate NewConnPointCandidate => CandidatesConnection.NewConnPointCandidate;

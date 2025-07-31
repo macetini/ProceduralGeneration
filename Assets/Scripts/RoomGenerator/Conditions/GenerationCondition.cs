@@ -1,8 +1,9 @@
-﻿using Assets.Scripts.RoomGenerator.Conditions;
+﻿using Assets.Scripts.RoomGenerator.Conditions.Meta;
 using UnityEngine;
 
 namespace Assets.Scripts.RoomGenerator.Conditions
 {
+    //TODO - Switch this to interface
     public abstract class GenerationCondition : MonoBehaviour
     {
         public static readonly float ROTATION_AMOUNT = 90;

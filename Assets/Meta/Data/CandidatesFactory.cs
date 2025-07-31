@@ -183,8 +183,8 @@ namespace Assets.Meta.Data
             Volume newVolume = newCandidateGO.GetComponent<Volume>();
             newVolume.RecalculateBounds();
 
-            List<Voxel> newElementVoxels = newVolume.voxels;
-            int voxelsCount = newVolume.voxels.Count;
+            List<Voxel> newElementVoxels = newVolume.Voxels;
+            int voxelsCount = newVolume.Voxels.Count;
             for (int i = 0; i < voxelsCount; i++)
             {
                 Voxel voxel = newElementVoxels[i];
@@ -234,8 +234,8 @@ namespace Assets.Meta.Data
             if (candidatesManager.CandidateVoxels.ContainsKey(voxelWorldPos))
             {
                 candidatesManager.CandidateVoxels[voxelWorldPos] = voxel;
-                voxel.WorldPosition = voxelWorldPos;
-                voxel.SetWorldPositionName(voxelWorldPos);
+                //voxel.WorldPosition = voxelWorldPos;
+                voxel.SetWorldPosition(voxelWorldPos);
             }
             else
             {

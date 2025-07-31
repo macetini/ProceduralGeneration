@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c135ea7d7f68942a1e3c00a7980304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blueprint: {fileID: 6867388397121038077, guid: 505341c2cd31a1d4d934f82bc52204cd, type: 3}
+  blueprint: {fileID: 1466267879209892846, guid: 6f2a981cec357a848845c8ca936247e0, type: 3}
   roomItemPrefab: {fileID: 1194300867970216838, guid: b6eeec52033d4cf4e858a0e30ddad0d3, type: 3}
 --- !u!1 &2115896606
 GameObject:

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.RoomGenerator
@@ -7,17 +8,19 @@ namespace Assets.Scripts.RoomGenerator
     {
         public new string name;
         public RoomElement floor;
+        public RoomElement ceiling;
+        public List<RoomElement> walls;
+        public List<RoomElement> doors;
 
-        //public List<RoomElement> walls;
-        //public List<RoomElement> doors;
-        //private HashSet<Vector3> wallsVoxelMap;
-        //private Dictionary<Vector3, GameObject> wallsVoxelGoMap;
-        //private HashSet<Vector3> doorsVoxelMap;
-        //private Dictionary<Vector3, GameObject> doorsVoxelGoMap;
+        private HashSet<Vector3> wallsVoxelMap;
+        private HashSet<Vector3> doorsVoxelMap;
 
-        public Vector3[] FloorVoxelWorldPositions { get => floor.GetVoxelsWorldPositions(); }
-        public HashSet<Vector3> WallsVoxelMap { get; set; }// => wallsVoxelMap;
-        public HashSet<Vector3> DoorsVoxelMap { get; set; }// => doorsVoxelMap;
+        public Vector3[] FloorVoxelWorldPositions => floor.GetVoxelsWorldPositions();
+        public Vector3[] WallsVoxelWorldPositions => walls.First().GetVoxelsWorldPositions();
+
+        public HashSet<Vector3> WallsVoxelMap { get; private set; }
+        public HashSet<Vector3> DoorsVoxelMap { get; private set; }
+
         private List<RoomElement> roomElements;
 
         /*public GameObject GetWallVoxelGO(Vector3 worldPosition)
@@ -38,38 +41,35 @@ namespace Assets.Scripts.RoomGenerator
         protected void Init()
         {
             //RecalculateAll();
-            //InitWallsVoxelMap();
-            //InitDoorsVoxelMap();
+            InitWallsVoxelMap();
+            InitDoorsVoxelMap();
         }
 
         [ContextMenu("Recalculate All")]
         public void RecalculateAll()
         {
-            //InitRoomElements();
+            InitRoomElements();
             //RecalculateWorldPosition();
             //RecalculateBounds();
         }
 
-        /*private void InitRoomElements()
+        private void InitRoomElements()
         {
             int wallsCount = walls.Count;
-            int doorsCount = doors.Count;
+            //int doorsCount = doors.Count;
 
-            roomElements = new List<RoomElement>(wallsCount + doorsCount + 1)
+            roomElements = new List<RoomElement>(wallsCount + 1)//(wallsCount + doorsCount + 1)
             {
                 floor
             };
 
-            for (int i = 0; i < wallsCount; i++)
-            {
-                roomElements.Add(walls[i]);
-            }
+            roomElements.AddRange(walls);
 
-            for (int i = 0; i < doorsCount; i++)
+            /*for (int i = 0; i < doorsCount; i++)
             {
                 roomElements.Add(doors[i]);
-            }
-        }*/
+            }*/
+        }
 
         //TODO: Investigate why this is needed
         /*
@@ -99,11 +99,18 @@ namespace Assets.Scripts.RoomGenerator
             }
         }*/
 
-        /*private void InitWallsVoxelMap()
+        private void InitWallsVoxelMap()
         {
             wallsVoxelMap = new HashSet<Vector3>();
-            wallsVoxelGoMap = new Dictionary<Vector3, GameObject>();
+            //wallsVoxelGoMap = new Dictionary<Vector3, GameObject>();
 
+            walls.ForEach(wall =>
+            {
+                Vector3[] worldPositions = wall.GetVoxelsWorldPositions();
+                wallsVoxelMap.UnionWith(worldPositions);
+            });
+
+            /*
             int wallsCount = walls.Count;
             for (int i = 0; i < wallsCount; i++)
             {
@@ -121,13 +128,21 @@ namespace Assets.Scripts.RoomGenerator
                     //wallsVoxelGoMap.Add(voxelWorldPosition, wallVoxelGOs[j]);
                 }
             }
-        }*/
+            */
+        }
 
-        /*private void InitDoorsVoxelMap()
+        private void InitDoorsVoxelMap()
         {
             doorsVoxelMap = new HashSet<Vector3>();
-            doorsVoxelGoMap = new Dictionary<Vector3, GameObject>();
 
+            doors.ForEach(door =>
+            {
+                Vector3[] worldPositions = door.GetVoxelsWorldPositions();
+                doorsVoxelMap.UnionWith(worldPositions);
+            });
+
+
+            /*
             int doorsCount = doors.Count;
             for (int i = 0; i < doorsCount; i++)
             {
@@ -145,7 +160,8 @@ namespace Assets.Scripts.RoomGenerator
                     doorsVoxelGoMap.Add(voxelWorldPosition, doorVoxelGOs[j]);
                 }
             }
-        }*/
+            */
+        }
 
         /*[ContextMenu("Toggle Gizmo Mode")]
         public void ToggleGizmoToDraw()

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.ComponentModel;
+using UnityEngine;
 
 namespace Assets.Scripts.DungeonGenerator.VoxelData
 {
@@ -6,24 +7,37 @@ namespace Assets.Scripts.DungeonGenerator.VoxelData
     {
         private const string NAME = "Voxel";
         private const string VOXEL_STRING_PADDING = "00";
-        
-        //[SerializeField]
-        public Vector3 WorldPosition; //TODO - Check how to make this better.
 
-        public void SetLocalPositionName()
+        [field: SerializeField, ReadOnly(true)] // Does not work as it should, the value is still set in the inspector
+        public Vector3 LocalPosition { get; private set; } = Vector3.positiveInfinity;
+
+        [field: SerializeField, ReadOnly(true)] // Does not work as it should, the value is still set in the inspector
+        public Vector3 WorldPosition { get; private set; } = Vector3.positiveInfinity;
+
+        public void SetLocalPosition(Vector3 localPosition)
         {
-            string x = transform.localPosition.x.ToString(VOXEL_STRING_PADDING);
-            string y = transform.localPosition.y.ToString(VOXEL_STRING_PADDING);
-            string z = transform.localPosition.z.ToString(VOXEL_STRING_PADDING);
+            LocalPosition = localPosition;
+            WorldPosition = Vector3.positiveInfinity;
+
+            string x = localPosition.x.ToString(VOXEL_STRING_PADDING);
+            string y = localPosition.y.ToString(VOXEL_STRING_PADDING);
+            string z = localPosition.z.ToString(VOXEL_STRING_PADDING);
 
             name = string.Format(NAME + " - {{ {0}, {1}, {2} }}", x, y, z);
         }
 
-        public void SetWorldPositionName(Vector3 worldPosition)
+        public void SetWorldPosition(Vector3 worldPosition)
         {
-            string x1 = transform.localPosition.x.ToString(VOXEL_STRING_PADDING);
-            string y1 = transform.localPosition.y.ToString(VOXEL_STRING_PADDING);
-            string z1 = transform.localPosition.z.ToString(VOXEL_STRING_PADDING);
+            if (LocalPosition.Equals(Vector3.positiveInfinity))
+            {
+                throw new System.Exception("Volume:: Cannot set world position if local position is not defined.");
+            }
+
+            WorldPosition = worldPosition;
+
+            string x1 = LocalPosition.x.ToString(VOXEL_STRING_PADDING);
+            string y1 = LocalPosition.y.ToString(VOXEL_STRING_PADDING);
+            string z1 = LocalPosition.z.ToString(VOXEL_STRING_PADDING);
 
             string x2 = worldPosition.x.ToString(VOXEL_STRING_PADDING);
             string y2 = worldPosition.y.ToString(VOXEL_STRING_PADDING);

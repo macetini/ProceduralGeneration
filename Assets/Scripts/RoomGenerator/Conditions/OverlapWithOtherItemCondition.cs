@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.DungeonGenerator.Utils;
+using Assets.Scripts.RoomGenerator.Conditions.Meta;
 using UnityEngine;
 
 namespace Assets.Scripts.RoomGenerator.Conditions

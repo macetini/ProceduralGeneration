@@ -18,7 +18,7 @@ namespace Assets.Scripts.RoomGenerator
 
         public Vector3[] GetVoxelsWorldPositions()
         {
-            List<Voxel> localVoxels = GetComponent<Volume>().voxels;
+            List<Voxel> localVoxels = GetComponent<Volume>().Voxels;
             Vector3[] worldPositions = new Vector3[localVoxels.Count];
 
             localVoxels.ForEach((voxel) => worldPositions[localVoxels.IndexOf(voxel)] = voxel.WorldPosition);

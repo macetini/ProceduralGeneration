@@ -3,24 +3,24 @@ using Assets.Scripts.DungeonGenerator.VoxelData;
 using Assets.Scripts.DungeonGenerator.Utils;
 using Assets.Scripts.RoomGenerator.Conditions;
 using UnityEngine;
+using Assets.Scripts.RoomGenerator.Conditions.Meta;
 
 namespace Assets.Scripts.RoomGenerator
 {
     public class RoomGenerator : MonoBehaviour
     {
         private const int INFINITE_LOOP_CHECK_MAX_COUNT = 100000;
-        private readonly HashSet<Vector3> acceptedItemVoxels = new();
-        private DRandom random;
 
+        private readonly HashSet<Vector3> acceptedItemVoxels = new();
+        
+        private DRandom random;
         public RoomBlueprint blueprint;
-        public RoomElement roomItemPrefab;
+        public RoomElement roomItemPrefab; //TODO - This should be in Blueprint
 
         private void Start()
         {
             random = new DRandom();
             random.Init(Random.Range(0, int.MaxValue));
-
-            //PositionOnFloor();
 
             Instantiate(blueprint); //TODO - HAS TO BE OPTIMIZED.
         }
@@ -33,6 +33,7 @@ namespace Assets.Scripts.RoomGenerator
             }
         }
 
+        //TODO - refactor into multiple methods
         void PositionRoomItemOnFloor()
         {
             Vector3[] floorVoxelPositions = blueprint.FloorVoxelWorldPositions;
@@ -42,7 +43,7 @@ namespace Assets.Scripts.RoomGenerator
                 string msg = "RoomGenerator:: Room has no floor voxels. Room name: " + blueprint.name;
                 throw new System.Exception(msg);
             }
-            
+
             //TODO - Remove this?
             //roomItemPrefab.Init();
 
@@ -56,6 +57,7 @@ namespace Assets.Scripts.RoomGenerator
             conditionData.roomItemPrefab = roomItemPrefab;
             conditionData.takenVoxels = acceptedItemVoxels;
 
+            //TODO - optimize (refactor)
             int infiniteLoopCheckCountOuter = 0;
             do
             {
@@ -136,9 +138,9 @@ namespace Assets.Scripts.RoomGenerator
             return floorVoxelsIndexList;
         }
 
-        private void InitializeNewItem(RoomElement item)
+        //TODO - Investigate if needed.
+        /*private void InitializeNewItem(RoomElement item)
         {
-            /*
             item.Volume.RecalculateVoxelsWorldSpace();
 
             int itemVoxelsLength = item.Voxels.Count;
@@ -151,7 +153,6 @@ namespace Assets.Scripts.RoomGenerator
 
                 acceptedItemVoxels.Add(itemVoxel.WorldPosition);
             }
-            */
-        }
+        }*/
     }
 }

@@ -13,12 +13,13 @@ namespace Assets.Scripts.DungeonGenerator.Elements
         public Vector3 generatorSize = new(1f, 1f, 1f);
         public Voxel voxelType;
         public float VoxelScale = 10f;
-        public List<Voxel> voxels = new();
-        public static bool DrawVolume = true;
         public GameObject voxelsContainer;
         public Bounds bounds;
-        public Color BoundsGizmoColor { get; } = Color.red;
-        public Color VoxelsGizmoColor { get; } = Color.blue;
+
+        public List<Voxel> Voxels { get; private set; } = new();
+        public Color BoundsGizmoColor = Color.red;
+        public Color VoxelsGizmoColor = Color.blue;
+        public static bool DrawVolume = true;
 
         [ContextMenu("Generate All")]
         public void GenerateAll()
@@ -28,23 +29,25 @@ namespace Assets.Scripts.DungeonGenerator.Elements
             RecalculateVoxelsWorldSpace();
         }
 
+        //TODO - Split into multiple methods
         [ContextMenu("Generate Voxel Grid")]
         public void GenerateVoxelGrid()
         {
-            if (voxels.Count > 0)
+            if (Voxels.Count > 0)
             {
-                voxels.ForEach(voxel => DestroyImmediate(voxel));
-                voxels.Clear();
+                Voxels.ForEach(voxel => DestroyImmediate(voxel));
+                Voxels.Clear();
             }
 
             if (voxelsContainer == null)
             {
                 voxelsContainer = new GameObject(VOXELS_CONTAINER_NAME);
                 voxelsContainer.transform.parent = transform;
+                voxelsContainer.transform.localPosition = Vector3.zero;
             }
 
             int totalVoxels = (int)(generatorSize.x * generatorSize.y * generatorSize.z);
-            voxels = new List<Voxel>(totalVoxels);
+            Voxels = new List<Voxel>(totalVoxels);
             for (int i = 0; i < generatorSize.x; i++)
             {
                 for (int j = 0; j < generatorSize.y; j++)
@@ -52,35 +55,32 @@ namespace Assets.Scripts.DungeonGenerator.Elements
                     for (int k = 0; k < generatorSize.z; k++)
                     {
                         Vector3 voxelPos = (new Vector3(i, j, k) * VoxelScale).RoundVec3ToInt();
-                        Voxel newVoxel = CreateNewVoxelGo(voxelPos);
-                        voxels.Add(newVoxel);
+                        Voxel newVoxel = CreateNewVoxelGameObject(voxelPos);
+                        Voxels.Add(newVoxel);
                     }
                 }
             }
         }
 
-        private Voxel CreateNewVoxelGo(Vector3 voxelPos)
+        private Voxel CreateNewVoxelGameObject(Vector3 voxelPos)
         {
-            Voxel newVoxel = Instantiate(voxelType);
-            
-            newVoxel.transform.position = voxelPos;
-            newVoxel.transform.parent = voxelsContainer.transform;
-
-            newVoxel.SetLocalPositionName();
-            newVoxel.WorldPosition = Vector3.positiveInfinity;
+            Voxel newVoxel = Instantiate(voxelType, voxelsContainer.transform);
+            newVoxel.transform.localPosition = voxelPos;
+            newVoxel.SetLocalPosition(voxelPos);
 
             return newVoxel;
         }
 
+        //TODO - Broken, fix it later.
         [ContextMenu("Recalculate Bounds")]
         public void RecalculateBounds()
         {
-            Vector3 initPosition = voxels[0].transform.position;
+            Vector3 initPosition = voxelsContainer.transform.position;
 
             Vector3 min, max;
             min = max = new Vector3(initPosition.x, initPosition.y, initPosition.z);
 
-            voxels.ForEach(voxel =>
+            Voxels.ForEach(voxel =>
             {
                 Vector3 position = voxel.transform.position;
 
@@ -98,10 +98,10 @@ namespace Assets.Scripts.DungeonGenerator.Elements
         [ContextMenu("Recalculate Voxels World Space")]
         public void RecalculateVoxelsWorldSpace()
         {
-            voxels.ForEach(voxel =>
+            Voxels.ForEach(voxel =>
             {
-                voxel.WorldPosition = voxel.transform.position.RoundVec3ToInt();
-                voxel.SetWorldPositionName(voxel.WorldPosition);
+                Vector3 worldPosition = transform.position + voxel.transform.localPosition;
+                voxel.SetWorldPosition(worldPosition);
             });
         }
 
@@ -114,12 +114,12 @@ namespace Assets.Scripts.DungeonGenerator.Elements
         //TODO: Investigate why this is needed
         public List<Vector3> GetTranslatedVoxels(Vector3 translation = default, Quaternion rotation = default)
         {
-            int voxelsCount = voxels.Count;
+            int voxelsCount = Voxels.Count;
             List<Vector3> translatedVoxels = new(voxelsCount);
 
             for (int i = 0; i < voxelsCount; i++)
             {
-                Vector3 newPosition = rotation * voxels[i].transform.position + translation;
+                Vector3 newPosition = rotation * Voxels[i].transform.position + translation;
                 translatedVoxels.Add(newPosition);
             }
 

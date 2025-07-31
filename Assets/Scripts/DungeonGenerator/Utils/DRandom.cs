@@ -2,6 +2,7 @@
 
 namespace Assets.Scripts.DungeonGenerator.Utils
 {
+    //TODO: make this a singleton
     public class DRandom
     {
         public int Seed { get; set; } = 0;
@@ -11,7 +12,7 @@ namespace Assets.Scripts.DungeonGenerator.Utils
         public void Init(int _seed = 0)
         {
             if (!init)
-            {                
+            {
                 init = true;
                 Seed = _seed;
                 random = new Random(Seed);
