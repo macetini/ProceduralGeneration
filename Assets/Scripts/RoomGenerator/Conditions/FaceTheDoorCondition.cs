@@ -13,7 +13,7 @@ namespace Assets.Scripts.RoomGenerator.Conditions
             HashSet<Vector3> doorsVoxelMap = blueprint.DoorsVoxelMap;
 
             Vector3 randomFloorVoxelPos = data.randomFloorVoxelPos;
-            Quaternion edgeRotation = EndPoint.GetRotation(data.endPointDirection);
+            //Quaternion edgeRotation = EndPoint.GetRotation(data.endPointDirection);
 
             float itemLength = owner.Volume.generatorSize.x;
             Vector3 horizontalEdgeOffset = EndPoint.GetRotation(data.endPointDirection) * new Vector3(itemLength, 0f, 0f);

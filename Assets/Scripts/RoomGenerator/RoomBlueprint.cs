@@ -11,9 +11,7 @@ namespace Assets.Scripts.RoomGenerator
         public RoomElement ceiling;
         public List<RoomElement> walls;
         public List<RoomElement> doors;
-
-        private HashSet<Vector3> wallsVoxelMap;
-        private HashSet<Vector3> doorsVoxelMap;
+        public List<RoomElement> windows;
 
         public Vector3[] FloorVoxelWorldPositions => floor.GetVoxelsWorldPositions();
         public Vector3[] WallsVoxelWorldPositions => walls.First().GetVoxelsWorldPositions();
@@ -56,19 +54,15 @@ namespace Assets.Scripts.RoomGenerator
         private void InitRoomElements()
         {
             int wallsCount = walls.Count;
-            //int doorsCount = doors.Count;
+            int doorsCount = doors.Count;
 
-            roomElements = new List<RoomElement>(wallsCount + 1)//(wallsCount + doorsCount + 1)
+            roomElements = new List<RoomElement>(wallsCount + doorsCount + 1)
             {
                 floor
             };
 
             roomElements.AddRange(walls);
-
-            /*for (int i = 0; i < doorsCount; i++)
-            {
-                roomElements.Add(doors[i]);
-            }*/
+            roomElements.AddRange(doors);
         }
 
         //TODO: Investigate why this is needed
@@ -101,13 +95,12 @@ namespace Assets.Scripts.RoomGenerator
 
         private void InitWallsVoxelMap()
         {
-            wallsVoxelMap = new HashSet<Vector3>();
-            //wallsVoxelGoMap = new Dictionary<Vector3, GameObject>();
+            WallsVoxelMap = new HashSet<Vector3>();            
 
             walls.ForEach(wall =>
             {
                 Vector3[] worldPositions = wall.GetVoxelsWorldPositions();
-                wallsVoxelMap.UnionWith(worldPositions);
+                WallsVoxelMap.UnionWith(worldPositions);
             });
 
             /*
@@ -133,12 +126,12 @@ namespace Assets.Scripts.RoomGenerator
 
         private void InitDoorsVoxelMap()
         {
-            doorsVoxelMap = new HashSet<Vector3>();
+            DoorsVoxelMap = new HashSet<Vector3>();
 
             doors.ForEach(door =>
             {
                 Vector3[] worldPositions = door.GetVoxelsWorldPositions();
-                doorsVoxelMap.UnionWith(worldPositions);
+                DoorsVoxelMap.UnionWith(worldPositions);
             });
 
 

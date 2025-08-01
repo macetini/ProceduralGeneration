@@ -44,8 +44,8 @@ namespace Assets.Scripts.RoomGenerator
                 throw new System.Exception(msg);
             }
 
-            //TODO - Remove this?
-            //roomItemPrefab.Init();
+            //TODO - This should not be here.
+            roomItemPrefab.InitConditionData();
 
             //TODO - Maybe there is a better way to check for undefined vector?
             Vector3 acceptedVoxelPosition = Vector3.positiveInfinity;

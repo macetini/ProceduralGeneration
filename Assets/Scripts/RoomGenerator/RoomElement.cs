@@ -11,7 +11,7 @@ namespace Assets.Scripts.RoomGenerator
         public new string name;
         public EndPoint endPoint;
         public List<GenerationCondition> generationConditions;
-        public Volume Volume { get; private set; }
+        public Volume Volume => GetComponent<Volume>();
 
         //TODO - Investigate why this is needed, and if it can be removed.
         //private List<Voxel> voxels;
@@ -26,19 +26,7 @@ namespace Assets.Scripts.RoomGenerator
             return worldPositions;
         }
 
-
-        private void Awake()
-        {
-            Volume = GetComponent<Volume>();
-        }
-
-        void Start()
-        {
-            //voxels = Volume.voxels;
-            InitConditionData();
-        }
-
-        private void InitConditionData()
+        public void InitConditionData()
         {
             generationConditions.ForEach(condition =>
             {
@@ -64,7 +52,7 @@ namespace Assets.Scripts.RoomGenerator
         }
         */
 
-        private void OnDrawGizmosSelected()
+        private void OnDrawGizmos()
         {
             if (endPoint == null || endPoint.directions == null) return;
 
@@ -81,7 +69,7 @@ namespace Assets.Scripts.RoomGenerator
                 Gizmos.DrawLine(endPointPosition, endPointPosition + directionRotation * Vector3.forward);
             }
 
-            Gizmos.color = Color.cyan;
+            Gizmos.color = Color.white;
             Gizmos.DrawSphere(endPointPosition, 0.1f);
         }
     }

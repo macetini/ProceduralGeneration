@@ -11,12 +11,11 @@ namespace Assets.Scripts.DungeonGenerator.Elements
         private const string VOXELS_CONTAINER_NAME = "Voxels";
 
         public Vector3 generatorSize = new(1f, 1f, 1f);
-        public Voxel voxelType;
+        public Voxel voxelPrefab;
         public float VoxelScale = 10f;
-        public GameObject voxelsContainer;
+        public List<Voxel> Voxels = new();
+        public GameObject voxelsContainer;        
         public Bounds bounds;
-
-        public List<Voxel> Voxels { get; private set; } = new();
         public Color BoundsGizmoColor = Color.red;
         public Color VoxelsGizmoColor = Color.blue;
         public static bool DrawVolume = true;
@@ -64,7 +63,7 @@ namespace Assets.Scripts.DungeonGenerator.Elements
 
         private Voxel CreateNewVoxelGameObject(Vector3 voxelPos)
         {
-            Voxel newVoxel = Instantiate(voxelType, voxelsContainer.transform);
+            Voxel newVoxel = Instantiate(voxelPrefab, voxelsContainer.transform);
             newVoxel.transform.localPosition = voxelPos;
             newVoxel.SetLocalPosition(voxelPos);
 

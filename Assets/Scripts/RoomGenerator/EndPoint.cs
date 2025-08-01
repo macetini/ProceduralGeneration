@@ -10,7 +10,7 @@ namespace Assets.Scripts.RoomGenerator
         public Voxel voxelOwner;
 
         public static Dictionary<DirectionType, Color> directionColors = new() {
-        { DirectionType.FORWARD, Color.blue },
+        { DirectionType.FORWARD, Color.cyan },
         { DirectionType.LEFT, Color.yellow },
         { DirectionType.DOWN, Color.red },
         { DirectionType.RIGHT, Color.green },
