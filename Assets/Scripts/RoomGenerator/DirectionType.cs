@@ -1,10 +1,10 @@
 ﻿namespace Assets.Scripts.RoomGenerator
 {
-    public enum DirectionType
+    public enum RotationType
     {
-        FORWARD = 0,
-        RIGHT = 90,
-        DOWN = 180,
-        LEFT = 270
+        DEGREES_0 = 0,
+        DEGREES_90 = 90,
+        DEGREES_180 = 180,
+        DEGREES_270 = 270
     }
 }

@@ -6,24 +6,25 @@ namespace Assets.Scripts.RoomGenerator
 {
     public class EndPoint : MonoBehaviour
     {
-        public List<DirectionType> directions = new List<DirectionType>();
-        public Voxel voxelOwner;
+        public List<RotationType> Rotations = new();
+        public Voxel VoxelOwner;
 
-        public static Dictionary<DirectionType, Color> directionColors = new() {
-        { DirectionType.FORWARD, Color.cyan },
-        { DirectionType.LEFT, Color.yellow },
-        { DirectionType.DOWN, Color.red },
-        { DirectionType.RIGHT, Color.green },
-    };
+        public static Dictionary<RotationType, Color> RotationColors = new()
+        {
+            { RotationType.DEGREES_0, Color.magenta },
+            { RotationType.DEGREES_90, Color.yellow },
+            { RotationType.DEGREES_180, Color.red },
+            { RotationType.DEGREES_270, Color.green }
+        };
 
-        public static Quaternion GetRotation(DirectionType direction)
+        public static Quaternion GetRotation(RotationType direction)
         {
             return Quaternion.AngleAxis((float)direction, Vector3.up);
         }
 
-        public static Color GetDirectionColor(DirectionType direction)
+        public static Color GetRotationColor(RotationType rotation)
         {
-            return directionColors[direction];
+            return RotationColors[rotation];
         }
     }
 }

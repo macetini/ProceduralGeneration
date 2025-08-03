@@ -54,19 +54,19 @@ namespace Assets.Scripts.RoomGenerator
 
         private void OnDrawGizmos()
         {
-            if (endPoint == null || endPoint.directions == null) return;
+            if (endPoint == null || endPoint.Rotations == null) return;
 
             Vector3 endPointPosition = endPoint.transform.position;
 
-            int directionsCount = endPoint.directions.Count;
-            for (int i = 0; i < directionsCount; i++)
+            int rotationsCount = endPoint.Rotations.Count;
+            for (int i = 0; i < rotationsCount; i++)
             {
-                DirectionType direction = endPoint.directions[i];
+                RotationType rotationType = endPoint.Rotations[i];
 
-                Gizmos.color = EndPoint.GetDirectionColor(direction);
-                Quaternion directionRotation = EndPoint.GetRotation(direction) * transform.rotation;
+                Gizmos.color = EndPoint.GetRotationColor(rotationType);
+                Quaternion rotationMatrix = EndPoint.GetRotation(rotationType) * transform.rotation;
 
-                Gizmos.DrawLine(endPointPosition, endPointPosition + directionRotation * Vector3.forward);
+                Gizmos.DrawLine(endPointPosition, endPointPosition + rotationMatrix * Vector3.forward);
             }
 
             Gizmos.color = Color.white;

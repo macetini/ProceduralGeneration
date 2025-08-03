@@ -24,7 +24,7 @@ namespace Assets.Scripts.DungeonGenerator.Utils
             for (var i = 0; i < list.Count; i++)
             {
                 list.Swap(i, rnd.Next(i, list.Count));
-            }
+            }            
         }
 
         public static void Swap<T>(this IList<T> list, int i, int j)

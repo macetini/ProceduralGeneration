@@ -14,7 +14,7 @@ namespace Assets.Scripts.RoomGenerator
         public List<RoomElement> windows;
 
         public Vector3[] FloorVoxelWorldPositions => floor.GetVoxelsWorldPositions();
-        public Vector3[] WallsVoxelWorldPositions => walls.First().GetVoxelsWorldPositions();
+        //public Vector3[] WallsVoxelWorldPositions => walls.First().GetVoxelsWorldPositions();
 
         public HashSet<Vector3> WallsVoxelMap { get; private set; }
         public HashSet<Vector3> DoorsVoxelMap { get; private set; }
@@ -33,14 +33,14 @@ namespace Assets.Scripts.RoomGenerator
 
         private void Start()
         {
-            Init();
+            //Init();
         }
 
-        protected void Init()
+        public void InitVoxelMaps()
         {
             //RecalculateAll();
             InitWallsVoxelMap();
-            InitDoorsVoxelMap();
+            //InitDoorsVoxelMap();
         }
 
         [ContextMenu("Recalculate All")]
@@ -95,33 +95,38 @@ namespace Assets.Scripts.RoomGenerator
 
         private void InitWallsVoxelMap()
         {
-            WallsVoxelMap = new HashSet<Vector3>();            
+            WallsVoxelMap = GetVoxelMap(walls);
 
-            walls.ForEach(wall =>
+            /*foreach (var (wall, index) in walls.Select((wall, index) => (wall, index)))
             {
+                if (wall == null)
+                {
+                    Debug.Log("Wall '" + index + "' is not set. Skipping it from the voxels map.");
+                    continue;
+                }
+
                 Vector3[] worldPositions = wall.GetVoxelsWorldPositions();
                 WallsVoxelMap.UnionWith(worldPositions);
-            });
+            }*/
+        }
 
-            /*
-            int wallsCount = walls.Count;
-            for (int i = 0; i < wallsCount; i++)
+        private static HashSet<Vector3> GetVoxelMap(List<RoomElement> roomElements)
+        {
+            HashSet<Vector3> voxelMap = new();
+
+            foreach (var (roomElement, index) in roomElements.Select((roomElement, index) => (roomElement, index)))
             {
-                RoomElement wall = walls[i];
-
-                Voxel[] wallVoxels = wall.Voxels;
-                //GameObject[] wallVoxelGOs = wall.VoxelGOs;
-
-                int wallsVoxelLength = wallVoxels.Length;
-                for (int j = 0; j < wallsVoxelLength; j++)
+                if (roomElement == null)
                 {
-                    Vector3 voxelWorldPosition = wallVoxels[j].WorldPosition;
-
-                    wallsVoxelMap.Add(voxelWorldPosition);
-                    //wallsVoxelGoMap.Add(voxelWorldPosition, wallVoxelGOs[j]);
+                    Debug.Log("Room element at Index: '" + index + "' is not set. Skipping it from the voxels map.");
+                    continue;
                 }
+
+                Vector3[] worldPositions = roomElement.GetVoxelsWorldPositions();
+                voxelMap.UnionWith(worldPositions);
             }
-            */
+
+            return voxelMap;
         }
 
         private void InitDoorsVoxelMap()

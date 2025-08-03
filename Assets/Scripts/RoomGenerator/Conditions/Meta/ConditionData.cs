@@ -11,12 +11,12 @@ namespace Assets.Scripts.RoomGenerator.Conditions.Meta
         shouldNot = 3
     }
     
-    public struct ConditionData
+    public class ConditionData
     {
         public RoomBlueprint blueprint;
         public RoomElement roomItemPrefab;
-        public Vector3 randomFloorVoxelPos;
+        public Vector3 randomFloorVoxelPosition;
         public HashSet<Vector3> takenVoxels;
-        public DirectionType endPointDirection;
+        public RotationType endPointRotation;
     }
 }

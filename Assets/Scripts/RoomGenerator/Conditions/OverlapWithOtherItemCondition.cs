@@ -14,14 +14,14 @@ namespace Assets.Scripts.RoomGenerator.Conditions
 
             HashSet<Vector3> takenVoxelsMap = data.takenVoxels;
 
-            Quaternion rotation = Quaternion.AngleAxis((float)data.endPointDirection, Vector3.up);
+            Quaternion rotation = Quaternion.AngleAxis((float)data.endPointRotation, Vector3.up);
 
             float edgeLength = owner.Volume.generatorSize.z;
             for (float i = 0; i < edgeLength; i++)
             {
                 Vector3 edgeOffset = rotation * new Vector3(0f, 0f, i);
 
-                Vector3 wallVoxelPosition = data.randomFloorVoxelPos + edgeOffset;
+                Vector3 wallVoxelPosition = data.randomFloorVoxelPosition + edgeOffset;
 
                 if (takenVoxelsMap.Contains(wallVoxelPosition.RoundVec3ToInt()))
                 {
