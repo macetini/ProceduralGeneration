@@ -11,10 +11,10 @@ namespace Assets.Scripts.RoomGenerator
 
         public static Dictionary<RotationType, Color> RotationColors = new()
         {
-            { RotationType.DEGREES_0, Color.magenta },
-            { RotationType.DEGREES_90, Color.yellow },
-            { RotationType.DEGREES_180, Color.red },
-            { RotationType.DEGREES_270, Color.green }
+            { RotationType.DEGREES_0, Color.white },
+            { RotationType.DEGREES_90, Color.red },
+            { RotationType.DEGREES_180, Color.green },
+            { RotationType.DEGREES_270, Color.blue }
         };
 
         public static Quaternion GetRotation(RotationType direction)

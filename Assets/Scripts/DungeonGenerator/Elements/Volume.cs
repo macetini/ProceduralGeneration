@@ -14,7 +14,7 @@ namespace Assets.Scripts.DungeonGenerator.Elements
         public Voxel voxelPrefab;
         public float VoxelScale = 10f;
         public List<Voxel> Voxels = new();
-        public GameObject voxelsContainer;        
+        public GameObject voxelsContainer;
         public Bounds bounds;
         public Color BoundsGizmoColor = Color.red;
         public Color VoxelsGizmoColor = Color.blue;
@@ -92,14 +92,16 @@ namespace Assets.Scripts.DungeonGenerator.Elements
 
             bounds = new Bounds((min + max) * 0.5f, max + size - (min - size));
         }
-
-        //TODO: Investigate why this is needed
+        
         [ContextMenu("Recalculate Voxels World Space")]
         public void RecalculateVoxelsWorldSpace()
         {
             Voxels.ForEach(voxel =>
             {
-                Vector3 worldPosition = transform.position + voxel.transform.localPosition;
+                Quaternion rotation = Quaternion.Euler(transform.localEulerAngles);
+                Vector3 worldPosition = rotation * (transform.position + voxel.transform.localPosition);
+
+                worldPosition = worldPosition.RoundVec3ToInt(); 
                 voxel.SetWorldPosition(worldPosition);
             });
         }

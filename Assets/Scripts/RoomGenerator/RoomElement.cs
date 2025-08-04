@@ -13,8 +13,7 @@ namespace Assets.Scripts.RoomGenerator
         public List<GenerationCondition> generationConditions;
         public Volume Volume => GetComponent<Volume>();
 
-        //TODO - Investigate why this is needed, and if it can be removed.
-        //private List<Voxel> voxels;
+        //public List<Voxel> Voxels => Volume.Voxels;
 
         public Vector3[] GetVoxelsWorldPositions()
         {
@@ -29,8 +28,7 @@ namespace Assets.Scripts.RoomGenerator
         public void InitConditionData()
         {
             generationConditions.ForEach(condition =>
-            {
-                //condition.Init();
+            {                
                 condition.SetOwner(this);
             });
         }

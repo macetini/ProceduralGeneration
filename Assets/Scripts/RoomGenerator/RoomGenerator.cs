@@ -11,7 +11,7 @@ namespace Assets.Scripts.RoomGenerator
     {
         private const int INFINITE_LOOP_CHECK_MAX_COUNT = 100000;
 
-        private readonly HashSet<Vector3> acceptedItemVoxels = new();
+        private readonly HashSet<Vector3> acceptedVoxelWorldPositions = new();
 
         private DRandom random;
         public RoomBlueprint blueprint;
@@ -57,7 +57,7 @@ namespace Assets.Scripts.RoomGenerator
                 endPointRotation = RotationType.DEGREES_0,
                 blueprint = blueprint,
                 roomItemPrefab = roomItemPrefab,
-                takenVoxels = acceptedItemVoxels
+                takenVoxels = acceptedVoxelWorldPositions
             };
 
             //TODO - refactor into multiple methods
@@ -129,9 +129,20 @@ namespace Assets.Scripts.RoomGenerator
                 Debug.Log("RoomGenerator:: Room Item accepted: " + acceptedVoxelPosition + " | " + conditionData.endPointRotation);
             }
 
-            RoomElement item = Instantiate(roomItemPrefab, gameObject.transform);
-            item.transform.SetPositionAndRotation(
-                acceptedVoxelPosition, Quaternion.AngleAxis((float)conditionData.endPointRotation, Vector3.up));
+            AcceptNewRoomItem(roomItemPrefab, conditionData);
+        }
+
+        private void AcceptNewRoomItem(RoomElement prefab, ConditionData conditionData)
+        {
+            RoomElement newRoom = Instantiate(prefab, transform);
+
+            newRoom.transform.SetPositionAndRotation(
+                conditionData.randomFloorVoxelPosition,
+                Quaternion.AngleAxis((float)conditionData.endPointRotation, Vector3.up));
+
+            newRoom.Volume.RecalculateVoxelsWorldSpace();
+
+            acceptedVoxelWorldPositions.UnionWith(newRoom.GetVoxelsWorldPositions());
         }
 
         private static List<int> GetFloorVoxelsIndexList(List<Voxel> floorVoxels)
@@ -145,22 +156,5 @@ namespace Assets.Scripts.RoomGenerator
 
             return floorVoxelsIndexList;
         }
-
-        //TODO - Investigate if needed.
-        /*private void InitializeNewItem(RoomElement item)
-        {
-            item.Volume.RecalculateVoxelsWorldSpace();
-
-            int itemVoxelsLength = item.Voxels.Count;
-            for (int i = 0; i < itemVoxelsLength; i++)
-            {
-                Voxel itemVoxel = item.Voxels[i];
-
-                GameObject itemGO = item.VoxelGOs[i];
-                Voxel.SetGameObjectName(itemGO, itemVoxel.WorldPosition);
-
-                acceptedItemVoxels.Add(itemVoxel.WorldPosition);
-            }
-        }*/
     }
 }
