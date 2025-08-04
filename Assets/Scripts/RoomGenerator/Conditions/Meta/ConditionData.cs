@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.RoomGenerator.Points.Meta;
 using UnityEngine;
 
 namespace Assets.Scripts.RoomGenerator.Conditions.Meta
@@ -17,6 +18,6 @@ namespace Assets.Scripts.RoomGenerator.Conditions.Meta
         public RoomElement roomItemPrefab;
         public Vector3 randomFloorVoxelPosition;
         public HashSet<Vector3> takenVoxels;
-        public RotationType endPointRotation;
+        public RotationData endPointRotation;
     }
 }

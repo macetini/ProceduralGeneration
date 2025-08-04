@@ -3,15 +3,12 @@ using Assets.Scripts.DungeonGenerator.Utils;
 using Assets.Scripts.RoomGenerator.Conditions.Meta;
 using UnityEngine;
 
-namespace Assets.Scripts.RoomGenerator.Conditions
+namespace Assets.Scripts.RoomGenerator.Conditions.Derived
 {
     public class OverlapWithWallCondition : GenerationCondition
     {
         public override bool Test(ConditionData data)
         {
-            //EndPoint endPoint = owner.endPoint;
-            //Vector3 pointDir = endPoint.transform.forward;
-
             HashSet<Vector3> wallVoxelsMap = data.blueprint.WallsVoxelMap;
 
             Quaternion rotation = Quaternion.AngleAxis((float)data.endPointRotation, Vector3.up);

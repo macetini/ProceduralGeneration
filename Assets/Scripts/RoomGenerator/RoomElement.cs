@@ -3,6 +3,8 @@ using Assets.Scripts.DungeonGenerator.VoxelData;
 using Assets.Scripts.DungeonGenerator.Elements;
 using Assets.Scripts.RoomGenerator.Conditions;
 using UnityEngine;
+using Assets.Scripts.RoomGenerator.Points;
+using Assets.Scripts.RoomGenerator.Points.Meta;
 
 namespace Assets.Scripts.RoomGenerator
 {
@@ -12,8 +14,6 @@ namespace Assets.Scripts.RoomGenerator
         public EndPoint endPoint;
         public List<GenerationCondition> generationConditions;
         public Volume Volume => GetComponent<Volume>();
-
-        //public List<Voxel> Voxels => Volume.Voxels;
 
         public Vector3[] GetVoxelsWorldPositions()
         {
@@ -28,27 +28,10 @@ namespace Assets.Scripts.RoomGenerator
         public void InitConditionData()
         {
             generationConditions.ForEach(condition =>
-            {                
+            {
                 condition.SetOwner(this);
             });
         }
-
-        //TODO - Investigate why this is needed, and if it can be removed.
-        /*
-        public Vector3[] GetOffsetVoxelPositions(Vector3 offset)
-        {
-            int voxelsCount = voxels.Count;
-            Vector3[] offsetPositions = new Vector3[voxelsCount];
-            for (int i = 0; i < voxelsCount; i++)
-            {
-                Voxel voxel = voxels[i];
-                Vector3 offsetPosition = voxel.transform.localPosition + offset;
-                offsetPositions[i] = offsetPosition.RoundVec3ToInt();
-            }
-
-            return offsetPositions;
-        }
-        */
 
         private void OnDrawGizmos()
         {
@@ -59,10 +42,10 @@ namespace Assets.Scripts.RoomGenerator
             int rotationsCount = endPoint.Rotations.Count;
             for (int i = 0; i < rotationsCount; i++)
             {
-                RotationType rotationType = endPoint.Rotations[i];
+                RotationData RotationData = endPoint.Rotations[i];
 
-                Gizmos.color = EndPoint.GetRotationColor(rotationType);
-                Quaternion rotationMatrix = EndPoint.GetRotation(rotationType) * transform.rotation;
+                Gizmos.color = EndPoint.GetRotationColor(RotationData);
+                Quaternion rotationMatrix = EndPoint.GetRotation(RotationData) * transform.rotation;
 
                 Gizmos.DrawLine(endPointPosition, endPointPosition + rotationMatrix * Vector3.forward);
             }

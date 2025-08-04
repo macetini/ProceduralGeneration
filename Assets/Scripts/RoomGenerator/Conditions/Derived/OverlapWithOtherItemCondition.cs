@@ -3,7 +3,7 @@ using Assets.Scripts.DungeonGenerator.Utils;
 using Assets.Scripts.RoomGenerator.Conditions.Meta;
 using UnityEngine;
 
-namespace Assets.Scripts.RoomGenerator.Conditions
+namespace Assets.Scripts.RoomGenerator.Conditions.Derived
 {
     public class OverlapWithOtherItemCondition : GenerationCondition
     {

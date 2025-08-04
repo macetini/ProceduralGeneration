@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.DungeonGenerator.Utils;
 using Assets.Scripts.RoomGenerator.Conditions.Meta;
+using Assets.Scripts.RoomGenerator.Points;
 using UnityEngine;
 
-namespace Assets.Scripts.RoomGenerator.Conditions
+namespace Assets.Scripts.RoomGenerator.Conditions.Derived
 {
-    //BROKEN!!
-    public class FaceTheWallCondition : GenerationCondition
+    public class FaceTheDoorCondition : GenerationCondition
     {
         public override bool Test(ConditionData data)
         {
             RoomBlueprint blueprint = data.blueprint;
-            HashSet<Vector3> wallsVoxelMap = blueprint.WallsVoxelMap;
+            HashSet<Vector3> doorsVoxelMap = blueprint.DoorsVoxelMap;
 
-            Vector3 randomFloorVoxelPosition = data.randomFloorVoxelPosition;
+            Vector3 randomFloorVoxelPos = data.randomFloorVoxelPosition;
             //Quaternion edgeRotation = EndPoint.GetRotation(data.endPointDirection);
 
             float itemLength = owner.Volume.generatorSize.x;
@@ -24,14 +24,14 @@ namespace Assets.Scripts.RoomGenerator.Conditions
             {
                 Vector3 verticalEdgeOffset = EndPoint.GetRotation(data.endPointRotation) * new Vector3(0f, 0f, i);
 
-                Vector3 wallVoxelPosition = randomFloorVoxelPosition + horizontalEdgeOffset + verticalEdgeOffset;
-                wallVoxelPosition = wallVoxelPosition.RoundVec3ToInt();
+                Vector3 doorVoxelPosition = randomFloorVoxelPos + horizontalEdgeOffset + verticalEdgeOffset;
+                doorVoxelPosition = doorVoxelPosition.RoundVec3ToInt();
 
-                if (wallsVoxelMap.Contains(wallVoxelPosition))
+                if (doorsVoxelMap.Contains(doorVoxelPosition))
                 {
-                    /*GameObject wallVoxelGO = data.blueprint.GetWallVoxelGO(wallVoxelPosition);
+                    /*GameObject doorVoxelGO = data.blueprint.GetDoorVoxelGO(doorVoxelPosition);
 
-                    Vector3 directionsDifference = horizontalEdgeOffset + wallVoxelGO.transform.right;
+                    Vector3 directionsDifference = horizontalEdgeOffset + doorVoxelGO.transform.right;
 
                     if (directionsDifference == Vector3.zero)
                     {

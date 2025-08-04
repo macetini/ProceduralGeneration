@@ -3,6 +3,7 @@ using Assets.Scripts.DungeonGenerator.Utils;
 using Assets.Scripts.RoomGenerator.Conditions;
 using UnityEngine;
 using Assets.Scripts.RoomGenerator.Conditions.Meta;
+using Assets.Scripts.RoomGenerator.Points.Meta;
 
 namespace Assets.Scripts.RoomGenerator
 {
@@ -53,7 +54,7 @@ namespace Assets.Scripts.RoomGenerator
             //TODO - Put in separate method.
             ConditionData conditionData = new()
             {
-                endPointRotation = RotationType.DEGREES_0,
+                endPointRotation = RotationData.DEGREES_0,
                 blueprint = blueprint,
                 roomItemPrefab = roomItemPrefab,
                 takenVoxels = acceptedVoxelWorldPositions
@@ -75,7 +76,7 @@ namespace Assets.Scripts.RoomGenerator
                 Debug.Log("RoomGenerator:: Random floor voxel position: " + randomFloorVoxelPosition);
 
                 conditionData.randomFloorVoxelPosition = randomFloorVoxelPosition;
-                conditionData.endPointRotation = RotationType.DEGREES_0;
+                conditionData.endPointRotation = RotationData.DEGREES_0;
 
                 if (roomItemPrefab.generationConditions == null || roomItemPrefab.generationConditions.Count == 0)
                 {
@@ -88,7 +89,7 @@ namespace Assets.Scripts.RoomGenerator
 
                 int endPointIndex = 0;
                 int endPointsCount = roomItemPrefab.endPoint.Rotations.Count;
-                List<RotationType> endPointRotations = roomItemPrefab.endPoint.Rotations;
+                List<RotationData> endPointRotations = roomItemPrefab.endPoint.Rotations;
 
                 bool testPassed = false;
                 do

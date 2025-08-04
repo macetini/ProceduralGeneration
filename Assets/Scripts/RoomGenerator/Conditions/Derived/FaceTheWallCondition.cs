@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.DungeonGenerator.Utils;
 using Assets.Scripts.RoomGenerator.Conditions.Meta;
+using Assets.Scripts.RoomGenerator.Points;
 using UnityEngine;
 
-namespace Assets.Scripts.RoomGenerator.Conditions
-{
-    public class FaceTheDoorCondition : GenerationCondition
+namespace Assets.Scripts.RoomGenerator.Conditions.Derived
+{   
+    public class FaceTheWallCondition : GenerationCondition
     {
         public override bool Test(ConditionData data)
         {
             RoomBlueprint blueprint = data.blueprint;
-            HashSet<Vector3> doorsVoxelMap = blueprint.DoorsVoxelMap;
+            HashSet<Vector3> wallsVoxelMap = blueprint.WallsVoxelMap;
 
-            Vector3 randomFloorVoxelPos = data.randomFloorVoxelPosition;
+            Vector3 randomFloorVoxelPosition = data.randomFloorVoxelPosition;
             //Quaternion edgeRotation = EndPoint.GetRotation(data.endPointDirection);
 
             float itemLength = owner.Volume.generatorSize.x;
@@ -23,14 +24,14 @@ namespace Assets.Scripts.RoomGenerator.Conditions
             {
                 Vector3 verticalEdgeOffset = EndPoint.GetRotation(data.endPointRotation) * new Vector3(0f, 0f, i);
 
-                Vector3 doorVoxelPosition = randomFloorVoxelPos + horizontalEdgeOffset + verticalEdgeOffset;
-                doorVoxelPosition = doorVoxelPosition.RoundVec3ToInt();
+                Vector3 wallVoxelPosition = randomFloorVoxelPosition + horizontalEdgeOffset + verticalEdgeOffset;
+                wallVoxelPosition = wallVoxelPosition.RoundVec3ToInt();
 
-                if (doorsVoxelMap.Contains(doorVoxelPosition))
+                if (wallsVoxelMap.Contains(wallVoxelPosition))
                 {
-                    /*GameObject doorVoxelGO = data.blueprint.GetDoorVoxelGO(doorVoxelPosition);
+                    /*GameObject wallVoxelGO = data.blueprint.GetWallVoxelGO(wallVoxelPosition);
 
-                    Vector3 directionsDifference = horizontalEdgeOffset + doorVoxelGO.transform.right;
+                    Vector3 directionsDifference = horizontalEdgeOffset + wallVoxelGO.transform.right;
 
                     if (directionsDifference == Vector3.zero)
                     {

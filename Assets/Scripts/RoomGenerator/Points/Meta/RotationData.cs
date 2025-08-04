@@ -1,6 +1,6 @@
-﻿namespace Assets.Scripts.RoomGenerator
+﻿namespace Assets.Scripts.RoomGenerator.Points.Meta
 {
-    public enum RotationType
+    public enum RotationData
     {
         DEGREES_0 = 0,
         DEGREES_90 = 90,
