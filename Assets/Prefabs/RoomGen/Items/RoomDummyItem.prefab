@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 5004448315798005071}
   - component: {fileID: 1194300867970216838}
   m_Layer: 0
-  m_Name: RoomItem
+  m_Name: RoomDummyItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -356,7 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cbf8a55ac40ed34a9cbe512e9d8e0c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rotations: 000000005a000000b4000000
+  Rotations: 000000005a000000b40000000e010000
   VoxelOwner: {fileID: 0}
 --- !u!1 &4842920734500519652
 GameObject:

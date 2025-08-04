@@ -14,15 +14,17 @@ namespace Assets.Scripts.RoomGenerator
         private readonly HashSet<Vector3> acceptedVoxelWorldPositions = new();
 
         private DRandom random;
-        public RoomBlueprint blueprint;
-        public RoomElement roomItemPrefab; //TODO - This should be in Blueprint
+        public RoomBlueprint BlueprintPrefab;
+        public RoomElement RoomItemPrefab; //TODO - This should be in Blueprint
+
+        private RoomBlueprint blueprint;
 
         private void Start()
         {
             random = new DRandom();
             random.Init(Random.Range(0, int.MaxValue));
 
-            Instantiate(blueprint); //TODO - HAS TO BE OPTIMIZED.
+            blueprint = Instantiate(BlueprintPrefab); //TODO - HAS TO BE OPTIMIZED.
         }
 
         private void Update()
@@ -36,7 +38,7 @@ namespace Assets.Scripts.RoomGenerator
         //TODO - refactor into multiple methods
         void PositionRoomItemOnFloor()
         {
-            Vector3[] floorVoxelPositions = blueprint.FloorVoxelWorldPositions;
+            Vector3[] floorVoxelPositions = blueprint.FloorVoxelsWorldPositions;
             int voxelPositionsCount = floorVoxelPositions.Length - 1;
             if (voxelPositionsCount <= 0)
             {
@@ -45,20 +47,20 @@ namespace Assets.Scripts.RoomGenerator
             }
 
             //TODO - This should not be here, organize it better.
-            roomItemPrefab.InitConditionData();
-            blueprint.InitVoxelMaps();
+            RoomItemPrefab.InitConditionData();
+            blueprint.Init();
 
             //TODO - Maybe there is a better way to check for undefined vector?
             Vector3 acceptedVoxelPosition = Vector3.positiveInfinity;
 
             //TODO - Put in separate method.
-            ConditionData conditionData = new()
-            {
-                endPointRotation = RotationData.DEGREES_0,
-                blueprint = blueprint,
-                roomItemPrefab = roomItemPrefab,
-                takenVoxels = acceptedVoxelWorldPositions
-            };
+            //TODO - Using Struct instead of class, so not to mess up the prefabs (check if it is true).
+            ConditionData conditionData;
+
+            conditionData.endPointRotation = RotationData.DEGREES_0;
+            conditionData.blueprint = blueprint;
+            conditionData.roomItemPrefab = RoomItemPrefab;
+            conditionData.takenVoxels = acceptedVoxelWorldPositions;
 
             //TODO - refactor into multiple methods
             int infiniteLoopCheckCountOuter = 0;
@@ -78,44 +80,35 @@ namespace Assets.Scripts.RoomGenerator
                 conditionData.randomFloorVoxelPosition = randomFloorVoxelPosition;
                 conditionData.endPointRotation = RotationData.DEGREES_0;
 
-                if (roomItemPrefab.generationConditions == null || roomItemPrefab.generationConditions.Count == 0)
+                if (RoomItemPrefab.generationConditions == null || RoomItemPrefab.generationConditions.Count == 0)
                 {
                     Debug.LogWarning("RoomGenerator:: Room Item has no generation conditions. First random Voxel accepted.");
                     acceptedVoxelPosition = randomFloorVoxelPosition;
                     break;
                 }
 
-                int infiniteLoopCheckCountInner = 0;
-
-                int endPointIndex = 0;
-                int endPointsCount = roomItemPrefab.endPoint.Rotations.Count;
-                List<RotationData> endPointRotations = roomItemPrefab.endPoint.Rotations;
+                List<RotationData> endPointRotations = RoomItemPrefab.endPoint.Rotations;
+                endPointRotations.Shuffle(random.random);
 
                 bool testPassed = false;
-                do
+                foreach (RotationData endPointRotation in endPointRotations)
                 {
-                    if (infiniteLoopCheckCountInner++ > INFINITE_LOOP_CHECK_MAX_COUNT)
-                    {
-                        throw new System.Exception("RoomGenerator:: Room Item condition Tests take too long. - Possible infinite loop.");
-                    }
+                    testPassed = false;
+                    conditionData.endPointRotation = endPointRotation;
 
-                    //TODO - Add shuffle.
-                    conditionData.endPointRotation = endPointRotations[endPointIndex];
-
-                    List<GenerationCondition> generationConditions = roomItemPrefab.generationConditions;
-                    foreach (GenerationCondition condition in generationConditions)
+                    foreach (GenerationCondition condition in RoomItemPrefab.generationConditions)
                     {
                         testPassed = condition.Test(conditionData);
                         if (!testPassed) break;
                     }
 
-                    if (!testPassed) endPointIndex++;
+                    if (testPassed) break;
+                }
 
-                } while (!testPassed && endPointIndex < endPointsCount);
-
-                if (!testPassed) continue;
-
-                acceptedVoxelPosition = randomFloorVoxelPosition;
+                if (testPassed)
+                {
+                    acceptedVoxelPosition = randomFloorVoxelPosition;
+                }
             }
             while (acceptedVoxelPosition.Equals(Vector3.positiveInfinity) && voxelPositionsCount > 0);
 
@@ -129,12 +122,12 @@ namespace Assets.Scripts.RoomGenerator
                 Debug.Log("RoomGenerator:: Room Item accepted: " + acceptedVoxelPosition + " | " + conditionData.endPointRotation);
             }
 
-            AcceptNewRoomItem(roomItemPrefab, conditionData);
+            AcceptNewRoomItem(RoomItemPrefab, conditionData);
         }
 
         private void AcceptNewRoomItem(RoomElement prefab, ConditionData conditionData)
         {
-            RoomElement newRoom = Instantiate(prefab, transform);
+            RoomElement newRoom = Instantiate(prefab, blueprint.transform);
 
             newRoom.transform.SetPositionAndRotation(
                 conditionData.randomFloorVoxelPosition,

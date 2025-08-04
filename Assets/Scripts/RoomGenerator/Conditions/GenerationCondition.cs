@@ -3,12 +3,10 @@ using UnityEngine;
 
 namespace Assets.Scripts.RoomGenerator.Conditions
 {
-    //TODO - Switch this to interface
+    //TODO - Switch to interface.
     public abstract class GenerationCondition : MonoBehaviour
     {
-        public ConditionType type;
-
-        protected RoomElement owner;
+        public RoomElement owner;
 
         public void SetOwner(RoomElement owner) => this.owner = owner;
 
