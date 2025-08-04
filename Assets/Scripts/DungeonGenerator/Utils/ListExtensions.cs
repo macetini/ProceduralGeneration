@@ -19,12 +19,15 @@ namespace Assets.Scripts.DungeonGenerator.Utils
             return clonedList;
         }
 
-        public static void Shuffle<T>(this IList<T> list, Random rnd)
+        //TODO - Check all shuffled list with set random seed. Maybe new seed every time is better?
+        public static void Shuffle<T>(this IList<T> list, Random rnd = null)
         {
+            rnd ??= new Random();
+
             for (var i = 0; i < list.Count; i++)
             {
                 list.Swap(i, rnd.Next(i, list.Count));
-            }            
+            }
         }
 
         public static void Swap<T>(this IList<T> list, int i, int j)

@@ -4,6 +4,7 @@ using Assets.Scripts.RoomGenerator.Conditions;
 using UnityEngine;
 using Assets.Scripts.RoomGenerator.Conditions.Meta;
 using Assets.Scripts.RoomGenerator.Points.Meta;
+using System.Linq;
 
 namespace Assets.Scripts.RoomGenerator
 {
@@ -38,9 +39,8 @@ namespace Assets.Scripts.RoomGenerator
         //TODO - refactor into multiple methods
         void PositionRoomItemOnFloor()
         {
-            Vector3[] floorVoxelPositions = blueprint.FloorVoxelsWorldPositions;
-            int voxelPositionsCount = floorVoxelPositions.Length - 1;
-            if (voxelPositionsCount <= 0)
+            Vector3[] floorVoxelsWorldPositions = blueprint.FloorVoxelsWorldPositions;
+            if (floorVoxelsWorldPositions.Length == 0)
             {
                 string msg = "RoomGenerator:: Room has no floor voxels. Room name: " + blueprint.name;
                 throw new System.Exception(msg);
@@ -50,35 +50,27 @@ namespace Assets.Scripts.RoomGenerator
             RoomItemPrefab.InitConditionData();
             blueprint.Init();
 
-            //TODO - Maybe there is a better way to check for undefined vector?
-            Vector3 acceptedVoxelPosition = Vector3.positiveInfinity;
-
-            //TODO - Put in separate method.
-            //TODO - Using Struct instead of class, so not to mess up the prefabs (check if it is true).
-            ConditionData conditionData;
-
-            conditionData.endPointRotation = RotationData.DEGREES_0;
-            conditionData.blueprint = blueprint;
-            conditionData.roomItemPrefab = RoomItemPrefab;
-            conditionData.takenVoxels = acceptedVoxelWorldPositions;
-
-            //TODO - refactor into multiple methods
-            int infiniteLoopCheckCountOuter = 0;
-            do
+            //TODO - Put in separate method.            
+            ConditionData conditionData = new()
             {
-                if (infiniteLoopCheckCountOuter++ > INFINITE_LOOP_CHECK_MAX_COUNT)
-                {
-                    throw new System.Exception("RoomGenerator:: Room generation takes too long. - Possible infinite loop.");
-                }
+                blueprint = blueprint,
+                roomItemPrefab = RoomItemPrefab,
+                randomFloorVoxelPosition = Vector3.positiveInfinity,
+                takenVoxels = acceptedVoxelWorldPositions,
+                endPointRotation = RotationData.DEGREES_0
+            };
 
-                int randomFloorPositionIndex = random.RangeInt(0, voxelPositionsCount--);
-                Vector3 randomFloorVoxelPosition = floorVoxelPositions[randomFloorPositionIndex];
-                floorVoxelPositions.RemoveFromArray(randomFloorVoxelPosition);
+            //TODO - Maybe there is a better way to check for undefined vector?
+                Vector3 acceptedVoxelPosition = Vector3.positiveInfinity;
 
+            List<Vector3> floorVoxelPositionsList = floorVoxelsWorldPositions.ToList();
+            floorVoxelPositionsList.Shuffle();
+
+            foreach (Vector3 randomFloorVoxelPosition in floorVoxelPositionsList)
+            {
                 Debug.Log("RoomGenerator:: Random floor voxel position: " + randomFloorVoxelPosition);
 
-                conditionData.randomFloorVoxelPosition = randomFloorVoxelPosition;
-                conditionData.endPointRotation = RotationData.DEGREES_0;
+                conditionData.randomFloorVoxelPosition = randomFloorVoxelPosition;                
 
                 if (RoomItemPrefab.generationConditions == null || RoomItemPrefab.generationConditions.Count == 0)
                 {
@@ -88,7 +80,7 @@ namespace Assets.Scripts.RoomGenerator
                 }
 
                 List<RotationData> endPointRotations = RoomItemPrefab.endPoint.Rotations;
-                endPointRotations.Shuffle(random.random);
+                endPointRotations.Shuffle();
 
                 bool testPassed = false;
                 foreach (RotationData endPointRotation in endPointRotations)
@@ -108,34 +100,32 @@ namespace Assets.Scripts.RoomGenerator
                 if (testPassed)
                 {
                     acceptedVoxelPosition = randomFloorVoxelPosition;
+                    break;
                 }
-            }
-            while (acceptedVoxelPosition.Equals(Vector3.positiveInfinity) && voxelPositionsCount > 0);
+            }            
 
             if (acceptedVoxelPosition.Equals(Vector3.positiveInfinity))
             {
                 Debug.Log("RoomGenerator:: No more space in room. Room Item discarded.");
-                return;
             }
             else
             {
                 Debug.Log("RoomGenerator:: Room Item accepted: " + acceptedVoxelPosition + " | " + conditionData.endPointRotation);
+                AcceptNewRoomItem(RoomItemPrefab, conditionData);
             }
-
-            AcceptNewRoomItem(RoomItemPrefab, conditionData);
         }
 
-        private void AcceptNewRoomItem(RoomElement prefab, ConditionData conditionData)
+        private void AcceptNewRoomItem(RoomElement newRoomPrefab, ConditionData conditionData)
         {
-            RoomElement newRoom = Instantiate(prefab, blueprint.transform);
+            RoomElement newRoomInstance = Instantiate(newRoomPrefab, blueprint.transform);
 
-            newRoom.transform.SetPositionAndRotation(
+            newRoomInstance.transform.SetPositionAndRotation(
                 conditionData.randomFloorVoxelPosition,
                 Quaternion.AngleAxis((float)conditionData.endPointRotation, Vector3.up));
 
-            newRoom.Volume.RecalculateVoxelsWorldPosition();
+            newRoomInstance.Volume.RecalculateVoxelsWorldPosition();
 
-            acceptedVoxelWorldPositions.UnionWith(newRoom.GetVoxelsWorldPositions());
+            acceptedVoxelWorldPositions.UnionWith(newRoomInstance.GetVoxelsWorldPositions());
         }
 
         //TODO - Maybe remove?

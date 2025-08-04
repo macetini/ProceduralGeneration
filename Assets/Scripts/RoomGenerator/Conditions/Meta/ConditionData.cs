@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.RoomGenerator.Conditions.Meta
 {
-    public struct ConditionData
+    public class ConditionData
     {
         public RoomBlueprint blueprint;
         public RoomElement roomItemPrefab;
