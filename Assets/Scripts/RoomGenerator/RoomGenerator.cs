@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.DungeonGenerator.VoxelData;
 using Assets.Scripts.DungeonGenerator.Utils;
 using Assets.Scripts.RoomGenerator.Conditions;
 using UnityEngine;
@@ -44,7 +43,7 @@ namespace Assets.Scripts.RoomGenerator
                 throw new System.Exception(msg);
             }
 
-            //TODO - This should not be here. Also organize it better.
+            //TODO - This should not be here, organize it better.
             roomItemPrefab.InitConditionData();
             blueprint.InitVoxelMaps();
 
@@ -99,7 +98,7 @@ namespace Assets.Scripts.RoomGenerator
                         throw new System.Exception("RoomGenerator:: Room Item condition Tests take too long. - Possible infinite loop.");
                     }
 
-                    //TODO - Maybe shuffle?
+                    //TODO - Add shuffle.
                     conditionData.endPointRotation = endPointRotations[endPointIndex];
 
                     List<GenerationCondition> generationConditions = roomItemPrefab.generationConditions;
@@ -140,12 +139,13 @@ namespace Assets.Scripts.RoomGenerator
                 conditionData.randomFloorVoxelPosition,
                 Quaternion.AngleAxis((float)conditionData.endPointRotation, Vector3.up));
 
-            newRoom.Volume.RecalculateVoxelsWorldSpace();
+            newRoom.Volume.RecalculateVoxelsWorldPosition();
 
             acceptedVoxelWorldPositions.UnionWith(newRoom.GetVoxelsWorldPositions());
         }
 
-        private static List<int> GetFloorVoxelsIndexList(List<Voxel> floorVoxels)
+        //TODO - Maybe remove?
+        /*private static List<int> GetFloorVoxelsIndexList(List<Voxel> floorVoxels)
         {
             int voxelsCount = floorVoxels.Count;
             List<int> floorVoxelsIndexList = new(voxelsCount);
@@ -155,6 +155,6 @@ namespace Assets.Scripts.RoomGenerator
             }
 
             return floorVoxelsIndexList;
-        }
+        }*/
     }
 }
