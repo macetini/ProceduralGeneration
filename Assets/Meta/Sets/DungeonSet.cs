@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Assets.Meta.Sets
 {
+    //TODO - Transfer to Scripts.
     [CreateAssetMenu(fileName = "DungeonSet", menuName = "DungeonSet", order = 2)]
     public class DungeonSet : ScriptableObject
     {

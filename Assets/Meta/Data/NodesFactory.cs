@@ -2,6 +2,7 @@
 
 namespace Assets.Meta.Data
 {
+    //TODO - Transfer to Scripts.
     [CreateAssetMenu(fileName = "NodesFactory", menuName = "Nodes Factory", order = 1)]
     public class NodesFactory : ScriptableObject
     {

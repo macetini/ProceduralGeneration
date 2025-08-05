@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Assets.Scripts.Utils;
 using UnityEngine;
 
 namespace Assets.Scripts.Generators.Meta.VoxelData
@@ -9,15 +10,15 @@ namespace Assets.Scripts.Generators.Meta.VoxelData
         private const string VOXEL_STRING_PADDING = "00";
 
         [field: SerializeField, ReadOnly(true)] // Does not work as it should, the value is still set in the inspector
-        public Vector3 LocalPosition { get; private set; } = Vector3.positiveInfinity;
+        public Vector3 LocalPosition { get; private set; } = Vector3Extensions.NaN;
 
         [field: SerializeField, ReadOnly(true)] // Does not work as it should, the value is still set in the inspector
-        public Vector3 WorldPosition { get; private set; } = Vector3.positiveInfinity;
+        public Vector3 WorldPosition { get; private set; } = Vector3Extensions.NaN;
 
         public void SetLocalPosition(Vector3 localPosition)
         {
             LocalPosition = localPosition;
-            WorldPosition = Vector3.positiveInfinity;
+            WorldPosition =Vector3Extensions.NaN;;
 
             string x = localPosition.x.ToString(VOXEL_STRING_PADDING);
             string y = localPosition.y.ToString(VOXEL_STRING_PADDING);
@@ -28,7 +29,7 @@ namespace Assets.Scripts.Generators.Meta.VoxelData
 
         public void SetWorldPosition(Vector3 worldPosition)
         {
-            if (LocalPosition.Equals(Vector3.positiveInfinity))
+            if (LocalPosition.IsNaN())
             {
                 throw new System.Exception("Volume:: Cannot set world position if local position is not defined.");
             }

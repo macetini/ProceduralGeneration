@@ -11,6 +11,7 @@ using Assets.Scripts.Generators.Dungeon.Points;
 
 namespace Assets.Meta.Data
 {
+    //TODO - Transfer to Scripts.
     [CreateAssetMenu(fileName = "CandidatesFactory", menuName = "Candidates Factory", order = 1)]
     public class CandidatesFactory : ScriptableObject
     {

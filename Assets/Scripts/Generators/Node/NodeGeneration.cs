@@ -53,13 +53,12 @@ namespace Assets.Scripts.Generators.Node
             {
                 blueprint = blueprint,
                 roomItemPrefab = RoomItemPrefab,
-                randomFloorVoxelPosition = Vector3.positiveInfinity,
+                randomFloorVoxelPosition = Vector3Extensions.NaN,
                 takenVoxels = acceptedVoxelWorldPositions,
                 endPointRotation = RotationData.DEGREES_0
             };
 
-            //TODO - Maybe there is a better way to check for undefined vector?
-            Vector3 acceptedVoxelPosition = Vector3.positiveInfinity;
+            Vector3 acceptedVoxelPosition = Vector3Extensions.NaN;
 
             List<Vector3> floorVoxelPositionsList = floorVoxelsWorldPositions.ToList();
             floorVoxelPositionsList.Shuffle();
@@ -103,7 +102,7 @@ namespace Assets.Scripts.Generators.Node
                 }
             }
 
-            if (acceptedVoxelPosition.Equals(Vector3.positiveInfinity))
+            if (acceptedVoxelPosition.IsNaN())
             {
                 Debug.Log("RoomGenerator:: No more space in room. Room Item discarded.");
             }
