@@ -10,8 +10,6 @@ namespace Assets.Scripts.RoomGenerator
 {
     public class RoomGenerator : MonoBehaviour
     {
-        private const int INFINITE_LOOP_CHECK_MAX_COUNT = 100000;
-
         private readonly HashSet<Vector3> acceptedVoxelWorldPositions = new();
 
         private DRandom random;
@@ -61,7 +59,7 @@ namespace Assets.Scripts.RoomGenerator
             };
 
             //TODO - Maybe there is a better way to check for undefined vector?
-                Vector3 acceptedVoxelPosition = Vector3.positiveInfinity;
+            Vector3 acceptedVoxelPosition = Vector3.positiveInfinity;
 
             List<Vector3> floorVoxelPositionsList = floorVoxelsWorldPositions.ToList();
             floorVoxelPositionsList.Shuffle();
@@ -70,7 +68,7 @@ namespace Assets.Scripts.RoomGenerator
             {
                 Debug.Log("RoomGenerator:: Random floor voxel position: " + randomFloorVoxelPosition);
 
-                conditionData.randomFloorVoxelPosition = randomFloorVoxelPosition;                
+                conditionData.randomFloorVoxelPosition = randomFloorVoxelPosition;
 
                 if (RoomItemPrefab.generationConditions == null || RoomItemPrefab.generationConditions.Count == 0)
                 {
@@ -102,7 +100,7 @@ namespace Assets.Scripts.RoomGenerator
                     acceptedVoxelPosition = randomFloorVoxelPosition;
                     break;
                 }
-            }            
+            }
 
             if (acceptedVoxelPosition.Equals(Vector3.positiveInfinity))
             {
@@ -127,18 +125,5 @@ namespace Assets.Scripts.RoomGenerator
 
             acceptedVoxelWorldPositions.UnionWith(newRoomInstance.GetVoxelsWorldPositions());
         }
-
-        //TODO - Maybe remove?
-        /*private static List<int> GetFloorVoxelsIndexList(List<Voxel> floorVoxels)
-        {
-            int voxelsCount = floorVoxels.Count;
-            List<int> floorVoxelsIndexList = new(voxelsCount);
-            for (int i = 0; i < voxelsCount; i++)
-            {
-                floorVoxelsIndexList.Add(i);
-            }
-
-            return floorVoxelsIndexList;
-        }*/
     }
 }

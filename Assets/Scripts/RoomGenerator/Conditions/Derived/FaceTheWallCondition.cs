@@ -5,7 +5,7 @@ using Assets.Scripts.RoomGenerator.Points;
 using UnityEngine;
 
 namespace Assets.Scripts.RoomGenerator.Conditions.Derived
-{   
+{
     public class FaceTheWallCondition : GenerationCondition
     {
         public override bool Test(ConditionData data)
@@ -14,7 +14,6 @@ namespace Assets.Scripts.RoomGenerator.Conditions.Derived
             HashSet<Vector3> wallsVoxelMap = blueprint.WallsVoxelMap;
 
             Vector3 randomFloorVoxelPosition = data.randomFloorVoxelPosition;
-            //Quaternion edgeRotation = EndPoint.GetRotation(data.endPointDirection);
 
             float itemLength = owner.Volume.generatorSize.x;
             Vector3 horizontalEdgeOffset = EndPoint.GetRotation(data.endPointRotation) * new Vector3(itemLength, 0f, 0f);
@@ -29,14 +28,7 @@ namespace Assets.Scripts.RoomGenerator.Conditions.Derived
 
                 if (wallsVoxelMap.Contains(wallVoxelPosition))
                 {
-                    /*GameObject wallVoxelGO = data.blueprint.GetWallVoxelGO(wallVoxelPosition);
-
-                    Vector3 directionsDifference = horizontalEdgeOffset + wallVoxelGO.transform.right;
-
-                    if (directionsDifference == Vector3.zero)
-                    {
-                        return false;
-                    }*/
+                    return false;
                 }
             }
 

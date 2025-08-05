@@ -277,7 +277,9 @@ MonoBehaviour:
   endPoint: {fileID: 7378253983335255987}
   generationConditions:
   - {fileID: -7148111511914760194, guid: 3b00b9ac2925b9944a976bcac2760f0d, type: 3}
+  - {fileID: 6169716299039633192, guid: 1078eb1058cf5a3408281c1495dcf3a3, type: 3}
   - {fileID: 6357049533976888100, guid: b6814172060c20c4aa84b6a4975bd5ae, type: 3}
+  - {fileID: 1793641232072499942, guid: 91d7f1e7c70d4ac459b778e3bbbfd026, type: 3}
 --- !u!1 &3547454840477742014
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,7 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cbf8a55ac40ed34a9cbe512e9d8e0c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rotations: 000000005a000000b40000000e010000
+  Rotations: 5a0000000e010000b400000000000000
   VoxelOwner: {fileID: 0}
 --- !u!1 &4842920734500519652
 GameObject:
