@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.RoomGenerator.Points.Meta;
+using Assets.Scripts.NodeGenerator.Points.Meta;
 using UnityEngine;
 
-namespace Assets.Scripts.RoomGenerator.Conditions.Meta
+namespace Assets.Scripts.NodeGenerator.Conditions.Meta
 {
     public class ConditionData
     {
-        public RoomBlueprint blueprint;
-        public RoomElement roomItemPrefab;
+        public NodeBlueprint blueprint;
+        public Node roomItemPrefab;
         public Vector3 randomFloorVoxelPosition;
         public HashSet<Vector3> takenVoxels;
         public RotationData endPointRotation;

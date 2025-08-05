@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.DungeonGenerator.VoxelData;
-using Assets.Scripts.RoomGenerator.Points.Meta;
+using Assets.Scripts.NodeGenerator.Points.Meta;
 using UnityEngine;
 
-namespace Assets.Scripts.RoomGenerator.Points
+namespace Assets.Scripts.NodeGenerator.Points
 {
     public class EndPoint : MonoBehaviour
     {

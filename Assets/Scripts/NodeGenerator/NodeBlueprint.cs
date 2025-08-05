@@ -2,17 +2,17 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.RoomGenerator
+namespace Assets.Scripts.NodeGenerator
 {
-    public class RoomBlueprint : MonoBehaviour
+    public class NodeBlueprint : MonoBehaviour
     {
         public new string name;
-        public RoomElement floor;
-        public RoomElement ceiling;
-        public List<RoomElement> walls;
-        public List<RoomElement> doors;
-        public List<RoomElement> windows;
-        public List<RoomElement> allRoomElements;
+        public Node floor;
+        public Node ceiling;
+        public List<Node> walls;
+        public List<Node> doors;
+        public List<Node> windows;
+        public List<Node> allNodes;
 
         public Vector3[] FloorVoxelsWorldPositions => floor.GetVoxelsWorldPositions();
 
@@ -22,40 +22,40 @@ namespace Assets.Scripts.RoomGenerator
 
         public void Init()
         {
-            InitAllRoomElements();
+            InitAllNodes();
 
             WallsVoxelMap = GetVoxelMap(walls);
             DoorsVoxelMap = GetVoxelMap(doors);
         }
 
 
-        private void InitAllRoomElements()
+        private void InitAllNodes()
         {
             int wallsCount = walls.Count;
             int doorsCount = doors.Count;
 
-            allRoomElements = new List<RoomElement>(wallsCount + doorsCount + 1)
+            allNodes = new List<Node>(wallsCount + doorsCount + 1)
             {
                 floor
             };
 
-            allRoomElements.AddRange(walls);
-            allRoomElements.AddRange(doors);
+            allNodes.AddRange(walls);
+            allNodes.AddRange(doors);
         }
 
-        private static HashSet<Vector3> GetVoxelMap(List<RoomElement> roomElements)
+        private static HashSet<Vector3> GetVoxelMap(List<Node> nodes)
         {
             HashSet<Vector3> voxelMap = new();
 
-            foreach (var (roomElement, index) in roomElements.Select((roomElement, index) => (roomElement, index)))
+            foreach (var (node, index) in nodes.Select((node, index) => (node, index)))
             {
-                if (roomElement == null)
+                if (node == null)
                 {
                     Debug.Log("Room element at Index: '" + index + "' is not set. Skipping it from the voxels map.");
                     continue;
                 }
 
-                Vector3[] worldPositions = roomElement.GetVoxelsWorldPositions();
+                Vector3[] worldPositions = node.GetVoxelsWorldPositions();
                 voxelMap.UnionWith(worldPositions);
             }
 

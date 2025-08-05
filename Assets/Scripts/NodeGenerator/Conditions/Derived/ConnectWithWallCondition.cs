@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.DungeonGenerator.Utils;
-using Assets.Scripts.RoomGenerator.Conditions.Meta;
-using Assets.Scripts.RoomGenerator.Points;
+using Assets.Scripts.NodeGenerator.Conditions.Meta;
+using Assets.Scripts.NodeGenerator.Points;
 using UnityEngine;
 
-namespace Assets.Scripts.RoomGenerator.Conditions.Derived
+namespace Assets.Scripts.NodeGenerator.Conditions.Derived
 {
     public class ConnectWithWallCondition : GenerationCondition
     {

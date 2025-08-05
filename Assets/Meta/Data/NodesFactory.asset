@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22060e5d8d59af9459acb4f15e43d511, type: 3}
-  m_Name: RoomItemsFactory
+  m_Name: NodesFactory
   m_EditorClassIdentifier: 

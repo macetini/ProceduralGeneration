@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.DungeonGenerator.VoxelData;
 using Assets.Scripts.DungeonGenerator.Elements;
-using Assets.Scripts.RoomGenerator.Conditions;
+using Assets.Scripts.NodeGenerator.Conditions;
 using UnityEngine;
-using Assets.Scripts.RoomGenerator.Points;
-using Assets.Scripts.RoomGenerator.Points.Meta;
+using Assets.Scripts.NodeGenerator.Points;
+using Assets.Scripts.NodeGenerator.Points.Meta;
 
-namespace Assets.Scripts.RoomGenerator
+namespace Assets.Scripts.NodeGenerator
 {
-    public class RoomElement : MonoBehaviour
+    public class Node : MonoBehaviour
     {
         public new string name;
         public EndPoint endPoint;
