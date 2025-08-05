@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.BSPTree
+namespace Assets.Scripts.Generators.Zone
 {
     public class SubZone
     {

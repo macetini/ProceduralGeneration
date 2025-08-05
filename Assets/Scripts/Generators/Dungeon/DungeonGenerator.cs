@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Assets.Meta.Data;
-using Assets.Scripts.BSPTree;
 using Assets.Scripts.DungeonGenerator.Candidates;
 using Assets.Scripts.DungeonGenerator.Elements;
+using Assets.Scripts.Generators.Zone;
 using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;

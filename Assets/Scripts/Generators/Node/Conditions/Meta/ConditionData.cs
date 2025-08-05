@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.NodeGenerator.Points.Meta;
+using Assets.Scripts.Generators.Node.Points.Meta;
 using UnityEngine;
 
-namespace Assets.Scripts.NodeGenerator.Conditions.Meta
+namespace Assets.Scripts.Generators.Node.Conditions.Meta
 {
     public class ConditionData
     {

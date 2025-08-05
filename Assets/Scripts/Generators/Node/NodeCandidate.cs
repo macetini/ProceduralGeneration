@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.NodeGenerator
+namespace Assets.Scripts.Generators.Node
 {
     //TODO - Create a factory with a candidates.
     struct NodeCandidate

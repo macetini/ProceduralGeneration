@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Utils;
-using Assets.Scripts.NodeGenerator.Conditions;
+using Assets.Scripts.Generators.Node.Conditions;
 using UnityEngine;
-using Assets.Scripts.NodeGenerator.Conditions.Meta;
-using Assets.Scripts.NodeGenerator.Points.Meta;
+using Assets.Scripts.Generators.Node.Conditions.Meta;
+using Assets.Scripts.Generators.Node.Points.Meta;
 using System.Linq;
 
-namespace Assets.Scripts.NodeGenerator
+namespace Assets.Scripts.Generators.Node
 {
     public class NodeGeneration : MonoBehaviour
     {

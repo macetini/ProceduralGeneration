@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.NodeGenerator
+namespace Assets.Scripts.Generators.Node
 {
     public class NodeBlueprint : MonoBehaviour
     {

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.DungeonGenerator.VoxelData;
 using Assets.Scripts.DungeonGenerator.Elements;
-using Assets.Scripts.NodeGenerator.Conditions;
+using Assets.Scripts.Generators.Node.Conditions;
 using UnityEngine;
-using Assets.Scripts.NodeGenerator.Points;
-using Assets.Scripts.NodeGenerator.Points.Meta;
+using Assets.Scripts.Generators.Node.Points;
+using Assets.Scripts.Generators.Node.Points.Meta;
 
-namespace Assets.Scripts.NodeGenerator
+namespace Assets.Scripts.Generators.Node
 {
     public class Node : MonoBehaviour
     {

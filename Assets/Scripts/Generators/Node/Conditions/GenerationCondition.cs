@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.NodeGenerator.Conditions.Meta;
+﻿using Assets.Scripts.Generators.Node.Conditions.Meta;
 using UnityEngine;
 
-namespace Assets.Scripts.NodeGenerator.Conditions
+namespace Assets.Scripts.Generators.Node.Conditions
 {
     //TODO - Switch to interface.
     public abstract class GenerationCondition : MonoBehaviour

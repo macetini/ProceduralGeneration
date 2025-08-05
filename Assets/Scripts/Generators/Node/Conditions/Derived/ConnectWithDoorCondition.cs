@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Utils;
-using Assets.Scripts.NodeGenerator.Conditions.Meta;
-using Assets.Scripts.NodeGenerator.Points;
+using Assets.Scripts.Generators.Node.Conditions.Meta;
+using Assets.Scripts.Generators.Node.Points;
 using UnityEngine;
 
-namespace Assets.Scripts.NodeGenerator.Conditions.Derived
+namespace Assets.Scripts.Generators.Node.Conditions.Derived
 {
     public class ConnectWithDoorCondition : GenerationCondition
     {

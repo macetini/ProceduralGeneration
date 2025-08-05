@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.BSPTree
+namespace Assets.Scripts.Generators.Zone
 {
     public class ZonesGenerator : MonoBehaviour
     {

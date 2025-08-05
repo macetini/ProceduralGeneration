@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Utils;
-using Assets.Scripts.NodeGenerator.Conditions.Meta;
-using Assets.Scripts.NodeGenerator.Points;
+using Assets.Scripts.Generators.Node.Conditions.Meta;
+using Assets.Scripts.Generators.Node.Points;
 using UnityEngine;
 
-namespace Assets.Scripts.NodeGenerator.Conditions.Derived
+namespace Assets.Scripts.Generators.Node.Conditions.Derived
 {
-    public class FaceTheDoorCondition : GenerationCondition
+    public class FaceTheWallCondition : GenerationCondition
     {
         public override bool Test(ConditionData data)
         {
             NodeBlueprint blueprint = data.blueprint;
-            HashSet<Vector3> doorsVoxelMap = blueprint.DoorsVoxelMap;
+            HashSet<Vector3> wallsVoxelMap = blueprint.WallsVoxelMap;
 
-            Vector3 randomFloorVoxelPos = data.randomFloorVoxelPosition;
+            Vector3 randomFloorVoxelPosition = data.randomFloorVoxelPosition;
 
             float itemLength = owner.Volume.generatorSize.x;
             Vector3 horizontalEdgeOffset = EndPoint.GetRotation(data.endPointRotation) * new Vector3(itemLength, 0f, 0f);
@@ -23,10 +23,10 @@ namespace Assets.Scripts.NodeGenerator.Conditions.Derived
             {
                 Vector3 verticalEdgeOffset = EndPoint.GetRotation(data.endPointRotation) * new Vector3(0f, 0f, i);
 
-                Vector3 doorVoxelPosition = randomFloorVoxelPos + horizontalEdgeOffset + verticalEdgeOffset;
-                doorVoxelPosition = doorVoxelPosition.RoundVec3ToInt();
+                Vector3 wallVoxelPosition = randomFloorVoxelPosition + horizontalEdgeOffset + verticalEdgeOffset;
+                wallVoxelPosition = wallVoxelPosition.RoundVec3ToInt();
 
-                if (doorsVoxelMap.Contains(doorVoxelPosition))
+                if (wallsVoxelMap.Contains(wallVoxelPosition))
                 {
                     return false;
                 }

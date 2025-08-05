@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.NodeGenerator.Points.Meta
+﻿namespace Assets.Scripts.Generators.Node.Points.Meta
 {
     public enum RotationData
     {
