@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.DungeonGenerator.VoxelData;
+using Assets.Scripts.Generators.Meta.VoxelData;
 using Assets.Scripts.Generators.Node.Points.Meta;
 using UnityEngine;
 

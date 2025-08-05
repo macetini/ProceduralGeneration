@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.DungeonGenerator.Candidates;
-using Assets.Scripts.DungeonGenerator.VoxelData;
+using Assets.Scripts.Generators.Meta.VoxelData;
 using UnityEngine;
 
 namespace Assets.Scripts.DungeonGenerator.Elements

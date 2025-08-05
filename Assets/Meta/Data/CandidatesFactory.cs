@@ -3,7 +3,7 @@ using Assets.Meta.Data.Products;
 using Assets.Meta.Sets;
 using Assets.Scripts.Generators.Zone;
 using Assets.Scripts.DungeonGenerator.Candidates;
-using Assets.Scripts.DungeonGenerator.VoxelData;
+using Assets.Scripts.Generators.Meta.VoxelData;
 using Assets.Scripts.DungeonGenerator.Elements;
 using Assets.Scripts.Utils;
 using UnityEngine;

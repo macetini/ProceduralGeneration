@@ -2,7 +2,7 @@
 using Assets.Meta.Sets;
 using Assets.Scripts.DungeonGenerator.Elements;
 using Assets.Scripts.Utils;
-using Assets.Scripts.DungeonGenerator.VoxelData;
+using Assets.Scripts.Generators.Meta.VoxelData;
 using UnityEngine;
 
 namespace Assets.Scripts.DungeonGenerator.Candidates

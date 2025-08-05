@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using UnityEngine;
 
-namespace Assets.Scripts.DungeonGenerator.VoxelData
+namespace Assets.Scripts.Generators.Meta.VoxelData
 {
     public class Voxel : MonoBehaviour
     {

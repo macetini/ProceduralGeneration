@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using Assets.Scripts.DungeonGenerator.VoxelData;
+using Assets.Scripts.Generators.Meta.VoxelData;
 using Assets.Scripts.Utils;
 
 namespace Assets.Scripts.DungeonGenerator.Elements
