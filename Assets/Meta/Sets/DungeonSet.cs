@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.DungeonGenerator.Elements;
-using Assets.Scripts.DungeonGenerator.Utils;
+using Assets.Scripts.Utils;
 using UnityEngine;
 
 namespace Assets.Meta.Sets

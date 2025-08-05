@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Assets.Scripts.DungeonGenerator.Utils
+namespace Assets.Scripts.Utils
 {
     public static class ListExtensions
     {

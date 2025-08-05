@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Scripts.DungeonGenerator.Utils
+namespace Assets.Scripts.Utils
 {
     //TODO: make this a singleton
     public class DRandom

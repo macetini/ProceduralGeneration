@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Assets.Meta.Sets;
 using Assets.Scripts.DungeonGenerator.Elements;
-using Assets.Scripts.DungeonGenerator.Utils;
+using Assets.Scripts.Utils;
 using Assets.Scripts.DungeonGenerator.VoxelData;
 using UnityEngine;
 

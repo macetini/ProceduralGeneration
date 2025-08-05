@@ -8,6 +8,9 @@ namespace Assets.Scripts.NodeGenerator.Conditions
     {
         public Node owner;
 
+        //TODO - Implement in all conditions.
+        public bool Negate = false;
+
         public void SetOwner(Node owner) => this.owner = owner;
 
         public abstract bool Test(ConditionData data);

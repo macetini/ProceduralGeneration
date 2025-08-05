@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.DungeonGenerator.Utils
+namespace Assets.Scripts.Utils
 {
     public static class Vector3Extensions
     {

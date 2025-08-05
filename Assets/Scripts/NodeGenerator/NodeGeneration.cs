@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.DungeonGenerator.Utils;
+using Assets.Scripts.Utils;
 using Assets.Scripts.NodeGenerator.Conditions;
 using UnityEngine;
 using Assets.Scripts.NodeGenerator.Conditions.Meta;
