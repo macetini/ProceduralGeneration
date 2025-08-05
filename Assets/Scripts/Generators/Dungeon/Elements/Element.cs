@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.Scripts.Generators.Meta.VoxelData;
 using Assets.Scripts.Utils;
+using Assets.Scripts.Generators.Dungeon.Points;
 
 namespace Assets.Scripts.Generators.Dungeon.Elements
 {

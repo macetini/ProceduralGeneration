@@ -2,7 +2,7 @@
 using Assets.Scripts.Generators.Meta.VoxelData;
 using UnityEngine;
 
-namespace Assets.Scripts.Generators.Dungeon.Elements
+namespace Assets.Scripts.Generators.Dungeon.Points
 {
     public class ConnectionPoint : MonoBehaviour
     {

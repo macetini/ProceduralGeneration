@@ -2,6 +2,7 @@
 using Assets.Meta.Data;
 using Assets.Scripts.Generators.Dungeon.Candidates;
 using Assets.Scripts.Generators.Dungeon.Elements;
+using Assets.Scripts.Generators.Dungeon.Points;
 using Assets.Scripts.Generators.Meta.VoxelData;
 using Assets.Scripts.Generators.Zone;
 using Assets.Scripts.Utils;

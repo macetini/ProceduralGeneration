@@ -7,6 +7,7 @@ using Assets.Scripts.Generators.Meta.VoxelData;
 using Assets.Scripts.Generators.Dungeon.Elements;
 using Assets.Scripts.Utils;
 using UnityEngine;
+using Assets.Scripts.Generators.Dungeon.Points;
 
 namespace Assets.Meta.Data
 {
