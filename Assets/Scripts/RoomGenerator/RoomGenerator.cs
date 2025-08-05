@@ -14,7 +14,7 @@ namespace Assets.Scripts.RoomGenerator
 
         private DRandom random;
         public RoomBlueprint BlueprintPrefab;
-        public RoomElement RoomItemPrefab; //TODO - This should be in Blueprint
+        public RoomElement RoomItemPrefab; //TODO - This should be in Blueprint.
 
         private RoomBlueprint blueprint;
 
@@ -23,7 +23,7 @@ namespace Assets.Scripts.RoomGenerator
             random = new DRandom();
             random.Init(Random.Range(0, int.MaxValue));
 
-            blueprint = Instantiate(BlueprintPrefab); //TODO - HAS TO BE OPTIMIZED.
+            blueprint = Instantiate(BlueprintPrefab); //TODO - This should be a factory.
         }
 
         private void Update()
@@ -64,6 +64,7 @@ namespace Assets.Scripts.RoomGenerator
             List<Vector3> floorVoxelPositionsList = floorVoxelsWorldPositions.ToList();
             floorVoxelPositionsList.Shuffle();
 
+            //TODO - Refactor, atomize this.
             foreach (Vector3 randomFloorVoxelPosition in floorVoxelPositionsList)
             {
                 Debug.Log("RoomGenerator:: Random floor voxel position: " + randomFloorVoxelPosition);
