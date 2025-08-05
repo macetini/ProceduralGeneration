@@ -386,7 +386,6 @@ namespace Assets.Scripts.Generators.Dungeon.Candidates
             for (int i = 0; i < openSetCount; i++)
             {
                 Candidate openCandidate = openCandidates[i];
-                //Volume volume = openCandidate.Volume;
 
                 int openSetConnPointsCount = openCandidates[i].ConnPointCandidates.Count;
                 for (int j = 0; j < openSetConnPointsCount; j++)

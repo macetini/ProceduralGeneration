@@ -50,7 +50,7 @@ namespace Assets.Scripts.Generators.Zone
 
         public void Generate()
         {
-            Rect rect = new Rect(0, 0, transform.localScale.x, transform.localScale.y);
+            Rect rect = new(0, 0, transform.localScale.x, transform.localScale.y);
 
             int length = SpawnZones.Count;
             for (int i = 0; i < length; i++)
@@ -76,7 +76,7 @@ namespace Assets.Scripts.Generators.Zone
 
         public void CreateBSP(SubZone subDungeon)
         {
-            if (subDungeon.IAmLeaf() && subDungeon.rect.width > maxZoneSize || subDungeon.rect.height > maxZoneSize)
+            if (subDungeon.IsLeaf() && subDungeon.rect.width > maxZoneSize || subDungeon.rect.height > maxZoneSize)
             {
                 if (subDungeon.Split(minZoneSize, maxZoneSize))
                 {

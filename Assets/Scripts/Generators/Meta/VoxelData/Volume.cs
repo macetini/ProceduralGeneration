@@ -26,23 +26,20 @@ namespace Assets.Scripts.Generators.Meta.VoxelData
             RecalculateBounds();
             RecalculateVoxelsWorldPosition();
         }
-
-        //TODO - Split into multiple methods
+        
         [ContextMenu("Generate Voxel Grid")]
         public void GenerateVoxelGrid()
         {
-            if (Voxels.Count > 0)
+            if (voxelsContainer != null)
             {
-                Voxels.ForEach(voxel => DestroyImmediate(voxel));
-                Voxels.Clear();
+                DestroyImmediate(voxelsContainer);
             }
 
-            if (voxelsContainer == null)
-            {
-                voxelsContainer = new GameObject(VOXELS_CONTAINER_NAME);
-                voxelsContainer.transform.parent = transform;
-                voxelsContainer.transform.localPosition = Vector3.zero;
-            }
+            Voxels.Clear();
+
+            voxelsContainer = new GameObject(VOXELS_CONTAINER_NAME);
+            voxelsContainer.transform.parent = transform;
+            voxelsContainer.transform.localPosition = Vector3.zero;
 
             int totalVoxels = (int)(generatorSize.x * generatorSize.y * generatorSize.z);
             Voxels = new List<Voxel>(totalVoxels);
@@ -91,12 +88,12 @@ namespace Assets.Scripts.Generators.Meta.VoxelData
 
             bounds = new Bounds((min + max) * 0.5f, max + size - (min - size));
         }
-        
+
         [ContextMenu("Recalculate Voxels World Position")]
         public void RecalculateVoxelsWorldPosition()
         {
             Voxels.ForEach(voxel =>
-            {                
+            {
                 Vector3 worldPosition = voxel.transform.position.RoundVec3ToInt();
                 voxel.SetWorldPosition(worldPosition);
             });

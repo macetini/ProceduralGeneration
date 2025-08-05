@@ -51,7 +51,7 @@ namespace Assets.Scripts.Generators.Zone
 
         private void Update()
         {
-            bool alphaChange = Equals(currentColor.a, (emptySpace ? 0f : 1f));
+            bool alphaChange = Equals(currentColor.a, emptySpace ? 0f : 1f);
 
             if (currentColor.r < 0)
             {

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Generators.Node
+namespace Assets.Scripts.Generators.Node.Candidates
 {
-    //TODO - Create a factory with a candidates.
+    //TODO - Create factory for candidates.
     struct NodeCandidate
     {
         public Node prefab;

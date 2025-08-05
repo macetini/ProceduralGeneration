@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b970691593f8ca84ea5841996d1ace5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  voxelOwner: {fileID: 114482931016656326}
+  voxelOwner: {fileID: 5779428306734139607}
   sharedConnPoint: {fileID: 0}
 --- !u!1 &1049584924799354
 GameObject:
@@ -189,51 +189,6 @@ Transform:
   - {fileID: 4559813605468014}
   m_Father: {fileID: 4176704015695612}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1060226612585406
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4131601164954442}
-  - component: {fileID: 114482931016656326}
-  m_Layer: 0
-  m_Name: Voxel - (0, 0, 0)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4131601164954442
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1060226612585406}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4401432964811686}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114482931016656326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1060226612585406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96afd39cda757d74ea644f9006f62c88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  worldPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1292001235664820
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,8 +306,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4176704015695612}
-  - component: {fileID: 114749684594309160}
   - component: {fileID: 114624652674810668}
+  - component: {fileID: 114749684594309160}
   m_Layer: 0
   m_Name: SmallHallway
   m_TagString: Untagged
@@ -375,10 +330,33 @@ Transform:
   m_Children:
   - {fileID: 4979036296718008}
   - {fileID: 4852239205203724}
-  - {fileID: 4401432964811686}
   - {fileID: 4858084040032680}
+  - {fileID: 2649642159132356575}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114624652674810668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405433866533638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ca64d706133256478637f12dc84bead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generatorSize: {x: 1, y: 1, z: 1}
+  voxelPrefab: {fileID: 114117110549458870, guid: ada4bf8a00d5d4545a1fe09f5d7b8077, type: 3}
+  VoxelScale: 10
+  Voxels:
+  - {fileID: 5779428306734139607}
+  voxelsContainer: {fileID: 229225895718089215}
+  bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 5, y: 5, z: 5}
+  BoundsGizmoColor: {r: 1, g: 0, b: 0, a: 1}
+  VoxelsGizmoColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!114 &114749684594309160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,61 +374,6 @@ MonoBehaviour:
   - {fileID: 114536475540261916}
   type: 1
   ID: small_hallway_default
---- !u!114 &114624652674810668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1405433866533638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ca64d706133256478637f12dc84bead, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  generatorSize: {x: 1, y: 1, z: 1}
-  voxelType: {fileID: 114117110549458870, guid: ada4bf8a00d5d4545a1fe09f5d7b8077, type: 3}
-  VoxelScale: 10
-  voxels:
-  - {fileID: 1060226612585406}
-  voxelsContainer: {fileID: 1566714260507158}
-  bounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 5, y: 5, z: 5}
-  boundsGizmoColor: {r: 1, g: 0, b: 0, a: 1}
-  voxelsGizmoColor: {r: 0, g: 0, b: 1, a: 1}
---- !u!1 &1566714260507158
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4401432964811686}
-  m_Layer: 0
-  m_Name: Voxels
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4401432964811686
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1566714260507158}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4131601164954442}
-  m_Father: {fileID: 4176704015695612}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1837166240834710
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,5 +634,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b970691593f8ca84ea5841996d1ace5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  voxelOwner: {fileID: 114482931016656326}
+  voxelOwner: {fileID: 5779428306734139607}
   sharedConnPoint: {fileID: 0}
+--- !u!1 &229225895718089215
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2649642159132356575}
+  m_Layer: 0
+  m_Name: Voxels
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2649642159132356575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229225895718089215}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3659225651452115590}
+  m_Father: {fileID: 4176704015695612}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3303891994926826254
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3659225651452115590}
+  - component: {fileID: 5779428306734139607}
+  m_Layer: 0
+  m_Name: Voxel - { 00, 00, 00 } , { 00, 00, 00 }
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3659225651452115590
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3303891994926826254}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2649642159132356575}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5779428306734139607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3303891994926826254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96afd39cda757d74ea644f9006f62c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <LocalPosition>k__BackingField: {x: 0, y: 0, z: 0}
+  <WorldPosition>k__BackingField: {x: 0, y: 0, z: 0}

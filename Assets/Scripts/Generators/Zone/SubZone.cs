@@ -18,7 +18,7 @@ namespace Assets.Scripts.Generators.Zone
 
         public bool Split(float minZoneSize, float maxZoneSize)
         {
-            if (!IAmLeaf()) return false;
+            if (!IsLeaf()) return false;
 
             bool splitH;
 
@@ -54,7 +54,7 @@ namespace Assets.Scripts.Generators.Zone
             return true;
         }
 
-        public bool IAmLeaf()
+        public bool IsLeaf()
         {
             return left == null && right == null;
         }

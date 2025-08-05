@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4208242541154530}
-  - component: {fileID: 114735317472007612}
   - component: {fileID: 114202951473086346}
+  - component: {fileID: 114735317472007612}
   m_Layer: 0
   m_Name: SmallWall_End
   m_TagString: Untagged
@@ -32,10 +32,33 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4427412493263156}
-  - {fileID: 4507386642776522}
   - {fileID: 4544508839161944}
+  - {fileID: 8766200081306212906}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114202951473086346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192772665318310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ca64d706133256478637f12dc84bead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generatorSize: {x: 1, y: 1, z: 1}
+  voxelPrefab: {fileID: 114117110549458870, guid: ada4bf8a00d5d4545a1fe09f5d7b8077, type: 3}
+  VoxelScale: 10
+  Voxels:
+  - {fileID: 6894289072552908682}
+  voxelsContainer: {fileID: 3578310861690826955}
+  bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 5, y: 5, z: 5}
+  BoundsGizmoColor: {r: 1, g: 0, b: 0, a: 1}
+  VoxelsGizmoColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!114 &114735317472007612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,29 +75,6 @@ MonoBehaviour:
   - {fileID: 114696078874067862}
   type: 2
   ID: small_wall_end_default
---- !u!114 &114202951473086346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1192772665318310}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ca64d706133256478637f12dc84bead, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  generatorSize: {x: 1, y: 1, z: 1}
-  voxelType: {fileID: 114117110549458870, guid: ada4bf8a00d5d4545a1fe09f5d7b8077, type: 3}
-  VoxelScale: 10
-  voxels:
-  - {fileID: 1489445654188016}
-  voxelsContainer: {fileID: 1616182478861746}
-  bounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 5, y: 5, z: 5}
-  boundsGizmoColor: {r: 1, g: 0, b: 0, a: 1}
-  voxelsGizmoColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!1 &1359268507445312
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,83 +183,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.0010006, y: 3.0034, z: 0.23900005}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &1489445654188016
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4102804418472020}
-  - component: {fileID: 114374546525145600}
-  m_Layer: 0
-  m_Name: Voxel - (0, 0, 0)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4102804418472020
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1489445654188016}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4507386642776522}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114374546525145600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1489445654188016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96afd39cda757d74ea644f9006f62c88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  worldPosition: {x: 0, y: 0, z: 0}
---- !u!1 &1616182478861746
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4507386642776522}
-  m_Layer: 0
-  m_Name: Voxels
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4507386642776522
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616182478861746}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4102804418472020}
-  m_Father: {fileID: 4208242541154530}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1736456544798316
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b970691593f8ca84ea5841996d1ace5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  voxelOwner: {fileID: 114374546525145600}
+  voxelOwner: {fileID: 6894289072552908682}
   sharedConnPoint: {fileID: 0}
 --- !u!1 &1819538594727450
 GameObject:
@@ -336,5 +259,83 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4761113487302880}
+  m_Father: {fileID: 4208242541154530}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2318035464540748447
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9201217954073235372}
+  - component: {fileID: 6894289072552908682}
+  m_Layer: 0
+  m_Name: Voxel - { 00, 00, 00 } , { 00, 00, 00 }
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9201217954073235372
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318035464540748447}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8766200081306212906}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6894289072552908682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318035464540748447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96afd39cda757d74ea644f9006f62c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <LocalPosition>k__BackingField: {x: 0, y: 0, z: 0}
+  <WorldPosition>k__BackingField: {x: 0, y: 0, z: 0}
+--- !u!1 &3578310861690826955
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8766200081306212906}
+  m_Layer: 0
+  m_Name: Voxels
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8766200081306212906
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3578310861690826955}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 9201217954073235372}
   m_Father: {fileID: 4208242541154530}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

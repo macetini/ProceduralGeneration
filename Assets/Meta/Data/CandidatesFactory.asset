@@ -15,8 +15,8 @@ MonoBehaviour:
   Sets:
   - {fileID: 11400000, guid: d2ca2c74c5031674087e95eb5ffbb8f1, type: 2}
   - {fileID: 11400000, guid: 2888ad6d3bed9d940aa73b27e87799dc, type: 2}
-  - {fileID: 11400000, guid: 03964f42fb1bf6947a35058277f24f54, type: 2}
   - {fileID: 11400000, guid: e9833fb73397e0140a671f976452098e, type: 2}
+  - {fileID: 11400000, guid: 03964f42fb1bf6947a35058277f24f54, type: 2}
   loopCheckCount: 5
   randomizeOnStart: 1
   recycle: 1

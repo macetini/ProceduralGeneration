@@ -14,7 +14,7 @@ namespace Assets.Scripts.Generators.Node
 
         private DRandom random;
         public NodeBlueprint BlueprintPrefab;
-        public Node RoomItemPrefab; //TODO - This should be in Blueprint.
+        public Node RoomItemPrefab; //TODO - This should be in Blueprint or Factory.
 
         private NodeBlueprint blueprint;
 
@@ -44,25 +44,16 @@ namespace Assets.Scripts.Generators.Node
                 throw new System.Exception(msg);
             }
 
-            //TODO - This should not be here, organize it better.
+            //TODO - This should not be here, create a factory.
             RoomItemPrefab.InitConditionData();
             blueprint.Init();
-
-            //TODO - Put in separate method.            
-            ConditionData conditionData = new()
-            {
-                blueprint = blueprint,
-                roomItemPrefab = RoomItemPrefab,
-                randomFloorVoxelPosition = Vector3Extensions.NaN,
-                takenVoxels = acceptedVoxelWorldPositions,
-                endPointRotation = RotationData.DEGREES_0
-            };
+          
+            ConditionData conditionData = GetInitConditionData();
 
             Vector3 acceptedVoxelPosition = Vector3Extensions.NaN;
 
             List<Vector3> floorVoxelPositionsList = floorVoxelsWorldPositions.ToList();
             floorVoxelPositionsList.Shuffle();
-
             //TODO - Refactor, atomize this.
             foreach (Vector3 randomFloorVoxelPosition in floorVoxelPositionsList)
             {
@@ -111,6 +102,18 @@ namespace Assets.Scripts.Generators.Node
                 Debug.Log("RoomGenerator:: Room Item accepted: " + acceptedVoxelPosition + " | " + conditionData.endPointRotation);
                 AcceptNewRoomItem(RoomItemPrefab, conditionData);
             }
+        }
+
+        private ConditionData GetInitConditionData()
+        { 
+            return new()
+            {
+                blueprint = blueprint,
+                roomItemPrefab = RoomItemPrefab,
+                randomFloorVoxelPosition = Vector3Extensions.NaN,
+                takenVoxels = acceptedVoxelWorldPositions,
+                endPointRotation = RotationData.DEGREES_0
+            };
         }
 
         private void AcceptNewRoomItem(Node newRoomPrefab, ConditionData conditionData)
