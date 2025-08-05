@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.DungeonGenerator.Candidates;
+﻿using Assets.Scripts.Generators.Dungeon.Candidates;
 using Assets.Scripts.Generators.Meta.VoxelData;
 using UnityEngine;
 
-namespace Assets.Scripts.DungeonGenerator.Elements
+namespace Assets.Scripts.Generators.Dungeon.Elements
 {
     public class ConnectionPoint : MonoBehaviour
     {

@@ -2,9 +2,9 @@
 using Assets.Meta.Data.Products;
 using Assets.Meta.Sets;
 using Assets.Scripts.Generators.Zone;
-using Assets.Scripts.DungeonGenerator.Candidates;
+using Assets.Scripts.Generators.Dungeon.Candidates;
 using Assets.Scripts.Generators.Meta.VoxelData;
-using Assets.Scripts.DungeonGenerator.Elements;
+using Assets.Scripts.Generators.Dungeon.Elements;
 using Assets.Scripts.Utils;
 using UnityEngine;
 

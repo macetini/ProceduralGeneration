@@ -3,11 +3,11 @@ using Assets.Meta.Data;
 using Assets.Meta.Sets;
 using Assets.Scripts.Generators.Zone;
 using Assets.Scripts.Generators.Meta.VoxelData;
-using Assets.Scripts.DungeonGenerator.Elements;
+using Assets.Scripts.Generators.Dungeon.Elements;
 using Assets.Scripts.Utils;
 using UnityEngine;
 
-namespace Assets.Scripts.DungeonGenerator.Candidates
+namespace Assets.Scripts.Generators.Dungeon.Candidates
 {
     public class CandidatesManager
     {

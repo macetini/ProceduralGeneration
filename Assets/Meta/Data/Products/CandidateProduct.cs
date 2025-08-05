@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.DungeonGenerator.Candidates;
+using Assets.Scripts.Generators.Dungeon.Candidates;
 
 namespace Assets.Meta.Data.Products
 {

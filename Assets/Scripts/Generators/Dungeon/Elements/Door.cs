@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.DungeonGenerator.Elements
+namespace Assets.Scripts.Generators.Dungeon.Elements
 {
     public class Door : MonoBehaviour
     {

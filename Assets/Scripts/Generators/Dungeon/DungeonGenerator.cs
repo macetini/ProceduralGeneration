@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Assets.Meta.Data;
-using Assets.Scripts.DungeonGenerator.Candidates;
-using Assets.Scripts.DungeonGenerator.Elements;
+using Assets.Scripts.Generators.Dungeon.Candidates;
+using Assets.Scripts.Generators.Dungeon.Elements;
+using Assets.Scripts.Generators.Meta.VoxelData;
 using Assets.Scripts.Generators.Zone;
 using Assets.Scripts.Utils;
 using UnityEngine;

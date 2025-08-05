@@ -2,7 +2,7 @@
 using Assets.Scripts.Generators.Meta.VoxelData;
 using UnityEngine;
 
-namespace Assets.Scripts.DungeonGenerator.Candidates
+namespace Assets.Scripts.Generators.Dungeon.Candidates
 {
     public class ConnectionPointCandidate
     {

@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.DungeonGenerator.Elements
+﻿namespace Assets.Scripts.Generators.Dungeon.Elements
 {
     public enum ElementType
     {

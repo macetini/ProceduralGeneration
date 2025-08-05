@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Generators.Meta.VoxelData;
 using Assets.Scripts.Utils;
 
-namespace Assets.Scripts.DungeonGenerator.Elements
+namespace Assets.Scripts.Generators.Dungeon.Elements
 {
     public class Element : MonoBehaviour
     {

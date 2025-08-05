@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Assets.Meta.Sets;
-using Assets.Scripts.DungeonGenerator.Elements;
+using Assets.Scripts.Generators.Dungeon.Elements;
 using Assets.Scripts.Utils;
 using Assets.Scripts.Generators.Meta.VoxelData;
 using UnityEngine;
 
-namespace Assets.Scripts.DungeonGenerator.Candidates
+namespace Assets.Scripts.Generators.Dungeon.Candidates
 {
     public class Candidate
     {

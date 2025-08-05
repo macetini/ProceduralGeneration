@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.DungeonGenerator.Candidates
+namespace Assets.Scripts.Generators.Dungeon.Candidates
 {
     public class CandidatesConnection
     {
