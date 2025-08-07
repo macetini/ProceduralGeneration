@@ -28,9 +28,6 @@ This project is a procedural dungeon generation system built in Unity using C#. 
 ## API Documentation
 
 * `DungeonGenerator`: The main script responsible for generating dungeons.
-	+ `GenerateDungeon`: Generates a new dungeon based on the configured parameters.
-	+ `GetAllTwoWayOpenElementsShuffled`: Returns an array of all two-way open elements in a shuffled order.
-* `DRandom`: A custom random number generator used for procedural generation.
 
 ## Contributing
 
