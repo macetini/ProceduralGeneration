@@ -190,9 +190,26 @@ namespace Assets.Meta.Data
             for (int i = 0; i < voxelsCount; i++)
             {
                 Voxel voxel = newElementVoxels[i];
-                Vector3 worldPosition = newCandidate.GetVoxelWorldPos(voxel.transform.localPosition);
+                Vector3 worldPosition = newCandidate.GetVoxelWorldPosition(voxel.transform.localPosition);
 
                 InitializeGlobalVoxel(worldPosition, voxel);
+            }
+        }
+
+        protected void InitializeGlobalVoxel(Vector3 voxelWorldPosition, Voxel voxel)
+        {
+            //Voxel voxel = voxelGO.GetComponent<Voxel>();
+            //voxelWorldPos = voxelWorldPos.RoundVec3ToInt();
+
+            if (candidatesManager.CandidateVoxels.ContainsKey(voxelWorldPosition))
+            {
+                candidatesManager.CandidateVoxels[voxelWorldPosition] = voxel;
+                //voxel.WorldPosition = voxelWorldPos;
+                voxel.SetWorldPosition(voxelWorldPosition);
+            }
+            else
+            {
+                Debug.LogError("ElementsFactory::Voxel GameObject we're trying to add to globalVoxels is NOT defined: " + voxelWorldPosition.ToString());
             }
         }
 
@@ -225,23 +242,6 @@ namespace Assets.Meta.Data
             for (int i = 0; i < length; i++)
             {
                 pools = Sets[i].GetElementPools(pools);
-            }
-        }
-
-        protected void InitializeGlobalVoxel(Vector3 voxelWorldPos, Voxel voxel)
-        {
-            //Voxel voxel = voxelGO.GetComponent<Voxel>();
-            voxelWorldPos = voxelWorldPos.RoundVec3ToInt();
-
-            if (candidatesManager.CandidateVoxels.ContainsKey(voxelWorldPos))
-            {
-                candidatesManager.CandidateVoxels[voxelWorldPos] = voxel;
-                //voxel.WorldPosition = voxelWorldPos;
-                voxel.SetWorldPosition(voxelWorldPos);
-            }
-            else
-            {
-                Debug.LogError("ElementsFactory::Voxel GameObject we're trying to add to globalVoxels is NOT defined: " + voxelWorldPos.ToString());
             }
         }
     }

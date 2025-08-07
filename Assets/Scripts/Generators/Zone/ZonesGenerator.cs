@@ -14,7 +14,7 @@ namespace Assets.Scripts.Generators.Zone
         public Button genButton;
         public ZoneItem zonePrefab;
 
-        private List<ZoneItem> spawnZones = new List<ZoneItem>();
+        private List<ZoneItem> spawnZones = new();
         private SubZone rootZone;
         private Texture2D texture;
 

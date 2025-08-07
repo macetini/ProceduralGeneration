@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b970691593f8ca84ea5841996d1ace5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  voxelOwner: {fileID: 4059719243386687484}
+  voxelOwner: {fileID: 1510508712548694616}
   sharedConnPoint: {fileID: 0}
 --- !u!1 &189964
 GameObject:

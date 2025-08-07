@@ -101,7 +101,7 @@ namespace Assets.Scripts.DungeonGenerator
 
         protected void GenerateNextCandidate()
         {
-            if (candidatesFactory.CandidateProduct.GetOpenCandidatesCount() <= 0)
+            if (candidatesFactory.CandidateProduct.GetOpenCandidatesCount() <= 0) //TODO - Why LESS or equal? 
             {
                 throw new System.Exception("DungeonGenerator::No open set.");
             }

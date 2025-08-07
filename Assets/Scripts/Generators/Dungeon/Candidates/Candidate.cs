@@ -18,13 +18,34 @@ namespace Assets.Scripts.Generators.Dungeon.Candidates
         //private List<ConnectionPointCandidate> connPointCandidates;
         //private CandidatesConnection candidatesConnection;
 
-        private Dictionary<Vector3, Vector3> voxWorldPos;
         private readonly GameObject gameObject;
         private readonly Element element;
         private readonly Volume volume;
         private readonly Vector3 halfStep;
         private readonly Vector3 step;
         private readonly string id;
+
+        public DungeonSet Set => set;
+        public Vector3 WorldPosition { get; set; }
+        public Quaternion Rotation { get; set; }
+        public List<ConnectionPointCandidate> ConnPointCandidates { get; set; }
+        public CandidatesConnection CandidatesConnection { get; set; }
+
+        //public Dictionary<Vector3, Vector3> VoxelsWorldPosition => voxelWorldPosition;
+        public GameObject GameObject => gameObject;
+        public Element Element => element;
+        public Volume Volume => volume;
+        public List<Voxel> Voxels => Volume.Voxels; //TODO - Refactor this part.
+
+        public List<Vector3> CandidateVoxelsWorldPosition;
+        public Dictionary<Vector3, Vector3> RelativeVoxelsWorldPosition { get; private set; }  //TODO - Refactor this part.
+
+        public ConnectionPointCandidate LastConnPointCandidate => CandidatesConnection.LastConnPointCandidate;
+        public ConnectionPointCandidate NewConnPointCandidate => CandidatesConnection.NewConnPointCandidate;
+
+        public Vector3 HalfStep => halfStep;
+        public Vector3 Step => step;
+        public string ID => id;
 
         public Candidate(GameObject gameObject, DungeonSet set)
         {
@@ -40,26 +61,6 @@ namespace Assets.Scripts.Generators.Dungeon.Candidates
 
             CloneConnPoints();
         }
-
-        public DungeonSet Set { get => set; }
-
-        public Vector3 WorldPosition { get; set; }
-        public Quaternion Rotation { get; set; }
-        public List<ConnectionPointCandidate> ConnPointCandidates { get; set; }
-        public CandidatesConnection CandidatesConnection { get; set; }
-
-        public Dictionary<Vector3, Vector3> VoxWorldPos => voxWorldPos;
-        public GameObject GameObject => gameObject;
-        public Element Element => element;
-        public Volume Volume => volume;
-        public List<Voxel> Voxels => Volume.Voxels;
-
-        public ConnectionPointCandidate LastConnPointCandidate => CandidatesConnection.LastConnPointCandidate;
-        public ConnectionPointCandidate NewConnPointCandidate => CandidatesConnection.NewConnPointCandidate;
-
-        public Vector3 HalfStep => halfStep;
-        public Vector3 Step => step;
-        public string ID => id;
 
         public bool HasOpenConnection()
         {
@@ -151,23 +152,29 @@ namespace Assets.Scripts.Generators.Dungeon.Candidates
             return openConnPointCandidates;
         }
 
-        public void SetVoxelsWorldPos(Vector3 translation = default(Vector3), Quaternion rotation = default(Quaternion))
+        public void SetVoxelsWorldPosition(Vector3 translation = default(Vector3), Quaternion rotation = default(Quaternion))
         {
             int voxelsCount = Voxels.Count;
-            voxWorldPos = new Dictionary<Vector3, Vector3>(voxelsCount);
+
+            RelativeVoxelsWorldPosition = new Dictionary<Vector3, Vector3>(voxelsCount);
+            
+            CandidateVoxelsWorldPosition = new List<Vector3>(voxelsCount);
 
             for (int i = 0; i < voxelsCount; i++)
             {
-                Vector3 localPositionLoop = Voxels[i].transform.localPosition;
-                Vector3 worldPositionLoop = rotation * localPositionLoop + translation;
-                voxWorldPos.Add(localPositionLoop, worldPositionLoop);
+                Vector3 localPositionLoop = Voxels[i].transform.localPosition; //TODO - Maybe use Voxel internal variable for localPosition?
+                Vector3 worldPositionLoop = (rotation * localPositionLoop + translation).RoundVec3ToInt();
+
+                RelativeVoxelsWorldPosition.Add(localPositionLoop, worldPositionLoop);
+
+                CandidateVoxelsWorldPosition.Add(worldPositionLoop);
             }
         }
 
         public void UpdateConnPointsWorldPos(float angleDifference = 0f)
         {
             int connPointsCount = ConnPointCandidates.Count;
-            for (int i = 0; i < connPointsCount; i++)
+            for (int i = 0; i < connPointsCount; i++) //TODO - Switch to enhanced for.
             {
                 ConnectionPointCandidate connPointCandidate = ConnPointCandidates[i];
 
@@ -175,22 +182,22 @@ namespace Assets.Scripts.Generators.Dungeon.Candidates
                 connPointCandidate.Rotation = newRotation;
 
                 Vector3 localPosition = connPointCandidate.VoxelOwner.transform.localPosition;
-                connPointCandidate.WorldPosition = GetConnPointCandidateWorldPos(localPosition, newRotation);
+                connPointCandidate.WorldPosition = GetConnPointCandidateWorldPosition(localPosition, newRotation);
             }
         }
 
-        protected Vector3 GetConnPointCandidateWorldPos(Vector3 localPosition, Quaternion rotation)
+        protected Vector3 GetConnPointCandidateWorldPosition(Vector3 localPosition, Quaternion rotation)
         {
-            Vector3 worldPosition = GetVoxelWorldPos(localPosition);
+            Vector3 worldPosition = GetVoxelWorldPosition(localPosition);
 
             worldPosition += rotation * HalfStep;
 
             return worldPosition;
         }
 
-        public Vector3 GetVoxelWorldPos(Vector3 position)
+        public Vector3 GetVoxelWorldPosition(Vector3 localPosition)
         {
-            return voxWorldPos[position];
+            return RelativeVoxelsWorldPosition[localPosition];
         }
     }
 }

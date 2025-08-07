@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Assets.Meta.Data;
 using Assets.Meta.Sets;
 using Assets.Scripts.Generators.Zone;
@@ -69,9 +69,9 @@ namespace Assets.Scripts.Generators.Dungeon.Candidates
 
             openCandidates.Add(startCandidate);
 
-            startCandidate.SetVoxelsWorldPos();
+            startCandidate.SetVoxelsWorldPosition();
 
-            AddGlobalVoxelCandidates(startCandidate.VoxWorldPos);
+            AddGlobalVoxelCandidates(startCandidate.RelativeVoxelsWorldPosition);
             startCandidate.UpdateConnPointsWorldPos();
 
             acceptedCandidates.Add(startCandidate);
@@ -87,7 +87,7 @@ namespace Assets.Scripts.Generators.Dungeon.Candidates
             int connPointCandidateCount = connPointCandidate.Count;
             int connPointCandidateIndex = 0;
 
-            Candidate newCandidate = null;
+            Candidate newCandidate;
             do
             {
                 ConnectionPointCandidate lastConnPointCandidate = connPointCandidate[connPointCandidateIndex++];
@@ -133,7 +133,7 @@ namespace Assets.Scripts.Generators.Dungeon.Candidates
             }
             //
 
-            Candidate newCandidate = null;
+            Candidate newCandidate;
 
             int timesLooped = 0;
             int maximumLoopsAllowed = potentialCandidates.Length << factoryOwner.loopCheckCount;
@@ -189,6 +189,12 @@ namespace Assets.Scripts.Generators.Dungeon.Candidates
 
             // GET RANDOM NEW CANDIDATE                    
             Candidate newCandidate = GetNewCandidate(potentialCandidates, candidatesSet);
+
+            if (newCandidate.ID == "smal_room_end_blue")
+            {
+                Debug.Log("Break");
+            }
+
             potentialCandidates = potentialCandidates.RemoveFromArray(newCandidate.Element);
 
             // CHECK IF NEW ELEMENT ALLOWED NEIGHBOR TO LAST ELEMENT            
@@ -268,7 +274,7 @@ namespace Assets.Scripts.Generators.Dungeon.Candidates
                 randomElement = GetElemThatMightBeOneWay(possibleElements);
             }
 
-            Candidate newCandidate = new Candidate(randomElement, ownerSet);
+            Candidate newCandidate = new(randomElement, ownerSet);
             newCandidate.SetWorldPosAndRotation(factoryOwner.ParentTransform.position, factoryOwner.ParentTransform.rotation);
 
             return newCandidate;
@@ -329,7 +335,7 @@ namespace Assets.Scripts.Generators.Dungeon.Candidates
             Vector3 translation = lastConnPointWorldPos - newCandidate.Rotation * newConnPointCandidate.LocalPosition;
             newCandidate.WorldPosition += translation;
 
-            newCandidate.SetVoxelsWorldPos(translation, newCandidate.Rotation);
+            newCandidate.SetVoxelsWorldPosition(translation, newCandidate.Rotation);
             newCandidate.UpdateConnPointsWorldPos(angleDifference);
 
             return newConnPointCandidate;
@@ -337,7 +343,7 @@ namespace Assets.Scripts.Generators.Dungeon.Candidates
 
         protected CandidatesConnection CreateCandidatesConnection(ConnectionPointCandidate lastConnPointCandidate, ConnectionPointCandidate newConnPointCandidate)
         {
-            CandidatesConnection candidatesConnection = new CandidatesConnection
+            CandidatesConnection candidatesConnection = new()
             {
                 LastConnPointCandidate = lastConnPointCandidate,
                 NewConnPointCandidate = newConnPointCandidate
@@ -349,15 +355,15 @@ namespace Assets.Scripts.Generators.Dungeon.Candidates
         //TODO - MAYBE SPLIT IN TWO FUNCTIONS?
         protected bool CheckIfNewElementOverlaps(VoxelStep voxelStep, Candidate newCandidate)
         {
-            List<Voxel> voxels = newCandidate.Voxels;
+            List<Voxel> voxels = newCandidate.Voxels; //CandidateVoxelsWorldPosition;
 
             int newVoxelsCount = voxels.Count;
             for (int i = 0; i < newVoxelsCount; i++)
             {
                 Voxel voxel = voxels[i];
 
-                Vector3 voxelWorldPosition = newCandidate.GetVoxelWorldPos(voxel.transform.localPosition);
-                Vector3 newElementVoxel = voxelWorldPosition.RoundVec3ToInt();
+                Vector3 voxelWorldPosition = newCandidate.GetVoxelWorldPosition(voxel.transform.localPosition);
+                Vector3 newElementVoxel = voxelWorldPosition.RoundVec3ToInt(); //TODO - Rounding is necessary?
 
                 bool voxelOverlap = candidateVoxels.ContainsKey(newElementVoxel);
                 if (voxelOverlap) return true;
@@ -408,9 +414,7 @@ namespace Assets.Scripts.Generators.Dungeon.Candidates
 
         protected static HashSet<Vector3> GetNewStepVoxels(Candidate newCandidate)
         {
-            HashSet<Vector3> StepVoxelsPos = new HashSet<Vector3>();
-
-            //Volume volume = newCandidate.Volume;
+            HashSet<Vector3> StepVoxelsPosition = new();
 
             ConnectionPointCandidate firstOpenConnPointCandidate = newCandidate.NewConnPointCandidate;
 
@@ -430,10 +434,10 @@ namespace Assets.Scripts.Generators.Dungeon.Candidates
                 Vector3 newConnPointWorldPosition = newConnPointCandidate.WorldPosition;
                 Vector3 StepVoxelPosition = (newConnPointWorldPosition + connPointCandidateStep).RoundVec3ToInt();
 
-                StepVoxelsPos.Add(StepVoxelPosition);
+                StepVoxelsPosition.Add(StepVoxelPosition);
             }
 
-            return StepVoxelsPos;
+            return StepVoxelsPosition;
         }
 
         /*
@@ -450,11 +454,11 @@ namespace Assets.Scripts.Generators.Dungeon.Candidates
         }
         */
 
-        protected void AddGlobalVoxelCandidates(Dictionary<Vector3, Vector3> voxelsWorldPos)
+        protected void AddGlobalVoxelCandidates(Dictionary<Vector3, Vector3> voxelsWorldPosition)
         {
-            foreach (KeyValuePair<Vector3, Vector3> entry in voxelsWorldPos)
+            foreach (KeyValuePair<Vector3, Vector3> keyValuePair in voxelsWorldPosition)
             {
-                Vector3 voxelWorldPos = entry.Value.RoundVec3ToInt();
+                Vector3 voxelWorldPos = keyValuePair.Value.RoundVec3ToInt(); //TODO - Rounding is necessary?
 
                 if (!candidateVoxels.ContainsKey(voxelWorldPos))
                 {
@@ -469,15 +473,24 @@ namespace Assets.Scripts.Generators.Dungeon.Candidates
 
         protected void AcceptNewCandidate(Candidate newCandidate, Candidate lastCandidate)
         {
-            newCandidate.LastConnPointCandidate.Open = newCandidate.NewConnPointCandidate.Open = false;
+            newCandidate.LastConnPointCandidate.Open = false;
+            newCandidate.NewConnPointCandidate.Open = false;
 
-            if (!lastCandidate.HasOpenConnection()) openCandidates.Remove(lastCandidate);
+            if (!lastCandidate.HasOpenConnection())
+            {
+                openCandidates.Remove(lastCandidate);
+            }
 
-            if (newCandidate.HasOpenConnection()) openCandidates.Add(newCandidate);
+            if (newCandidate.HasOpenConnection())
+            {
+                openCandidates.Add(newCandidate);
+            }
 
-            AddGlobalVoxelCandidates(newCandidate.VoxWorldPos);
+            AddGlobalVoxelCandidates(newCandidate.RelativeVoxelsWorldPosition);
 
             acceptedCandidates.Add(newCandidate);
+
+            Debug.Log(acceptedCandidates.Count);
         }
     }
 }
