@@ -1,8 +1,9 @@
 # Procedural Dungeon Generation System
 
 <img width="1408" height="481" alt="d2" src="https://github.com/user-attachments/assets/63720359-76f6-4a3c-a579-12fbbc3f86f0" />
+
+<br /><br />
 **Getting Started**
----------------
 
 This project is a procedural dungeon generation system built in Unity using C#. To get started, follow these steps:
 
