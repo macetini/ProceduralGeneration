@@ -26,19 +26,13 @@ This project is a procedural dungeon generation system built in Unity using C#. 
 -----------------
 
 ### DungeonGenerator
-
 * `GenerateDungeon`: Generates a new dungeon based on the configured parameters.
-* `GetAllTwoWayOpenElementsShuffled`: Returns an array of all two-way open elements in a shuffled order.
 
 ### NodeGenerator
-
 * `GenerateNodeGraph`: Generates a graph of nodes that can be used to create a dungeon.
-* `GetNodeConnections`: Returns an array of connections between nodes in the graph.
 
 ### ZonesGenerator
-
 * `GenerateZones`: Generates a set of zones within the dungeon, each with its own unique characteristics.
-* `GetZoneData`: Returns data about a specific zone, including its size, shape, and contents.
 
 **Features**
 ------------
