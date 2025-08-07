@@ -57,11 +57,11 @@ namespace Assets.Scripts.Generators.Meta.VoxelData
             }
         }
 
-        private Voxel CreateNewVoxelGameObject(Vector3 voxelPos)
+        private Voxel CreateNewVoxelGameObject(Vector3 voxelPosition)
         {
             Voxel newVoxel = Instantiate(voxelPrefab, voxelsContainer.transform);
-            newVoxel.transform.localPosition = voxelPos;
-            newVoxel.SetLocalPosition(voxelPos);
+            newVoxel.transform.localPosition = voxelPosition;
+            newVoxel.SetLocalPosition(voxelPosition);
 
             return newVoxel;
         }
@@ -77,7 +77,7 @@ namespace Assets.Scripts.Generators.Meta.VoxelData
 
             Voxels.ForEach(voxel =>
             {
-                Vector3 position = voxel.transform.position;
+                Vector3 position = voxel.transform.position.RoundVec3ToInt();
 
                 min = Vector3.Min(min, position);
                 max = Vector3.Max(max, position);
@@ -103,21 +103,6 @@ namespace Assets.Scripts.Generators.Meta.VoxelData
         public void ToggleGizmoToDraw()
         {
             DrawVolume = !DrawVolume;
-        }
-
-        //TODO: Investigate why this is needed
-        public List<Vector3> GetTranslatedVoxels(Vector3 translation = default, Quaternion rotation = default)
-        {
-            int voxelsCount = Voxels.Count;
-            List<Vector3> translatedVoxels = new(voxelsCount);
-
-            for (int i = 0; i < voxelsCount; i++)
-            {
-                Vector3 newPosition = rotation * Voxels[i].transform.position + translation;
-                translatedVoxels.Add(newPosition);
-            }
-
-            return translatedVoxels;
         }
 
         public void OnDrawGizmos()

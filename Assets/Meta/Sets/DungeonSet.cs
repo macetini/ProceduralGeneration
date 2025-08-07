@@ -13,9 +13,7 @@ namespace Assets.Meta.Sets
         public List<Element> spawnTemplates = new();
         public List<Element> roomTemplates = new();
         public List<Element> hallwayTemplates = new();
-        public List<Element> closingTemplates = new();
-
-        public List<Door> doorTemplates = new();
+        public List<Element> closingTemplates = new();       
 
         private List<Element> openElements;
         private List<Element> openTwoWayElements;

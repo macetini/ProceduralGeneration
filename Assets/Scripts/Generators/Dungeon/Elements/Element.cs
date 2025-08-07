@@ -9,32 +9,69 @@ namespace Assets.Scripts.Generators.Dungeon.Elements
     public class Element : MonoBehaviour
     {
         public List<ConnectionPoint> connectionPoints;
-
         public ElementType type;
-
-        //TODO: FIX! FIX THIS!
         public string ID;
 
-        //WARNING - when doing the dungeon gen we sometimes Instantiate a room, check if it will fit and if it doesn't
-        //we IMMEDIATELY destroy it. Awake() is called with instantiation - Start() waits until the function returns.
-        //SO to be safe, don't use Awake() if you don't have to. Put all enemy and room specific instantiation in Start()!
-        void Awake()
+        public ConnectionPoint GetRandomOpenConnPoint(DRandom random)
         {
-            //DungeonGenerator.roomsCalledStart++;
-            //Debug.Log("AWAKE");
+            connectionPoints.Shuffle(random.random);
+
+            foreach (ConnectionPoint connectionPoint in connectionPoints)
+            {
+                if (connectionPoint.Open)
+                {
+                    return connectionPoint;
+                }
+            }
+
+            Debug.Log("Room::GetRandomOpenConnPoint() - No open connection points.");
+            return null;
         }
 
-        void Start()
+        public bool HasOpenConnection()
         {
-            //Debug.Log("START");
+            foreach (ConnectionPoint connectionPoint in connectionPoints)
+            {
+                if (connectionPoint.Open)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public ConnectionPoint GetFirstOpenConnectionPoint()
+        {
+            foreach (ConnectionPoint connectionPoint in connectionPoints)
+            {
+                if (connectionPoint.Open) return connectionPoint;
+            }
+
+            Debug.Log("Room::GetFirstOpenConnPoint() - No open connection points.");
+
+            return null;
+        }
+
+        public Dictionary<Voxel, Vector3> GetConnPointsVoxelWorldPosition(Vector3 translation = default(Vector3), Quaternion rotation = default(Quaternion))
+        {
+            Dictionary<Voxel, Vector3> connPointVoxelWorldPositions = new(connectionPoints.Count);
+
+            foreach (ConnectionPoint connectionPoint in connectionPoints)
+            {
+                Voxel voxelOwner = connectionPoint.voxelOwner;
+                Vector3 newPosition = rotation * voxelOwner.LocalPosition + translation;
+
+                connPointVoxelWorldPositions[voxelOwner] = newPosition;
+            }
+
+            return connPointVoxelWorldPositions;
         }
 
         private void OnDrawGizmos()
-        {            
-            int connPointsCount = connectionPoints.Count;
-            for (int i = 0; i < connPointsCount; i++)
+        {
+            foreach (ConnectionPoint connectionPoint in connectionPoints)
             {
-                ConnectionPoint connectionPoint = connectionPoints[i];
                 if (connectionPoint == null)
                 {
                     continue;
@@ -52,67 +89,6 @@ namespace Assets.Scripts.Generators.Dungeon.Elements
                 Gizmos.color = Color.blue;
                 Gizmos.DrawRay(new Ray(connectionPoint.transform.position, connectionPoint.transform.forward));
             }
-        }
-
-        public ConnectionPoint GetRandomOpenConnPoint(DRandom random)
-        {
-            connectionPoints.Shuffle(random.random);
-
-            int connPointsCount = connectionPoints.Count;
-            for (int i = 0; i < connPointsCount; i++)
-            {
-                if (connectionPoints[i].Open)
-                {
-                    return connectionPoints[i];
-                }
-            }
-
-            Debug.Log("Room::GetRandomOpenConnPoint() - No open connection points.");
-            return null;
-        }
-
-        public bool HasOpenConnection()
-        {
-            int connPointsCount = connectionPoints.Count;
-            for (int i = 0; i < connPointsCount; i++)
-            {
-                if (connectionPoints[i].Open)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public ConnectionPoint GetFirstOpenConnectionPoint()
-        {
-            int connPointsCount = connectionPoints.Count;
-            for (int i = 0; i < connPointsCount; i++)
-            {
-                if (connectionPoints[i].Open) return connectionPoints[i];
-            }
-
-            Debug.Log("Room::GetFirstOpenConnPoint() - No open connection points.");
-
-            return null;
-        }
-
-        public Dictionary<Voxel, Vector3> GetConnPointsVoxelWorldPosition(Vector3 translation = default(Vector3), Quaternion rotation = default(Quaternion))
-        {
-            int connPointCount = connectionPoints.Count;
-            Dictionary<Voxel, Vector3> connPointVoxelWorldPositions = new Dictionary<Voxel, Vector3>(connPointCount);
-
-            for (int i = 0; i < connPointCount; i++)
-            {
-                ConnectionPoint connPoint = connectionPoints[i];
-                Voxel voxelOwner = connPoint.voxelOwner;
-                Vector3 newPosition = rotation * voxelOwner.transform.position + translation;
-
-                connPointVoxelWorldPositions[voxelOwner] = newPosition;
-            }
-
-            return connPointVoxelWorldPositions;
         }
     }
 }

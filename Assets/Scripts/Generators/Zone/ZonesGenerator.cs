@@ -6,13 +6,14 @@ namespace Assets.Scripts.Generators.Zone
 {
     public class ZonesGenerator : MonoBehaviour
     {
-        public int minZoneSize;
-        public int maxZoneSize;
-        public int zoneHeight = 10;
-        public bool clamp;
+        private static readonly string NAME = "Zone";
+        public int MinZoneSize;
+        public int MaxZoneSize;
+        public int ZoneHeight = 10;
+        public bool Clamp;
         public bool RandomizeSpawnSets;
-        public Button genButton;
-        public ZoneItem zonePrefab;
+        public Button GenButton;
+        public ZoneItem ZonePrefab;
 
         private List<ZoneItem> spawnZones = new();
         private SubZone rootZone;
@@ -24,9 +25,9 @@ namespace Assets.Scripts.Generators.Zone
         {
             Generate();
 
-            if (genButton != null)
+            if (GenButton != null)
             {
-                genButton.onClick.AddListener(Generate);
+                GenButton.onClick.AddListener(Generate);
             }
         }
 
@@ -40,23 +41,14 @@ namespace Assets.Scripts.Generators.Zone
 
         public void UnselectAllChildren()
         {
-            int length = SpawnZones.Count;
-            for (int i = 0; i < length; i++)
-            {
-                ZoneItem zone = SpawnZones[i];
-                zone.Selected = false;
-            }
+            spawnZones.ForEach(zone => zone.Selected = false);
         }
 
         public void Generate()
         {
             Rect rect = new(0, 0, transform.localScale.x, transform.localScale.y);
 
-            int length = SpawnZones.Count;
-            for (int i = 0; i < length; i++)
-            {
-                SpawnZones[i].Die();
-            }
+            SpawnZones.ForEach(zone => zone.Die());
 
             spawnZones = new List<ZoneItem>();
 
@@ -67,21 +59,22 @@ namespace Assets.Scripts.Generators.Zone
             };
 
             rootZone = new SubZone(rect);
-            CreateBSP(rootZone);
+
+            SplitZone(rootZone);
 
             TextureApply();
 
             GetComponent<Renderer>().material.mainTexture = texture;
         }
 
-        public void CreateBSP(SubZone subDungeon)
+        public void SplitZone(SubZone subDungeon)
         {
-            if (subDungeon.IsLeaf() && subDungeon.rect.width > maxZoneSize || subDungeon.rect.height > maxZoneSize)
+            if (subDungeon.IsLeaf() && subDungeon.rect.width > MaxZoneSize || subDungeon.rect.height > MaxZoneSize)
             {
-                if (subDungeon.Split(minZoneSize, maxZoneSize))
+                if (subDungeon.Split(MinZoneSize, MaxZoneSize))
                 {
-                    CreateBSP(subDungeon.left);
-                    CreateBSP(subDungeon.right);
+                    SplitZone(subDungeon.left);
+                    SplitZone(subDungeon.right);
                 }
                 else
                 {
@@ -89,11 +82,11 @@ namespace Assets.Scripts.Generators.Zone
 
                     SetSubTextureColor(subDungeon.rect, color);
 
-                    ZoneItem zone = Instantiate(zonePrefab, transform);
+                    ZoneItem zone = Instantiate(ZonePrefab, transform);
 
                     zone.colorPicker = color;
                     zone.Rect = subDungeon.rect;
-                    zone.name = "Zone " + (SpawnZones.Count + 1) + " - " + zone.transform.position;
+                    zone.name = NAME + (SpawnZones.Count + 1) + " - " + zone.transform.position;
 
                     zone.randomizeSpawnSet = RandomizeSpawnSets;
 
@@ -126,33 +119,28 @@ namespace Assets.Scripts.Generators.Zone
 
             Gizmos.color = Color.cyan;
 
-            int length = SpawnZones.Count;
-            for (int i = 0; i < length; i++)
+            foreach (ZoneItem zone in SpawnZones)
             {
-                ZoneItem zone = SpawnZones[i];
-
                 if (zone.Selected) continue;
 
                 Rect rect = zone.GizmoRect;
 
-                Vector3 size = new Vector3(rect.width, zoneHeight, rect.height);
-                Vector3 pos = new Vector3(rect.x, 0f, rect.y);
+                Vector3 size = new(rect.width, ZoneHeight, rect.height);
+                Vector3 pos = new(rect.x, 0f, rect.y);
 
                 Gizmos.DrawWireCube(pos, size);
             }
 
             Gizmos.color = Color.yellow;
 
-            for (int i = 0; i < length; i++)
+            foreach (ZoneItem zone in SpawnZones)
             {
-                ZoneItem zone = SpawnZones[i];
-
                 if (!zone.Selected) continue;
 
                 Rect bounds = zone.GizmoRect;
 
-                Vector3 size = new Vector3(bounds.width, zoneHeight, bounds.height);
-                Vector3 pos = new Vector3(bounds.x, 0f, bounds.y);
+                Vector3 size = new(bounds.width, ZoneHeight, bounds.height);
+                Vector3 pos = new(bounds.x, 0f, bounds.y);
 
                 Gizmos.DrawWireCube(pos, size);
             }

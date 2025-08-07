@@ -190,7 +190,7 @@ namespace Assets.Meta.Data
             for (int i = 0; i < voxelsCount; i++)
             {
                 Voxel voxel = newElementVoxels[i];
-                Vector3 worldPosition = newCandidate.GetVoxelWorldPosition(voxel.transform.localPosition);
+                Vector3 worldPosition = newCandidate.GetVoxelWorldPosition(voxel.LocalPosition);
 
                 InitializeGlobalVoxel(worldPosition, voxel);
             }
@@ -198,13 +198,9 @@ namespace Assets.Meta.Data
 
         protected void InitializeGlobalVoxel(Vector3 voxelWorldPosition, Voxel voxel)
         {
-            //Voxel voxel = voxelGO.GetComponent<Voxel>();
-            //voxelWorldPos = voxelWorldPos.RoundVec3ToInt();
-
             if (candidatesManager.CandidateVoxels.ContainsKey(voxelWorldPosition))
             {
                 candidatesManager.CandidateVoxels[voxelWorldPosition] = voxel;
-                //voxel.WorldPosition = voxelWorldPos;
                 voxel.SetWorldPosition(voxelWorldPosition);
             }
             else
