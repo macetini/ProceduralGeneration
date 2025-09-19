@@ -4,6 +4,14 @@
 
 ---
 
+# Demo - Dungeon Scene
+Press Space to generate an Area map and enter to Populate it.
+https://macetini.github.io/ProceduralGeneration/Builds/DungeonScene/
+
+# Demo - Node Scene
+Press Space to place a node in a room.
+https://macetini.github.io/ProceduralGeneration/Builds/NodeScene/
+
 ## Overview
 
 This repository contains a flexible procedural dungeon generation system for Unity, implemented in C#. It enables developers to create diverse, replayable dungeons for games and experiments.
