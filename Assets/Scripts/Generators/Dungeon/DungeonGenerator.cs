@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Assets.Meta.Data;
 using Assets.Scripts.Generators.Dungeon.Candidates;
 using Assets.Scripts.Generators.Dungeon.Elements;
@@ -6,57 +7,64 @@ using Assets.Scripts.Generators.Dungeon.Points;
 using Assets.Scripts.Generators.Meta.VoxelData;
 using Assets.Scripts.Generators.Zone;
 using Assets.Scripts.Utils;
+using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Assets.Scripts.DungeonGenerator
+namespace Assets.Scripts.Generators.Dungeon
 {
     public class DungeonGenerator : MonoBehaviour
     {
+        private static readonly WaitForSeconds _waitForSeconds0_5 = new(0.5f);
         public CandidatesFactory candidatesFactory;
         public ZonesGenerator zonesGenerator;
-
         public bool stepByStep = false;
-        public Button genButton;
-
-        //TODO - perhaps later on
         //public bool showStepVoxels = false;
 
         public int targetElementsCount = 10;
+
+        private bool populateFully = false;
 
         //private List<GameObject> stepVoxels = new List<GameObject>();
 
         void Start()
         {
-            if (genButton != null)
-            {
-                genButton.onClick.AddListener(ResetGeneration);
-            }
-
             candidatesFactory.Init(transform, zonesGenerator);
-
-            /*
-            GenerateCandidates();
-            BuildSpawnPointElement();
-            BuildAllElements();
-            */
-
-            //ProcessConnPoints();
-            //Debug.Break();
         }
 
         public void Update()
         {
-            if (stepByStep && Input.GetKeyDown(KeyCode.N))
+            if (stepByStep && Input.GetKeyDown(KeyCode.M))
             {
-                GenerateNextCandidate();
+                populateFully = true;
+                Debug.Log("DungeonGenerator:: Auto Populate Fully enabled.");
+            }
+
+            if (stepByStep && (populateFully || Input.GetKeyDown(KeyCode.N)))
+            {
+                bool itemGenerated = GenerateNextCandidate();
+                if (!itemGenerated)
+                {
+                    populateFully = false;
+                    Debug.Log("DungeonGenerator:: Generation finished. Auto Populate Fully disabled.");
+                    return;
+                }
+
                 BuildLastStepElement();
+                if (populateFully)
+                {
+                    StartCoroutine(PopulateFullyCoroutine());
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 ResetGeneration();
             }
+        }
+
+        private static IEnumerator PopulateFullyCoroutine()
+        {
+            yield return _waitForSeconds0_5;
         }
 
         protected void ResetGeneration()
@@ -88,7 +96,8 @@ namespace Assets.Scripts.DungeonGenerator
                     throw new System.Exception("DungeonGenerator::Dungeon generation takes too long. - Possible infinite loop.");
                 }
 
-                GenerateNextCandidate();
+                bool itemGenerated = GenerateNextCandidate();
+                Assert.IsTrue(itemGenerated, "DungeonGenerator::Failed to generate next candidate.");
 
                 if (stepByStep) break;
             }
@@ -99,14 +108,20 @@ namespace Assets.Scripts.DungeonGenerator
                     ". Candidates accepted : " + candidatesFactory.CandidateProduct.GetAcceptedCandidatesCount());
         }
 
-        protected void GenerateNextCandidate()
+        protected bool GenerateNextCandidate()
         {
             if (candidatesFactory.CandidateProduct.GetOpenCandidatesCount() <= 0) //TODO - Why LESS or equal? 
             {
+                if (stepByStep)
+                {
+                    return false;
+                }
+
                 throw new System.Exception("DungeonGenerator::No open set.");
             }
 
             candidatesFactory.CandidateProduct.GenerateNextCandidate();
+            return true;
         }
 
         protected void BuildSpawnPointElement()

@@ -165,8 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   candidatesFactory: {fileID: 11400000, guid: 317a7556212d4a849bf656f64a18f2b4, type: 2}
   zonesGenerator: {fileID: 1863589934}
-  stepByStep: 0
-  genButton: {fileID: 0}
+  stepByStep: 1
   targetElementsCount: 250
 --- !u!1 &1062678754
 GameObject:
@@ -496,6 +495,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -517,6 +518,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
