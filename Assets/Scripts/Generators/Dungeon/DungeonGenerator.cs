@@ -7,7 +7,6 @@ using Assets.Scripts.Generators.Dungeon.Points;
 using Assets.Scripts.Generators.Meta.VoxelData;
 using Assets.Scripts.Generators.Zone;
 using Assets.Scripts.Utils;
-using NUnit.Framework;
 using UnityEngine;
 
 namespace Assets.Scripts.Generators.Dungeon
@@ -22,7 +21,7 @@ namespace Assets.Scripts.Generators.Dungeon
 
         public int targetElementsCount = 10;
 
-        private bool populateFully = false;
+        private bool _populateFully = false;
 
         //private List<GameObject> stepVoxels = new List<GameObject>();
 
@@ -35,22 +34,22 @@ namespace Assets.Scripts.Generators.Dungeon
         {
             if (stepByStep && Input.GetKeyDown(KeyCode.M))
             {
-                populateFully = true;
+                _populateFully = true;
                 Debug.Log("DungeonGenerator:: Auto Populate Fully enabled.");
             }
 
-            if (stepByStep && (populateFully || Input.GetKeyDown(KeyCode.N)))
+            if (stepByStep && (_populateFully || Input.GetKeyDown(KeyCode.N)))
             {
                 bool itemGenerated = GenerateNextCandidate();
                 if (!itemGenerated)
                 {
-                    populateFully = false;
+                    _populateFully = false;
                     Debug.Log("DungeonGenerator:: Generation finished. Auto Populate Fully disabled.");
                     return;
                 }
 
                 BuildLastStepElement();
-                if (populateFully)
+                if (_populateFully)
                 {
                     StartCoroutine(PopulateFullyCoroutine());
                 }
@@ -62,9 +61,21 @@ namespace Assets.Scripts.Generators.Dungeon
             }
         }
 
-        private static IEnumerator PopulateFullyCoroutine()
+        private IEnumerator PopulateFullyCoroutine()
         {
-            yield return _waitForSeconds0_5;
+            while (_populateFully)
+            {
+                bool itemGenerated = GenerateNextCandidate();
+                if (!itemGenerated)
+                {
+                    _populateFully = false;
+                    Debug.Log("DungeonGenerator:: Generation finished. Auto Populate Fully disabled.");
+                    yield break;
+                }
+
+                BuildLastStepElement();
+                yield return _waitForSeconds0_5;
+            }
         }
 
         protected void ResetGeneration()
@@ -97,7 +108,10 @@ namespace Assets.Scripts.Generators.Dungeon
                 }
 
                 bool itemGenerated = GenerateNextCandidate();
-                Assert.IsTrue(itemGenerated, "DungeonGenerator::Failed to generate next candidate.");
+                if (!itemGenerated)
+                {
+                    throw new System.Exception("DungeonGenerator::Failed to generate next candidate.");
+                }
 
                 if (stepByStep) break;
             }
