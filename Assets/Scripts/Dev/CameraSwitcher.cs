@@ -1,4 +1,5 @@
 using Assets.Scripts.Dev.Meta;
+using Assets.Scripts.Generators.Zone;
 using UnityEngine;
 
 namespace Assets.Scripts.Dev
@@ -8,6 +9,7 @@ namespace Assets.Scripts.Dev
         [Header("Camera References")]
         public Camera TopDownCamera;
         public Camera FpsCamera;
+        public GameObject spawnZone;
 
         private CameraMode currentMode = CameraMode.TopDown;
 
@@ -43,11 +45,13 @@ namespace Assets.Scripts.Dev
                 case CameraMode.FirstPerson:
                     FpsCamera.enabled = true;
                     Cursor.lockState = CursorLockMode.Locked;
+                    spawnZone.SetActive(false);
                     break;
 
                 case CameraMode.TopDown:
                     TopDownCamera.enabled = true;
                     Cursor.lockState = CursorLockMode.None;
+                    spawnZone.SetActive(true);
                     break;
             }
 

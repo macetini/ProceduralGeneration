@@ -198,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Dev.CameraSwitcher
   TopDownCamera: {fileID: 1085982268}
   FpsCamera: {fileID: 1667853676}
+  spawnZone: {fileID: 1863589929}
 --- !u!4 &628904892
 Transform:
   m_ObjectHideFlags: 0
@@ -241,8 +242,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1667853677}
+  m_Children: []
   m_Father: {fileID: 2015081584}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1085982264
@@ -529,11 +529,11 @@ Transform:
   m_GameObject: {fileID: 1667853674}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 725336186}
+  m_Father: {fileID: 2015081584}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1863589929
 GameObject:
@@ -756,6 +756,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1667853677}
   - {fileID: 725336186}
   - {fileID: 628904892}
   m_Father: {fileID: 0}
@@ -774,7 +775,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Dev.PlayerController
   playerCamera: {fileID: 1667853676}
   cameraPivot: {fileID: 725336186}
-  moveSpeed: 5
+  moveSpeed: 10
   gravity: -9.81
   mouseSensitivity: 100
   yRotationLimit: 85

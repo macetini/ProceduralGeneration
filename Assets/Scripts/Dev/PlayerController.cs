@@ -42,20 +42,25 @@ namespace Assets.Scripts.Dev
 
         void Update()
         {
-            // Note: Camera switching logic should run here if it was still in this script.
-            // Since it's separate, we can assume this script is only responsible for movement
-            // when its linked camera is enabled.
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+                return;
+            }
 
             if (playerCamera.enabled && cameraPivot != null)
             {
                 HandleMouseLook();
-                HandleMovement(); // This now uses the CharacterController
+                HandleMovement();
             }
         }
 
-        // --- Movement Logic (MODIFIED) ---
         void HandleMovement()
         {
+            float currentSpeed =
+            Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)
+            ? moveSpeed * 2f : moveSpeed;
+
             // Check if player is on the ground. This resets vertical velocity.
             if (_controller.isGrounded && velocity.y < 0)
             {
@@ -70,7 +75,7 @@ namespace Assets.Scripts.Dev
             Vector3 horizontalMove = transform.right * x + transform.forward * z;
 
             // Apply horizontal movement using the CharacterController's safe Move method
-            _controller.Move(horizontalMove * moveSpeed * Time.deltaTime);
+            _controller.Move(currentSpeed * Time.deltaTime * horizontalMove);
 
             // Apply Gravity
             velocity.y += gravity * Time.deltaTime;
