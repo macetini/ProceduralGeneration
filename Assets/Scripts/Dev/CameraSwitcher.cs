@@ -45,13 +45,19 @@ namespace Assets.Scripts.Dev
                 case CameraMode.FirstPerson:
                     FpsCamera.enabled = true;
                     Cursor.lockState = CursorLockMode.Locked;
-                    spawnZone.SetActive(false);
+                    if (spawnZone != null)
+                    {
+                        spawnZone.SetActive(false);
+                    }
                     break;
 
                 case CameraMode.TopDown:
                     TopDownCamera.enabled = true;
                     Cursor.lockState = CursorLockMode.None;
-                    spawnZone.SetActive(true);
+                    if (spawnZone != null)
+                    {
+                        spawnZone.SetActive(true);
+                    }
                     break;
             }
 

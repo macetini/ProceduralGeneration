@@ -2215,7 +2215,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3670462350730011003
 Transform:
   m_ObjectHideFlags: 0
@@ -2259,6 +2259,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2280,6 +2282,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -3546,8 +3549,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cbf8a55ac40ed34a9cbe512e9d8e0c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directions: 000000005a000000
-  voxelOwner: {fileID: 1233844929400096406}
+  Rotations: 
+  VoxelOwner: {fileID: 0}
 --- !u!1 &5776357168689503920
 GameObject:
   m_ObjectHideFlags: 0
