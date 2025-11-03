@@ -165,7 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   candidatesFactory: {fileID: 11400000, guid: 317a7556212d4a849bf656f64a18f2b4, type: 2}
   zonesGenerator: {fileID: 1863589934}
-  stepByStep: 1
+  stepByStep: 0
   targetElementsCount: 250
 --- !u!1 &403411509
 GameObject:
