@@ -52,7 +52,7 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "ProceduralGeneration.sln",
+    "dotnet.defaultSolution": "ProceduralGeneration.slnx",
     "cSpell.words": [
         "Behaviour",
         "Cloneable",
